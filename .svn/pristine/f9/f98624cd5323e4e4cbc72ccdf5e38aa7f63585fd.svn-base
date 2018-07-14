@@ -1,0 +1,521 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Drawing;
+using System.Text;
+using System.Net;
+using System.DirectoryServices;
+using System.Net.Mail;
+using System.IO;
+using Telerik.Web.UI;
+using System.Web.Configuration;
+using Oracle.DataAccess;
+using Oracle.DataAccess.Client;
+using quickinfo_v2.Connectivity;
+using quickinfo_v2.CommonCLS;
+
+namespace quickinfo_v2.Views.ITWorkflow
+{
+    public partial class HelpDeskDashboard : System.Web.UI.Page
+    {
+        IT_WrokflowMainClass Main = new IT_WrokflowMainClass();
+        DataTable DtRef;
+        string UserName = "";
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!IsPostBack)
+                {
+                    grdRequest.DataSource = new int[] { };
+                    GrdRequestUserWise.DataSource = new int[] { };
+
+
+                    UserName = User.Identity.Name;
+                    if (Left(UserName, 4) == "HNBA")
+                    {
+
+                        UserName = Right(UserName, (UserName.Length) - 5);
+                        Session["USER"] = UserName;
+                        GetUser(UserName.ToString());
+
+                    }
+
+                    DataTable Reg = Main.SelectJobFromRegister("CASE2", "", "", "", System.DateTime.Now);
+                    grdRequest.DataSource = Reg;
+                    grdRequest.DataBind();
+
+                    DataTable RegUser = Main.SelectJobFromRegister("CASE3", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdRequestUserWise.DataSource = RegUser;
+                    GrdRequestUserWise.DataBind();
+
+
+                    DataTable RegUserSysWise = Main.SelectJobFromRegister("CASE12", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdSysWiseAssigned.DataSource = RegUserSysWise;
+                    GrdSysWiseAssigned.DataBind();
+
+                    DataTable RegUserPendingClarification = Main.SelectJobFromRegister("CASE13", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdPenClariCom.DataSource = RegUserPendingClarification;
+                    GrdPenClariCom.DataBind();
+
+                    DataTable RegUserReopend = Main.SelectJobFromRegister("CASE14", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdReopend.DataSource = RegUserReopend;
+                    GrdReopend.DataBind();
+
+
+                    DataTable RegUserApproved = Main.SelectJobFromRegister("CASE17", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdApprovedJobs.DataSource = RegUserApproved;
+                    GrdApprovedJobs.DataBind();
+
+                    DataTable RegUserApprovedSR = Main.SelectJobFromRegister("CASE18", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdApprovedSR.DataSource = RegUserApprovedSR;
+                    GrdApprovedSR.DataBind();
+
+                    //disable_all_grids();//deshapriya
+                    gridviews_validation();//deshapriya
+                }
+                if (IsPostBack)
+                {
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        public DirectoryEntry GetDirectoryObject()
+        {
+            DirectoryEntry oDE;
+            CommonFunctions cmnFunctions = new CommonFunctions();
+            oDE = new DirectoryEntry(cmnFunctions.getADIPAddress(Cache["user_company"].ToString()));
+            return oDE;
+        }
+
+        public DirectoryEntry GetUser(string UserName)
+        {
+            DirectoryEntry de = GetDirectoryObject();
+            DirectorySearcher deSearch = new DirectorySearcher();
+            deSearch.SearchRoot = de;
+
+            deSearch.Filter = "(&(objectClass=user)(SAMAccountName=" + UserName + "))";
+            deSearch.SearchScope = SearchScope.Subtree;
+            SearchResult results = deSearch.FindOne();
+
+
+            if (!(results == null))
+            {
+
+                de = new DirectoryEntry(results.Path);
+                Session["EmployeeID"] = de.Properties["EmployeeID"][0].ToString();
+                Session["DisplayName"] = de.Properties["displayName"][0].ToString();
+                Session["HnbaEmail"] = de.Properties["Mail"][0].ToString();
+                Session["Departmnet"] = de.Properties["Department"].Value.ToString();
+                // Session["Manager"] = de.Properties["Manager"].Value.ToString();
+                Session["Branch"] = de.Properties["postalCode"].Value.ToString();
+                //  Session["Branch"] = "APR";
+
+                return de;
+            }
+            else
+            {
+                Session["EmployeeID"] = "";
+                Session["DisplayName"] = "";
+                Session["HnbaEmail"] = "";
+                Session["Departmnet"] = "";
+                // Session["Manager"] = "";
+                Session["Branch"] = "";
+                return null;
+            }
+        }
+
+        public static string Left(string text, int length)
+        {
+            return text.Substring(0, length);
+        }
+
+        public static string Right(string text, int length)
+        {
+            return text.Substring(text.Length - length, length);
+        }
+
+        public static string Mid(string text, int start, int end)
+        {
+            return text.Substring(start, end);
+        }
+
+        public static string Mid(string text, int start)
+        {
+            return text.Substring(start, text.Length - start);
+        }
+
+        protected void grdRequest_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE2", "", "", "", System.DateTime.Now);
+            grdRequest.DataSource = dt3;
+        }
+
+        protected void GrdRequestUserWise_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE3", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdRequestUserWise.DataSource = dt3;
+        }
+
+        protected void grdRequest_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+                    //  Main.UpdateAssignUser(ReqID, Session["USER"].ToString());
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+
+        }
+
+        protected void GrdRequestUserWise_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void LnkBtnSelect_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("HelpDeskView.aspx");
+        }
+
+        protected void GrdSysWiseAssigned_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE12", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdSysWiseAssigned.DataSource = dt3;
+        }
+
+        protected void GrdSysWiseAssigned_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+                    // Main.UpdateAssignUser(ReqID, Session["USER"].ToString());
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+                }
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdPenClariCom_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE13", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdPenClariCom.DataSource = dt3;
+        }
+
+        protected void GrdReopend_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE14", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdReopend.DataSource = dt3;
+        }
+
+        protected void GrdPenClariCom_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdReopend_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdApprovedJobs_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+
+            if (e.CommandName == "Select")
+            {
+                GridDataItem dataitem = e.Item as GridDataItem;
+                string ReqID = dataitem["REQUEST_ID"].Text;
+
+                Response.Redirect("~/Views/ChangeManagement/IntimateChange.aspx?ReqID=" + ReqID, false);
+
+
+            }
+
+            if (e.CommandName == "SelectID")
+            {
+                GridDataItem dataitem = e.Item as GridDataItem;
+                string ReqID = dataitem["REQUEST_ID"].Text;
+
+                Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+            }
+
+        }
+
+        protected void GrdApprovedJobs_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dt3 = Main.SelectJobFromRegister("CASE17", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdApprovedJobs.DataSource = dt3;
+        }
+
+        protected void GrdApprovedSR_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdApprovedSR_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE18", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdApprovedSR.DataSource = dt3;
+        }
+
+        protected void grdRequest_ItemCreated(object sender, GridItemEventArgs e)
+        {
+
+        }
+
+        private void gridviews_validation()
+        {
+            string fullurl = Request.Url.ToString();
+
+            if (fullurl.Contains("Req_ID"))
+            {
+               string req_panel_id = Request.QueryString["Req_ID"].ToString();
+
+               string[] pageGrids = { "pnl_all_pendingJobs", "pnlBdy_all_pendingJobs", "pnl_systemWisePendingJobs", "pnlBdy_systemWisePendingJobs", "pnl_jobsTaken", "pnlBdy_jobsTaken", "pnl_pendingClarificationPendingJobs", "pnlBdy_pendingClarificationPendingJobs", "pnl_reopendJobs", "pnlBdy_reopendJobs", "pnl_approvedJobsCR", "pnlBdy_approvedJobsCR", "pnl_approvedJobsSR", "pnlBdy_approvedJobsSR" };
+                
+                foreach(string page_controls in pageGrids)
+                {
+                    if(page_controls == req_panel_id)
+                    {
+                        //GridView myGrid = Master.FindControl("ContentPlaceHolder1").FindControl(page_controls) as GridView;
+                        //myGrid.Visible = true;
+                        Control myDivs = Master.FindControl("ContentPlaceHolder1").FindControl(page_controls) as Control;
+                        myDivs.Visible = true;
+                    }
+                    else
+                    {
+                        //GridView myGrid = Master.FindControl("ContentPlaceHolder1").FindControl(page_controls) as GridView;
+                        //myGrid.Visible = false;
+                        Control myDivs = Master.FindControl("ContentPlaceHolder1").FindControl(page_controls) as Control;
+                        myDivs.Visible = false;
+                    }
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        public void disable_all_grids()//Disable Gridview Panel Headers And Body
+        {
+            //string[] pageGrids = {"grdRequest","GrdSysWiseAssigned","GrdRequestUserWise","GrdPenClariCom","GrdReopend","GrdApprovedJobs","GrdApprovedSR"};
+
+            //foreach(string names in pageGrids)
+            //{
+            //    string grid_name = names.ToString();
+            //    GridView myGrid = Page.FindControl(grid_name) as GridView;
+            //    myGrid.Visible = false;
+            //}
+
+            //grdRequest.Visible = false;
+            //GrdSysWiseAssigned.Visible = false;
+            //GrdRequestUserWise.Visible = false;
+            //GrdPenClariCom.Visible = false;
+            //GrdReopend.Visible = false;
+            //GrdApprovedJobs.Visible = false;
+            //GrdApprovedSR.Visible = false;
+
+            pnl_all_pendingJobs.Visible = false;
+            pnl_approvedJobsCR.Visible = false;
+            pnl_approvedJobsSR.Visible = false;
+            pnl_jobsTaken.Visible = false;
+            pnl_pendingClarificationPendingJobs.Visible = false;
+            pnl_reopendJobs.Visible = false;
+            pnl_systemWisePendingJobs.Visible = false;
+
+            pnlBdy_all_pendingJobs.Visible = false;
+            pnlBdy_approvedJobsCR.Visible = false;
+            pnlBdy_approvedJobsSR.Visible = false;
+            pnlBdy_jobsTaken.Visible = false;
+            pnlBdy_pendingClarificationPendingJobs.Visible = false;
+            pnlBdy_reopendJobs.Visible = false;
+            pnlBdy_systemWisePendingJobs.Visible = false;
+        }
+
+        
+
+
+    }
+}

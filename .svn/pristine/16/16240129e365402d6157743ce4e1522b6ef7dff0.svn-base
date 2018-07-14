@@ -1,0 +1,206 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.OracleClient;
+using System.Configuration;
+
+namespace quickinfo_v2.Views.ITWorkflow
+{
+    public partial class IT_Workflow_Dashboard : System.Web.UI.Page
+    {
+        string myConn = ConfigurationManager.ConnectionStrings["ORAWF"].ToString();
+        public string main_sql_where = "";
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                get_status();
+                ddl_status_SelectedIndexChanged(null, null);
+                //getAllRequests_By_User();
+            }
+        }
+
+
+        public void get_status()//status dropdownlist data binding
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+            OracleCommand cmd_getStatus = conn.CreateCommand();
+            cmd_getStatus.CommandText = "SELECT DD.ID,DD.DESCRIPTION FROM WF_IT_REFERANCE_DATA DD WHERE DD.TYPE = 'STATUS'";
+            OracleDataReader odr_getStatus = cmd_getStatus.ExecuteReader();
+
+            DataTable dt_getStatus = new DataTable();
+            dt_getStatus.Load(odr_getStatus);
+
+            ddl_status.DataTextField = "DESCRIPTION";
+            ddl_status.DataValueField = "ID";
+
+            ddl_status.DataSource = dt_getStatus;
+            ddl_status.DataBind();
+
+            ddl_status.Items.Insert(0, new ListItem("All", "-1"));
+
+        }
+
+        public void getAllRequests_By_User()//get job requests
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_getAllRequests = conn.CreateCommand();
+            cmd_getAllRequests.CommandText = "SELECT RR.REQUEST_ID, RR.REF_NO,RR.REQUEST_USER,RR.SYSTEM_TYPE,RR.REMARKS_BRANCH " +
+                                                "FROM WF_IT_REQUEST_REGISTER RR WHERE RR.REQUEST_USER = 'janaka.indrajith' " +
+                                                main_sql_where + " order by RR.REQUEST_DATE DESC";
+
+            OracleDataReader odr_getAllRequests = cmd_getAllRequests.ExecuteReader();
+
+            DataTable dt_getAllRequests = new DataTable();
+            dt_getAllRequests.Load(odr_getAllRequests);
+
+            grd_allRequests.DataSource = dt_getAllRequests;
+            grd_allRequests.DataBind();
+
+            //if (dt_getAllRequests.Rows.Count == 0)
+            //{
+            //    call_error_msg(false);
+            //}
+            //else
+            //{
+            //    call_error_msg(true);
+            //}
+
+            odr_getAllRequests.Close();
+            conn.Close();
+        }
+
+        protected void ddl_status_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected_status = "";
+            selected_status = ddl_status.SelectedItem.Text;
+
+            if (selected_status != "All")
+            {
+                main_sql_where = "AND RR.STATUS = '" + selected_status + "' ";
+            }
+            else
+            {
+                main_sql_where = "AND 1=1";
+            }
+
+            getAllRequests_By_User();//get method
+            
+        }
+
+        protected void grd_allRequests_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[1].Text = "Request ID";
+                e.Row.Cells[2].Text = "Referance No";
+                e.Row.Cells[3].Text = "Request User";
+                e.Row.Cells[4].Text = "System Type";
+                e.Row.Cells[5].Text = "Remarks";
+
+
+                e.Row.Cells[0].Attributes["width"] = "70px";
+            }
+        }
+
+        protected void grd_allRequests_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Select")
+            {
+                string selected_req_id = "";
+
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                selected_req_id = grd_allRequests.Rows[rowIndex].Cells[1].Text;
+                lbl_JobID.Text = selected_req_id;
+
+                OracleConnection conn = new OracleConnection(myConn);
+                conn.Open();
+
+                OracleCommand cmd_getJobHistory = conn.CreateCommand();
+                cmd_getJobHistory.CommandText = "SELECT EE.JOB_NO,EE.STATUS,EE.EVENT_DATE,EE.USER_NAME,EE.REMARKS_UNIT,EE.REMARKS_BRANCH " +
+                                                "FROM WF_IT_EVENTS EE WHERE EE.JOB_NO ='" + selected_req_id + "' ORDER BY EE.EVENT_DATE ASC";
+
+                OracleDataReader odr_getJobHistory = cmd_getJobHistory.ExecuteReader();
+                DataTable dt_getJobHistory = new DataTable();
+
+                dt_getJobHistory.Load(odr_getJobHistory);
+
+                grd_wf_history.DataSource = dt_getJobHistory;
+                grd_wf_history.DataBind();
+
+                odr_getJobHistory.Close();
+
+                panels_appearance();
+            }
+        }
+
+        protected void grd_wf_history_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = "Job Number";
+                e.Row.Cells[1].Text = "Status";
+                e.Row.Cells[2].Text = "Event Date";
+                e.Row.Cells[3].Text = "User Name";
+                e.Row.Cells[4].Text = "Remarks Unit";
+                e.Row.Cells[5].Text = "Remarks Branch";
+            }
+        }
+
+        private void panels_appearance()//Panel visible handle
+        {
+            if(alljobs_panel.Visible == true)
+            {
+                alljobs_panel.Visible = false;
+                history_panel.Visible = true;
+                status_div.Visible = false;
+                ibtnBack.Visible = true;
+                back_btn_div.Visible = true;
+            }
+            else
+            {
+                alljobs_panel.Visible = true;
+                history_panel.Visible = false;
+                status_div.Visible = true;
+                ibtnBack.Visible = false;
+                back_btn_div.Visible = false;
+            }
+        }
+
+        protected void ibtnBack_Click(object sender, ImageClickEventArgs e)
+        {
+            panels_appearance();
+        }
+
+
+        //public void call_error_msg(bool x)
+        //{
+        //    if (x == true)
+        //    {
+        //        this.page_result.Visible = true;
+        //        this.page_result.Style.Clear();
+        //        page_result.Attributes["class"] = "alert alert-success";
+
+        //        lblResult.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        this.page_result.Visible = true;
+        //        this.page_result.Style.Clear();
+        //        page_result.Attributes["class"] = "alert alert-danger";
+
+        //        lblResult.Visible = true;
+        //        this.lblResult.Style.Add("color", "#ffff");
+        //    }
+        //}
+
+    }
+}

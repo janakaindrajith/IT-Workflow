@@ -1,0 +1,1 @@
+Please update user company LIFE/GENERAL in (select * from wf_it_ref_handled_users)

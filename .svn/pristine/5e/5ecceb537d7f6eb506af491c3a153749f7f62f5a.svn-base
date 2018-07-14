@@ -1,0 +1,2225 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CrystalDecisions.CrystalReports.Design.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter">
+            <summary>Shim type of CrystalDecisions.CrystalReports.Design.CodeGen.CachedReportClassWriter</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.#ctor(CrystalDecisions.CrystalReports.Design.CodeGen.CachedReportClassWriter)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.ConstructorString">
+            <summary>Sets the shim of CachedReportClassWriter.CachedReportClassWriter(String filePath)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.WriteClass">
+            <summary>Sets the shim of CachedReportClassWriter.WriteClass()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.WriteConstructorCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.WriteConstructor(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.WriteMembersDeclCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.WriteMembersDecl(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.WriteMethodsCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.WriteMethods(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.WritePropertiesCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.WriteProperties(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.Write_Method_CreateReportCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Method_CreateReport(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.Write_Method_GetCustomizedCacheKeyCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Method_GetCustomizedCacheKey(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.Write_Prop_CacheTimeOutCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Prop_CacheTimeOut(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.Write_Prop_IsCacheableCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Prop_IsCacheable(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.Write_Prop_ShareDBLogonInfoCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Prop_ShareDBLogonInfo(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.WriteClass">
+            <summary>Sets the shim of CachedReportClassWriter.WriteClass()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.WriteConstructorCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.WriteConstructor(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.WriteMembersDeclCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.WriteMembersDecl(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.WriteMethodsCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.WriteMethods(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.WritePropertiesCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.WriteProperties(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.Write_Method_CreateReportCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Method_CreateReport(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.Write_Method_GetCustomizedCacheKeyCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Method_GetCustomizedCacheKey(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.Write_Prop_CacheTimeOutCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Prop_CacheTimeOut(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.Write_Prop_IsCacheableCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Prop_IsCacheable(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimCachedReportClassWriter.AllInstances.Write_Prop_ShareDBLogonInfoCodeTypeDeclaration">
+            <summary>Sets the shim of CachedReportClassWriter.Write_Prop_ShareDBLogonInfo(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler">
+            <summary>Shim type of CrystalDecisions.CrystalReports.Design.CodeGen.GenerateReportCodeHandler</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.#ctor(CrystalDecisions.CrystalReports.Design.CodeGen.GenerateReportCodeHandler)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.Constructor">
+            <summary>Sets the shim of GenerateReportCodeHandler.GenerateReportCodeHandler()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.CreateCodeProviderString">
+            <summary>Sets the shim of GenerateReportCodeHandler.CreateCodeProvider(String sLanguage)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.GenerateReportCodeSimpleStringStringStringCodeDomProvider">
+            <summary>Sets the shim of GenerateReportCodeHandler.GenerateReportCodeSimple(String sReportFile, String sClassFile, String sCodeNamespace, CodeDomProvider codeDomProvider)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.GetFileExtensionString">
+            <summary>Sets the shim of GenerateReportCodeHandler.GetFileExtension(String sLanguage)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.StaticConstructor">
+            <summary>Sets the shim of GenerateReportCodeHandler.GenerateReportCodeHandler()</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimGenerateReportCodeHandler.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter">
+            <summary>Shim type of CrystalDecisions.CrystalReports.Design.CodeGen.ReportClassWriter</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.#ctor(CrystalDecisions.CrystalReports.Design.CodeGen.ReportClassWriter)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AddAttributesToPropCodeMemberProperty">
+            <summary>Sets the shim of ReportClassWriter.AddAttributesToProp(CodeMemberProperty prop)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.ConstructorString">
+            <summary>Sets the shim of ReportClassWriter.ReportClassWriter(String filePath)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.ConstructorStringString">
+            <summary>Sets the shim of ReportClassWriter.ReportClassWriter(String filePath, String resourceNamespace)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.Dispose">
+            <summary>Sets the shim of ReportClassWriter.Dispose()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.MakeLegalIdentifierString">
+            <summary>Sets the shim of ReportClassWriter.MakeLegalIdentifier(String name)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.StaticConstructor">
+            <summary>Sets the shim of ReportClassWriter.ReportClassWriter()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.WriteClass">
+            <summary>Sets the shim of ReportClassWriter.WriteClass()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.WriteConstructorCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.WriteConstructor(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.WriteMembersDeclCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.WriteMembersDecl(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.WriteMethodsCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.WriteMethods(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.WriteOneMembersFieldStringStringMemberAttributesCodeExpression">
+            <summary>Sets the shim of ReportClassWriter.WriteOneMembersField(String type, String name, MemberAttributes attributes, CodeExpression initExpression)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.WritePropertiesCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.WriteProperties(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.Write_Prop_FullResourceNameCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_FullResourceName(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.Write_Prop_NewGeneratorCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_NewGenerator(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.Write_Prop_ParameterCodeTypeDeclarationParameterFieldDefinitionInt32">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_Parameter(CodeTypeDeclaration cls, ParameterFieldDefinition parameter, Int32 paramNum)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.Write_Prop_ParametersCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_Parameters(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.Write_Prop_ResourceNameCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_ResourceName(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.Write_Prop_SectionCodeTypeDeclarationSectionInt32">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_Section(CodeTypeDeclaration cls, Section sect, Int32 iSectNum)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.Write_Prop_SectionsCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_Sections(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.Dispose">
+            <summary>Sets the shim of ReportClassWriter.Dispose()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.WriteClass">
+            <summary>Sets the shim of ReportClassWriter.WriteClass()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.WriteConstructorCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.WriteConstructor(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.WriteMembersDeclCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.WriteMembersDecl(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.WriteMethodsCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.WriteMethods(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.WriteOneMembersFieldStringStringMemberAttributesCodeExpression">
+            <summary>Sets the shim of ReportClassWriter.WriteOneMembersField(String type, String name, MemberAttributes attributes, CodeExpression initExpression)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.WritePropertiesCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.WriteProperties(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.Write_Prop_FullResourceNameCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_FullResourceName(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.Write_Prop_NewGeneratorCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_NewGenerator(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.Write_Prop_ParameterCodeTypeDeclarationParameterFieldDefinitionInt32">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_Parameter(CodeTypeDeclaration cls, ParameterFieldDefinition parameter, Int32 paramNum)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.Write_Prop_ParametersCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_Parameters(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.Write_Prop_ResourceNameCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_ResourceName(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.Write_Prop_SectionCodeTypeDeclarationSectionInt32">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_Section(CodeTypeDeclaration cls, Section sect, Int32 iSectNum)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportClassWriter.AllInstances.Write_Prop_SectionsCodeTypeDeclaration">
+            <summary>Sets the shim of ReportClassWriter.Write_Prop_Sections(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator">
+            <summary>Shim type of CrystalDecisions.CrystalReports.Design.CodeGen.ReportCodeGenerator</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.#ctor(CrystalDecisions.CrystalReports.Design.CodeGen.ReportCodeGenerator)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.Constructor">
+            <summary>Sets the shim of ReportCodeGenerator.ReportCodeGenerator()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.GenerateCodeInternalStringStringICodeGenerator">
+            <summary>Sets the shim of ReportCodeGenerator.GenerateCodeInternal(String inputFileName, String sCodeNamespace, ICodeGenerator codeGen)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.MakeClassNameString">
+            <summary>Sets the shim of ReportCodeGenerator.MakeClassName(String sFilePath)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.MakeClassNameStringBoolean">
+            <summary>Sets the shim of ReportCodeGenerator.MakeClassName(String sFilePath, Boolean includeFolderName)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.StaticConstructor">
+            <summary>Sets the shim of ReportCodeGenerator.ReportCodeGenerator()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.WriteImportsCodeNamespace">
+            <summary>Sets the shim of ReportCodeGenerator.WriteImports(CodeNamespace cgenNamespace)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.getKeywords">
+            <summary>Sets the shim of ReportCodeGenerator.getKeywords()</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.isKeywordString">
+            <summary>Sets the shim of ReportCodeGenerator.isKeyword(String s)</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.AllInstances.GenerateCodeInternalStringStringICodeGenerator">
+            <summary>Sets the shim of ReportCodeGenerator.GenerateCodeInternal(String inputFileName, String sCodeNamespace, ICodeGenerator codeGen)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.ShimReportCodeGenerator.AllInstances.WriteImportsCodeNamespace">
+            <summary>Sets the shim of ReportCodeGenerator.WriteImports(CodeNamespace cgenNamespace)</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubCachedReportClassWriter">
+            <summary>Stub type of CrystalDecisions.CrystalReports.Design.CodeGen.CachedReportClassWriter</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubCachedReportClassWriter.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubCachedReportClassWriter.InitializeStub">
+            <summary>Initializes a new instance of type StubCachedReportClassWriter</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubCachedReportClassWriter.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubCachedReportClassWriter.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubCachedReportClassWriter.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubGenerateReportCodeHandler">
+            <summary>Stub type of CrystalDecisions.CrystalReports.Design.CodeGen.GenerateReportCodeHandler</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubGenerateReportCodeHandler.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubGenerateReportCodeHandler.InitializeStub">
+            <summary>Initializes a new instance of type StubGenerateReportCodeHandler</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubGenerateReportCodeHandler.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubGenerateReportCodeHandler.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubGenerateReportCodeHandler.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportClassWriter">
+            <summary>Stub type of CrystalDecisions.CrystalReports.Design.CodeGen.ReportClassWriter</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportClassWriter.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportClassWriter.#ctor(System.String,System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportClassWriter.InitializeStub">
+            <summary>Initializes a new instance of type StubReportClassWriter</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportClassWriter.WriteConstructor(System.CodeDom.CodeTypeDeclaration)">
+            <summary>Sets the stub of ReportClassWriter.WriteConstructor(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="F:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportClassWriter.WriteConstructorCodeTypeDeclaration">
+            <summary>Sets the stub of ReportClassWriter.WriteConstructor(CodeTypeDeclaration cls)</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportClassWriter.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportClassWriter.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportClassWriter.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportCodeGenerator">
+            <summary>Stub type of CrystalDecisions.CrystalReports.Design.CodeGen.ReportCodeGenerator</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportCodeGenerator.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportCodeGenerator.InitializeStub">
+            <summary>Initializes a new instance of type StubReportCodeGenerator</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportCodeGenerator.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportCodeGenerator.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.CrystalReports.Design.CodeGen.Fakes.StubReportCodeGenerator.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper">
+            <summary>Shim type of CrystalDecisions.Web.Design.DefaultReportViewerDesignerHelper</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.#ctor(CrystalDecisions.Web.Design.DefaultReportViewerDesignerHelper)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.ComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the shim of DefaultReportViewerDesignerHelper.ComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.ConstructorControlDesigner">
+            <summary>Sets the shim of DefaultReportViewerDesignerHelper.DefaultReportViewerDesignerHelper(ControlDesigner designer)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.GetDesignTimeHtml">
+            <summary>Sets the shim of DefaultReportViewerDesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.AllInstances.ComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the shim of DefaultReportViewerDesignerHelper.ComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDefaultReportViewerDesignerHelper.AllInstances.GetDesignTimeHtml">
+            <summary>Sets the shim of DefaultReportViewerDesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper">
+            <summary>Shim type of CrystalDecisions.Web.Design.DesignerHelper</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.#ctor(CrystalDecisions.Web.Design.DesignerHelper)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllowResizeGet">
+            <summary>Sets the shim of DesignerHelper.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.ConstructorControlDesigner">
+            <summary>Sets the shim of DesignerHelper.DesignerHelper(ControlDesigner designer)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.CreatePlaceHolderDesignTimeHtmlString">
+            <summary>Sets the shim of DesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.DisposeBoolean">
+            <summary>Sets the shim of DesignerHelper.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.GetActionLists">
+            <summary>Sets the shim of DesignerHelper.GetActionLists()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.GetActionVerbs">
+            <summary>Sets the shim of DesignerHelper.GetActionVerbs()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.GetDesignTimeHtml">
+            <summary>Sets the shim of DesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.GetDesignerVerbs">
+            <summary>Sets the shim of DesignerHelper.GetDesignerVerbs()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.GetServiceType">
+            <summary>Sets the shim of DesignerHelper.GetService(Type type)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.Initialize">
+            <summary>Sets the shim of DesignerHelper.Initialize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.PreFilterPropertiesIDictionary">
+            <summary>Sets the shim of DesignerHelper.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.AllowResizeGet">
+            <summary>Sets the shim of DesignerHelper.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.CreatePlaceHolderDesignTimeHtmlString">
+            <summary>Sets the shim of DesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.DisposeBoolean">
+            <summary>Sets the shim of DesignerHelper.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.GetActionLists">
+            <summary>Sets the shim of DesignerHelper.GetActionLists()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.GetActionVerbs">
+            <summary>Sets the shim of DesignerHelper.GetActionVerbs()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.GetDesignTimeHtml">
+            <summary>Sets the shim of DesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.GetDesignerVerbs">
+            <summary>Sets the shim of DesignerHelper.GetDesignerVerbs()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.GetServiceType">
+            <summary>Sets the shim of DesignerHelper.GetService(Type type)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.Initialize">
+            <summary>Sets the shim of DesignerHelper.Initialize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimDesignerHelper.AllInstances.PreFilterPropertiesIDictionary">
+            <summary>Sets the shim of DesignerHelper.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner">
+            <summary>Shim type of CrystalDecisions.Web.Design.ReportPartsViewerDesigner</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.#ctor(CrystalDecisions.Web.Design.ReportPartsViewerDesigner)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.Bind(System.ComponentModel.Design.IComponentInitializer)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.Bind(System.ComponentModel.Design.IDesigner)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.Bind(System.ComponentModel.Design.IDesignerFilter)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.Bind(System.ComponentModel.Design.ITreeDesigner)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.Bind(System.IDisposable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.Constructor">
+            <summary>Sets the shim of ReportPartsViewerDesigner.ReportPartsViewerDesigner()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.InitializeIComponent">
+            <summary>Sets the shim of ReportPartsViewerDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.ReportSourceGet">
+            <summary>Sets the shim of ReportPartsViewerDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.ReportSourceSetString">
+            <summary>Sets the shim of ReportPartsViewerDesigner.set_ReportSource(String value)</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.AllInstances.InitializeIComponent">
+            <summary>Sets the shim of ReportPartsViewerDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.AllInstances.ReportSourceGet">
+            <summary>Sets the shim of ReportPartsViewerDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportPartsViewerDesigner.AllInstances.ReportSourceSetString">
+            <summary>Sets the shim of ReportPartsViewerDesigner.set_ReportSource(String value)</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner">
+            <summary>Shim type of CrystalDecisions.Web.Design.ReportSourceBoundDesigner</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.#ctor(CrystalDecisions.Web.Design.ReportSourceBoundDesigner)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.Bind(System.ComponentModel.Design.IComponentInitializer)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.Bind(System.ComponentModel.Design.IDesigner)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.Bind(System.ComponentModel.Design.IDesignerFilter)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.Bind(System.ComponentModel.Design.ITreeDesigner)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.Bind(System.IDisposable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.ActionListsGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_ActionLists()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllowResizeGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.Constructor">
+            <summary>Sets the shim of ReportSourceBoundDesigner.ReportSourceBoundDesigner()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.CreatePlaceHolderDesignTimeHtmlExString">
+            <summary>Sets the shim of ReportSourceBoundDesigner.CreatePlaceHolderDesignTimeHtmlEx(String inst)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.DisposeBoolean">
+            <summary>Sets the shim of ReportSourceBoundDesigner.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.GetDesignTimeHtml">
+            <summary>Sets the shim of ReportSourceBoundDesigner.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.HelperGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_Helper()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.HelperSetReportSourceBoundDesignerHelper">
+            <summary>Sets the shim of ReportSourceBoundDesigner.set_Helper(ReportSourceBoundDesignerHelper value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.InitializeIComponent">
+            <summary>Sets the shim of ReportSourceBoundDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.OnComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the shim of ReportSourceBoundDesigner.OnComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.PreFilterPropertiesIDictionary">
+            <summary>Sets the shim of ReportSourceBoundDesigner.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.ReportSourceGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.ReportSourceIDGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_ReportSourceID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.ReportSourceIDSetString">
+            <summary>Sets the shim of ReportSourceBoundDesigner.set_ReportSourceID(String value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.ReportSourceSetString">
+            <summary>Sets the shim of ReportSourceBoundDesigner.set_ReportSource(String value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.TagGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_Tag()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.UseDefaultActionListGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_UseDefaultActionList()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.VerbsGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_Verbs()</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.ActionListsGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_ActionLists()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.AllowResizeGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.CreatePlaceHolderDesignTimeHtmlExString">
+            <summary>Sets the shim of ReportSourceBoundDesigner.CreatePlaceHolderDesignTimeHtmlEx(String inst)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.DisposeBoolean">
+            <summary>Sets the shim of ReportSourceBoundDesigner.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.GetDesignTimeHtml">
+            <summary>Sets the shim of ReportSourceBoundDesigner.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.HelperGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_Helper()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.HelperSetReportSourceBoundDesignerHelper">
+            <summary>Sets the shim of ReportSourceBoundDesigner.set_Helper(ReportSourceBoundDesignerHelper value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.InitializeIComponent">
+            <summary>Sets the shim of ReportSourceBoundDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.OnComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the shim of ReportSourceBoundDesigner.OnComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.PreFilterPropertiesIDictionary">
+            <summary>Sets the shim of ReportSourceBoundDesigner.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.ReportSourceGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.ReportSourceIDGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_ReportSourceID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.ReportSourceIDSetString">
+            <summary>Sets the shim of ReportSourceBoundDesigner.set_ReportSourceID(String value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.ReportSourceSetString">
+            <summary>Sets the shim of ReportSourceBoundDesigner.set_ReportSource(String value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.TagGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_Tag()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.UseDefaultActionListGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_UseDefaultActionList()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesigner.AllInstances.VerbsGet">
+            <summary>Sets the shim of ReportSourceBoundDesigner.get_Verbs()</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper">
+            <summary>Shim type of CrystalDecisions.Web.Design.ReportSourceBoundDesignerHelper</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.#ctor(CrystalDecisions.Web.Design.ReportSourceBoundDesignerHelper)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.ConstructorControlDesigner">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.ReportSourceBoundDesignerHelper(ControlDesigner designer)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.CreatePlaceHolderDesignTimeHtmlString">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.ReportSourceGet">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.ReportSourceIDGet">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.get_ReportSourceID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.ReportSourceIDSetString">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.set_ReportSourceID(String value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.ReportSourceSetString">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.set_ReportSource(String value)</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.AllInstances.CreatePlaceHolderDesignTimeHtmlString">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.AllInstances.ReportSourceGet">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.AllInstances.ReportSourceIDGet">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.get_ReportSourceID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.AllInstances.ReportSourceIDSetString">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.set_ReportSourceID(String value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportSourceBoundDesignerHelper.AllInstances.ReportSourceSetString">
+            <summary>Sets the shim of ReportSourceBoundDesignerHelper.set_ReportSource(String value)</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner">
+            <summary>Shim type of CrystalDecisions.Web.Design.ReportViewerDesigner</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.#ctor(CrystalDecisions.Web.Design.ReportViewerDesigner)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.Bind(System.ComponentModel.Design.IComponentInitializer)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.Bind(System.ComponentModel.Design.IDesigner)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.Bind(System.ComponentModel.Design.IDesignerFilter)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.Bind(System.ComponentModel.Design.ITreeDesigner)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.Bind(System.IDisposable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.Constructor">
+            <summary>Sets the shim of ReportViewerDesigner.ReportViewerDesigner()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.InitializeIComponent">
+            <summary>Sets the shim of ReportViewerDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.ShimReportViewerDesigner.AllInstances.InitializeIComponent">
+            <summary>Sets the shim of ReportViewerDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper">
+            <summary>Stub type of CrystalDecisions.Web.Design.DefaultReportViewerDesignerHelper</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.#ctor(System.Web.UI.Design.ControlDesigner)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.AllowResizeGet">
+            <summary>Sets the stub of DesignerHelper.get_AllowResize()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.AttachBackingFieldToReportSource">
+            <summary>Attaches delegates to emulate StubDefaultReportViewerDesignerHelper.ReportSource as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.AttachBackingFieldToReportSourceID">
+            <summary>Attaches delegates to emulate StubDefaultReportViewerDesignerHelper.ReportSourceID as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.ComponentChanged(System.Object,System.ComponentModel.Design.ComponentChangedEventArgs)">
+            <summary>Sets the stub of DefaultReportViewerDesignerHelper.ComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.ComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the stub of DefaultReportViewerDesignerHelper.ComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.CreatePlaceHolderDesignTimeHtml(System.String)">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.CreatePlaceHolderDesignTimeHtmlString">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.Dispose(System.Boolean)">
+            <summary>Sets the stub of DesignerHelper.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.DisposeBoolean">
+            <summary>Sets the stub of DesignerHelper.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetActionLists">
+            <summary>Sets the stub of DesignerHelper.GetActionLists()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetActionLists01">
+            <summary>Sets the stub of DesignerHelper.GetActionLists()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetActionVerbs">
+            <summary>Sets the stub of DesignerHelper.GetActionVerbs()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetActionVerbs01">
+            <summary>Sets the stub of DesignerHelper.GetActionVerbs()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetDesignTimeHtml">
+            <summary>Sets the stub of DefaultReportViewerDesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetDesignTimeHtml01">
+            <summary>Sets the stub of DefaultReportViewerDesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetDesignerVerbs">
+            <summary>Sets the stub of DesignerHelper.GetDesignerVerbs()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetDesignerVerbs01">
+            <summary>Sets the stub of DesignerHelper.GetDesignerVerbs()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetService(System.Type)">
+            <summary>Sets the stub of DesignerHelper.GetService(Type type)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.GetServiceType">
+            <summary>Sets the stub of DesignerHelper.GetService(Type type)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.Initialize">
+            <summary>Sets the stub of DesignerHelper.Initialize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.Initialize01">
+            <summary>Sets the stub of DesignerHelper.Initialize()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.InitializeStub">
+            <summary>Initializes a new instance of type StubDefaultReportViewerDesignerHelper</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.PreFilterProperties(System.Collections.IDictionary)">
+            <summary>Sets the stub of DesignerHelper.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.PreFilterPropertiesIDictionary">
+            <summary>Sets the stub of DesignerHelper.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.ReportSourceGet">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.get_ReportSource()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.ReportSourceIDGet">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.get_ReportSourceID()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.ReportSourceIDSetString">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.set_ReportSourceID(String value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.ReportSourceSetString">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.set_ReportSource(String value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.AllowResize">
+            <summary>Sets the stub of DesignerHelper.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.ReportSource">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDefaultReportViewerDesignerHelper.ReportSourceID">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.get_ReportSourceID()</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper">
+            <summary>Stub type of CrystalDecisions.Web.Design.DesignerHelper</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.#ctor(System.Web.UI.Design.ControlDesigner)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.AllowResizeGet">
+            <summary>Sets the stub of DesignerHelper.get_AllowResize()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.ComponentChanged(System.Object,System.ComponentModel.Design.ComponentChangedEventArgs)">
+            <summary>Sets the stub of DesignerHelper.ComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.ComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the stub of DesignerHelper.ComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.CreatePlaceHolderDesignTimeHtml(System.String)">
+            <summary>Sets the stub of DesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.CreatePlaceHolderDesignTimeHtmlString">
+            <summary>Sets the stub of DesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.Dispose(System.Boolean)">
+            <summary>Sets the stub of DesignerHelper.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.DisposeBoolean">
+            <summary>Sets the stub of DesignerHelper.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetActionLists">
+            <summary>Sets the stub of DesignerHelper.GetActionLists()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetActionLists01">
+            <summary>Sets the stub of DesignerHelper.GetActionLists()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetActionVerbs">
+            <summary>Sets the stub of DesignerHelper.GetActionVerbs()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetActionVerbs01">
+            <summary>Sets the stub of DesignerHelper.GetActionVerbs()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetDesignTimeHtml">
+            <summary>Sets the stub of DesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetDesignTimeHtml01">
+            <summary>Sets the stub of DesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetDesignerVerbs">
+            <summary>Sets the stub of DesignerHelper.GetDesignerVerbs()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetDesignerVerbs01">
+            <summary>Sets the stub of DesignerHelper.GetDesignerVerbs()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetService(System.Type)">
+            <summary>Sets the stub of DesignerHelper.GetService(Type type)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.GetServiceType">
+            <summary>Sets the stub of DesignerHelper.GetService(Type type)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.Initialize">
+            <summary>Sets the stub of DesignerHelper.Initialize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.Initialize01">
+            <summary>Sets the stub of DesignerHelper.Initialize()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.InitializeStub">
+            <summary>Initializes a new instance of type StubDesignerHelper</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.PreFilterProperties(System.Collections.IDictionary)">
+            <summary>Sets the stub of DesignerHelper.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.PreFilterPropertiesIDictionary">
+            <summary>Sets the stub of DesignerHelper.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.AllowResize">
+            <summary>Sets the stub of DesignerHelper.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubDesignerHelper.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner">
+            <summary>Stub type of CrystalDecisions.Web.Design.ReportPartsViewerDesigner</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ActionListsGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ActionLists()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AllowResizeGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_AllowResize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AssociatedComponentsGet">
+            <summary>Sets the stub of ComponentDesigner.get_AssociatedComponents()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AttachBackingFieldToHelper">
+            <summary>Attaches delegates to emulate StubReportPartsViewerDesigner.Helper as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AttachBackingFieldToID">
+            <summary>Attaches delegates to emulate StubReportPartsViewerDesigner.ID as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AttachBackingFieldToReportSource">
+            <summary>Attaches delegates to emulate StubReportPartsViewerDesigner.ReportSource as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AttachBackingFieldToReportSourceID">
+            <summary>Attaches delegates to emulate StubReportPartsViewerDesigner.ReportSourceID as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AttachBackingFieldToShouldCodeSerialize">
+            <summary>Attaches delegates to emulate StubReportPartsViewerDesigner.ShouldCodeSerialize as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AttachBackingFieldToViewControlCreated">
+            <summary>Attaches delegates to emulate StubReportPartsViewerDesigner.ViewControlCreated as a property with a backing field.</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AutoFormatsGet">
+            <summary>Sets the stub of ControlDesigner.get_AutoFormats()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.CreateViewControl">
+            <summary>Sets the stub of ControlDesigner.CreateViewControl()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.CreateViewControl01">
+            <summary>Sets the stub of ControlDesigner.CreateViewControl()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.DataBindingsEnabledGet">
+            <summary>Sets the stub of ControlDesigner.get_DataBindingsEnabled()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.DesignTimeHtmlRequiresLoadCompleteGet">
+            <summary>Sets the stub of ControlDesigner.get_DesignTimeHtmlRequiresLoadComplete()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.Dispose(System.Boolean)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.DisposeBoolean">
+            <summary>Sets the stub of ReportSourceBoundDesigner.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.DoDefaultAction">
+            <summary>Sets the stub of ComponentDesigner.DoDefaultAction()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.DoDefaultAction01">
+            <summary>Sets the stub of ComponentDesigner.DoDefaultAction()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetDesignTimeHtml">
+            <summary>Sets the stub of ReportSourceBoundDesigner.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetDesignTimeHtml(System.Web.UI.Design.DesignerRegionCollection)">
+            <summary>Sets the stub of ControlDesigner.GetDesignTimeHtml(DesignerRegionCollection regions)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetDesignTimeHtml01">
+            <summary>Sets the stub of ReportSourceBoundDesigner.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetDesignTimeHtmlDesignerRegionCollection">
+            <summary>Sets the stub of ControlDesigner.GetDesignTimeHtml(DesignerRegionCollection regions)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion)">
+            <summary>Sets the stub of ControlDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion region)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetEditableDesignerRegionContentEditableDesignerRegion">
+            <summary>Sets the stub of ControlDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion region)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetEmptyDesignTimeHtml">
+            <summary>Sets the stub of ControlDesigner.GetEmptyDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetEmptyDesignTimeHtml01">
+            <summary>Sets the stub of ControlDesigner.GetEmptyDesignTimeHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetErrorDesignTimeHtml(System.Exception)">
+            <summary>Sets the stub of ControlDesigner.GetErrorDesignTimeHtml(Exception e)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetErrorDesignTimeHtmlException">
+            <summary>Sets the stub of ControlDesigner.GetErrorDesignTimeHtml(Exception e)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetPersistInnerHtml">
+            <summary>Sets the stub of ControlDesigner.GetPersistInnerHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetPersistInnerHtml01">
+            <summary>Sets the stub of ControlDesigner.GetPersistInnerHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetPersistenceContent">
+            <summary>Sets the stub of ControlDesigner.GetPersistenceContent()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetPersistenceContent01">
+            <summary>Sets the stub of ControlDesigner.GetPersistenceContent()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetService(System.Type)">
+            <summary>Sets the stub of ComponentDesigner.GetService(Type serviceType)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.GetServiceType">
+            <summary>Sets the stub of ComponentDesigner.GetService(Type serviceType)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.HelperGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Helper()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.HelperSetReportSourceBoundDesignerHelper">
+            <summary>Sets the stub of ReportSourceBoundDesigner.set_Helper(ReportSourceBoundDesignerHelper value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.HidePropertiesInTemplateModeGet">
+            <summary>Sets the stub of ControlDesigner.get_HidePropertiesInTemplateMode()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.IDGet">
+            <summary>Sets the stub of ControlDesigner.get_ID()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.IDSetString">
+            <summary>Sets the stub of ControlDesigner.set_ID(String value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InheritanceAttributeGet">
+            <summary>Sets the stub of ComponentDesigner.get_InheritanceAttribute()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>Sets the stub of ReportPartsViewerDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InitializeExistingComponent(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.InitializeExistingComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InitializeExistingComponentIDictionary">
+            <summary>Sets the stub of ComponentDesigner.InitializeExistingComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InitializeIComponent">
+            <summary>Sets the stub of ReportPartsViewerDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InitializeNewComponent(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.InitializeNewComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InitializeNewComponentIDictionary">
+            <summary>Sets the stub of ComponentDesigner.InitializeNewComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InitializeNonDefault">
+            <summary>Sets the stub of ComponentDesigner.InitializeNonDefault()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InitializeNonDefault01">
+            <summary>Sets the stub of ComponentDesigner.InitializeNonDefault()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InitializeStub">
+            <summary>Initializes a new instance of type StubReportPartsViewerDesigner</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnAutoFormatApplied(System.Web.UI.Design.DesignerAutoFormat)">
+            <summary>Sets the stub of ControlDesigner.OnAutoFormatApplied(DesignerAutoFormat appliedAutoFormat)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnAutoFormatAppliedDesignerAutoFormat">
+            <summary>Sets the stub of ControlDesigner.OnAutoFormatApplied(DesignerAutoFormat appliedAutoFormat)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnBehaviorAttached">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorAttached()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnBehaviorAttached01">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorAttached()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnBehaviorDetaching">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorDetaching()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnBehaviorDetaching01">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorDetaching()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnBindingsCollectionChanged(System.String)">
+            <summary>Sets the stub of ControlDesigner.OnBindingsCollectionChanged(String propName)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnBindingsCollectionChangedString">
+            <summary>Sets the stub of ControlDesigner.OnBindingsCollectionChanged(String propName)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnClick(System.Web.UI.Design.DesignerRegionMouseEventArgs)">
+            <summary>Sets the stub of ControlDesigner.OnClick(DesignerRegionMouseEventArgs e)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnClickDesignerRegionMouseEventArgs">
+            <summary>Sets the stub of ControlDesigner.OnClick(DesignerRegionMouseEventArgs e)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnComponentChanged(System.Object,System.ComponentModel.Design.ComponentChangedEventArgs)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.OnComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the stub of ReportSourceBoundDesigner.OnComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnComponentChanging(System.Object,System.ComponentModel.Design.ComponentChangingEventArgs)">
+            <summary>Sets the stub of ControlDesigner.OnComponentChanging(Object sender, ComponentChangingEventArgs ce)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnComponentChangingObjectComponentChangingEventArgs">
+            <summary>Sets the stub of ControlDesigner.OnComponentChanging(Object sender, ComponentChangingEventArgs ce)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnControlResize">
+            <summary>Sets the stub of ControlDesigner.OnControlResize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnControlResize01">
+            <summary>Sets the stub of ControlDesigner.OnControlResize()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>Sets the stub of ControlDesigner.OnPaint(PaintEventArgs e)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnPaintPaintEventArgs">
+            <summary>Sets the stub of ControlDesigner.OnPaint(PaintEventArgs e)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnSetComponentDefaults">
+            <summary>Sets the stub of ComponentDesigner.OnSetComponentDefaults()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnSetComponentDefaults01">
+            <summary>Sets the stub of ComponentDesigner.OnSetComponentDefaults()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnSetParent">
+            <summary>Sets the stub of HtmlControlDesigner.OnSetParent()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.OnSetParent01">
+            <summary>Sets the stub of HtmlControlDesigner.OnSetParent()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ParentComponentGet">
+            <summary>Sets the stub of ComponentDesigner.get_ParentComponent()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PostFilterAttributes(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PostFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PostFilterAttributesIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PostFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PostFilterEvents(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PostFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PostFilterEventsIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PostFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PostFilterProperties(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PostFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PostFilterPropertiesIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PostFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PreFilterAttributes(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PreFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PreFilterAttributesIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PreFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PreFilterEvents(System.Collections.IDictionary)">
+            <summary>Sets the stub of HtmlControlDesigner.PreFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PreFilterEventsIDictionary">
+            <summary>Sets the stub of HtmlControlDesigner.PreFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PreFilterProperties(System.Collections.IDictionary)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.PreFilterPropertiesIDictionary">
+            <summary>Sets the stub of ReportSourceBoundDesigner.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ReportSourceGet">
+            <summary>Sets the stub of ReportPartsViewerDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ReportSourceIDGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSourceID()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ReportSourceIDSetString">
+            <summary>Sets the stub of ReportSourceBoundDesigner.set_ReportSourceID(String value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ReportSourceSetString">
+            <summary>Sets the stub of ReportPartsViewerDesigner.set_ReportSource(String value)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.SetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion,System.String)">
+            <summary>Sets the stub of ControlDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion region, String content)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.SetEditableDesignerRegionContentEditableDesignerRegionString">
+            <summary>Sets the stub of ControlDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion region, String content)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ShouldCodeSerializeGet">
+            <summary>Sets the stub of HtmlControlDesigner.get_ShouldCodeSerialize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ShouldCodeSerializeSetBoolean">
+            <summary>Sets the stub of HtmlControlDesigner.set_ShouldCodeSerialize(Boolean value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.TemplateGroupsGet">
+            <summary>Sets the stub of ControlDesigner.get_TemplateGroups()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.UpdateDesignTimeHtml">
+            <summary>Sets the stub of ControlDesigner.UpdateDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.UpdateDesignTimeHtml01">
+            <summary>Sets the stub of ControlDesigner.UpdateDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.UseDefaultActionListGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_UseDefaultActionList()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.UsePreviewControlGet">
+            <summary>Sets the stub of ControlDesigner.get_UsePreviewControl()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.VerbsGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Verbs()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ViewControlCreatedGet">
+            <summary>Sets the stub of ControlDesigner.get_ViewControlCreated()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ViewControlCreatedSetBoolean">
+            <summary>Sets the stub of ControlDesigner.set_ViewControlCreated(Boolean value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.VisibleGet">
+            <summary>Sets the stub of ControlDesigner.get_Visible()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ActionLists">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ActionLists()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AllowResize">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AssociatedComponents">
+            <summary>Sets the stub of ComponentDesigner.get_AssociatedComponents()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.AutoFormats">
+            <summary>Sets the stub of ControlDesigner.get_AutoFormats()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.DataBindingsEnabled">
+            <summary>Sets the stub of ControlDesigner.get_DataBindingsEnabled()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.DesignTimeHtmlRequiresLoadComplete">
+            <summary>Sets the stub of ControlDesigner.get_DesignTimeHtmlRequiresLoadComplete()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.Helper">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Helper()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.HidePropertiesInTemplateMode">
+            <summary>Sets the stub of ControlDesigner.get_HidePropertiesInTemplateMode()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ID">
+            <summary>Sets the stub of ControlDesigner.get_ID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InheritanceAttribute">
+            <summary>Sets the stub of ComponentDesigner.get_InheritanceAttribute()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ParentComponent">
+            <summary>Sets the stub of ComponentDesigner.get_ParentComponent()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ReportSource">
+            <summary>Sets the stub of ReportPartsViewerDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ReportSourceID">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSourceID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ShouldCodeSerialize">
+            <summary>Sets the stub of HtmlControlDesigner.get_ShouldCodeSerialize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.TemplateGroups">
+            <summary>Sets the stub of ControlDesigner.get_TemplateGroups()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.UseDefaultActionList">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_UseDefaultActionList()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.UsePreviewControl">
+            <summary>Sets the stub of ControlDesigner.get_UsePreviewControl()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.Verbs">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Verbs()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.ViewControlCreated">
+            <summary>Sets the stub of ControlDesigner.get_ViewControlCreated()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportPartsViewerDesigner.Visible">
+            <summary>Sets the stub of ControlDesigner.get_Visible()</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner">
+            <summary>Stub type of CrystalDecisions.Web.Design.ReportSourceBoundDesigner</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ActionListsGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ActionLists()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AllowResizeGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_AllowResize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AssociatedComponentsGet">
+            <summary>Sets the stub of ComponentDesigner.get_AssociatedComponents()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AttachBackingFieldToHelper">
+            <summary>Attaches delegates to emulate StubReportSourceBoundDesigner.Helper as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AttachBackingFieldToID">
+            <summary>Attaches delegates to emulate StubReportSourceBoundDesigner.ID as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AttachBackingFieldToReportSource">
+            <summary>Attaches delegates to emulate StubReportSourceBoundDesigner.ReportSource as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AttachBackingFieldToReportSourceID">
+            <summary>Attaches delegates to emulate StubReportSourceBoundDesigner.ReportSourceID as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AttachBackingFieldToShouldCodeSerialize">
+            <summary>Attaches delegates to emulate StubReportSourceBoundDesigner.ShouldCodeSerialize as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AttachBackingFieldToViewControlCreated">
+            <summary>Attaches delegates to emulate StubReportSourceBoundDesigner.ViewControlCreated as a property with a backing field.</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AutoFormatsGet">
+            <summary>Sets the stub of ControlDesigner.get_AutoFormats()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.CreateViewControl">
+            <summary>Sets the stub of ControlDesigner.CreateViewControl()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.CreateViewControl01">
+            <summary>Sets the stub of ControlDesigner.CreateViewControl()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.DataBindingsEnabledGet">
+            <summary>Sets the stub of ControlDesigner.get_DataBindingsEnabled()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.DesignTimeHtmlRequiresLoadCompleteGet">
+            <summary>Sets the stub of ControlDesigner.get_DesignTimeHtmlRequiresLoadComplete()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.Dispose(System.Boolean)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.DisposeBoolean">
+            <summary>Sets the stub of ReportSourceBoundDesigner.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.DoDefaultAction">
+            <summary>Sets the stub of ComponentDesigner.DoDefaultAction()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.DoDefaultAction01">
+            <summary>Sets the stub of ComponentDesigner.DoDefaultAction()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetDesignTimeHtml">
+            <summary>Sets the stub of ReportSourceBoundDesigner.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetDesignTimeHtml(System.Web.UI.Design.DesignerRegionCollection)">
+            <summary>Sets the stub of ControlDesigner.GetDesignTimeHtml(DesignerRegionCollection regions)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetDesignTimeHtml01">
+            <summary>Sets the stub of ReportSourceBoundDesigner.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetDesignTimeHtmlDesignerRegionCollection">
+            <summary>Sets the stub of ControlDesigner.GetDesignTimeHtml(DesignerRegionCollection regions)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion)">
+            <summary>Sets the stub of ControlDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion region)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetEditableDesignerRegionContentEditableDesignerRegion">
+            <summary>Sets the stub of ControlDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion region)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetEmptyDesignTimeHtml">
+            <summary>Sets the stub of ControlDesigner.GetEmptyDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetEmptyDesignTimeHtml01">
+            <summary>Sets the stub of ControlDesigner.GetEmptyDesignTimeHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetErrorDesignTimeHtml(System.Exception)">
+            <summary>Sets the stub of ControlDesigner.GetErrorDesignTimeHtml(Exception e)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetErrorDesignTimeHtmlException">
+            <summary>Sets the stub of ControlDesigner.GetErrorDesignTimeHtml(Exception e)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetPersistInnerHtml">
+            <summary>Sets the stub of ControlDesigner.GetPersistInnerHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetPersistInnerHtml01">
+            <summary>Sets the stub of ControlDesigner.GetPersistInnerHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetPersistenceContent">
+            <summary>Sets the stub of ControlDesigner.GetPersistenceContent()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetPersistenceContent01">
+            <summary>Sets the stub of ControlDesigner.GetPersistenceContent()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetService(System.Type)">
+            <summary>Sets the stub of ComponentDesigner.GetService(Type serviceType)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.GetServiceType">
+            <summary>Sets the stub of ComponentDesigner.GetService(Type serviceType)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.HelperGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Helper()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.HelperSetReportSourceBoundDesignerHelper">
+            <summary>Sets the stub of ReportSourceBoundDesigner.set_Helper(ReportSourceBoundDesignerHelper value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.HidePropertiesInTemplateModeGet">
+            <summary>Sets the stub of ControlDesigner.get_HidePropertiesInTemplateMode()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.IDGet">
+            <summary>Sets the stub of ControlDesigner.get_ID()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.IDSetString">
+            <summary>Sets the stub of ControlDesigner.set_ID(String value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InheritanceAttributeGet">
+            <summary>Sets the stub of ComponentDesigner.get_InheritanceAttribute()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InitializeExistingComponent(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.InitializeExistingComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InitializeExistingComponentIDictionary">
+            <summary>Sets the stub of ComponentDesigner.InitializeExistingComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InitializeIComponent">
+            <summary>Sets the stub of ReportSourceBoundDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InitializeNewComponent(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.InitializeNewComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InitializeNewComponentIDictionary">
+            <summary>Sets the stub of ComponentDesigner.InitializeNewComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InitializeNonDefault">
+            <summary>Sets the stub of ComponentDesigner.InitializeNonDefault()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InitializeNonDefault01">
+            <summary>Sets the stub of ComponentDesigner.InitializeNonDefault()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InitializeStub">
+            <summary>Initializes a new instance of type StubReportSourceBoundDesigner</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnAutoFormatApplied(System.Web.UI.Design.DesignerAutoFormat)">
+            <summary>Sets the stub of ControlDesigner.OnAutoFormatApplied(DesignerAutoFormat appliedAutoFormat)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnAutoFormatAppliedDesignerAutoFormat">
+            <summary>Sets the stub of ControlDesigner.OnAutoFormatApplied(DesignerAutoFormat appliedAutoFormat)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnBehaviorAttached">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorAttached()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnBehaviorAttached01">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorAttached()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnBehaviorDetaching">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorDetaching()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnBehaviorDetaching01">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorDetaching()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnBindingsCollectionChanged(System.String)">
+            <summary>Sets the stub of ControlDesigner.OnBindingsCollectionChanged(String propName)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnBindingsCollectionChangedString">
+            <summary>Sets the stub of ControlDesigner.OnBindingsCollectionChanged(String propName)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnClick(System.Web.UI.Design.DesignerRegionMouseEventArgs)">
+            <summary>Sets the stub of ControlDesigner.OnClick(DesignerRegionMouseEventArgs e)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnClickDesignerRegionMouseEventArgs">
+            <summary>Sets the stub of ControlDesigner.OnClick(DesignerRegionMouseEventArgs e)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnComponentChanged(System.Object,System.ComponentModel.Design.ComponentChangedEventArgs)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.OnComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the stub of ReportSourceBoundDesigner.OnComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnComponentChanging(System.Object,System.ComponentModel.Design.ComponentChangingEventArgs)">
+            <summary>Sets the stub of ControlDesigner.OnComponentChanging(Object sender, ComponentChangingEventArgs ce)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnComponentChangingObjectComponentChangingEventArgs">
+            <summary>Sets the stub of ControlDesigner.OnComponentChanging(Object sender, ComponentChangingEventArgs ce)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnControlResize">
+            <summary>Sets the stub of ControlDesigner.OnControlResize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnControlResize01">
+            <summary>Sets the stub of ControlDesigner.OnControlResize()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>Sets the stub of ControlDesigner.OnPaint(PaintEventArgs e)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnPaintPaintEventArgs">
+            <summary>Sets the stub of ControlDesigner.OnPaint(PaintEventArgs e)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnSetComponentDefaults">
+            <summary>Sets the stub of ComponentDesigner.OnSetComponentDefaults()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnSetComponentDefaults01">
+            <summary>Sets the stub of ComponentDesigner.OnSetComponentDefaults()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnSetParent">
+            <summary>Sets the stub of HtmlControlDesigner.OnSetParent()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.OnSetParent01">
+            <summary>Sets the stub of HtmlControlDesigner.OnSetParent()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ParentComponentGet">
+            <summary>Sets the stub of ComponentDesigner.get_ParentComponent()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PostFilterAttributes(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PostFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PostFilterAttributesIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PostFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PostFilterEvents(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PostFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PostFilterEventsIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PostFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PostFilterProperties(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PostFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PostFilterPropertiesIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PostFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PreFilterAttributes(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PreFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PreFilterAttributesIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PreFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PreFilterEvents(System.Collections.IDictionary)">
+            <summary>Sets the stub of HtmlControlDesigner.PreFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PreFilterEventsIDictionary">
+            <summary>Sets the stub of HtmlControlDesigner.PreFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PreFilterProperties(System.Collections.IDictionary)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.PreFilterPropertiesIDictionary">
+            <summary>Sets the stub of ReportSourceBoundDesigner.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ReportSourceGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ReportSourceIDGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSourceID()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ReportSourceIDSetString">
+            <summary>Sets the stub of ReportSourceBoundDesigner.set_ReportSourceID(String value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ReportSourceSetString">
+            <summary>Sets the stub of ReportSourceBoundDesigner.set_ReportSource(String value)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.SetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion,System.String)">
+            <summary>Sets the stub of ControlDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion region, String content)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.SetEditableDesignerRegionContentEditableDesignerRegionString">
+            <summary>Sets the stub of ControlDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion region, String content)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ShouldCodeSerializeGet">
+            <summary>Sets the stub of HtmlControlDesigner.get_ShouldCodeSerialize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ShouldCodeSerializeSetBoolean">
+            <summary>Sets the stub of HtmlControlDesigner.set_ShouldCodeSerialize(Boolean value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.TemplateGroupsGet">
+            <summary>Sets the stub of ControlDesigner.get_TemplateGroups()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.UpdateDesignTimeHtml">
+            <summary>Sets the stub of ControlDesigner.UpdateDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.UpdateDesignTimeHtml01">
+            <summary>Sets the stub of ControlDesigner.UpdateDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.UseDefaultActionListGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_UseDefaultActionList()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.UsePreviewControlGet">
+            <summary>Sets the stub of ControlDesigner.get_UsePreviewControl()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.VerbsGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Verbs()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ViewControlCreatedGet">
+            <summary>Sets the stub of ControlDesigner.get_ViewControlCreated()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ViewControlCreatedSetBoolean">
+            <summary>Sets the stub of ControlDesigner.set_ViewControlCreated(Boolean value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.VisibleGet">
+            <summary>Sets the stub of ControlDesigner.get_Visible()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ActionLists">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ActionLists()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AllowResize">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AssociatedComponents">
+            <summary>Sets the stub of ComponentDesigner.get_AssociatedComponents()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.AutoFormats">
+            <summary>Sets the stub of ControlDesigner.get_AutoFormats()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.DataBindingsEnabled">
+            <summary>Sets the stub of ControlDesigner.get_DataBindingsEnabled()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.DesignTimeHtmlRequiresLoadComplete">
+            <summary>Sets the stub of ControlDesigner.get_DesignTimeHtmlRequiresLoadComplete()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.Helper">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Helper()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.HidePropertiesInTemplateMode">
+            <summary>Sets the stub of ControlDesigner.get_HidePropertiesInTemplateMode()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ID">
+            <summary>Sets the stub of ControlDesigner.get_ID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InheritanceAttribute">
+            <summary>Sets the stub of ComponentDesigner.get_InheritanceAttribute()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ParentComponent">
+            <summary>Sets the stub of ComponentDesigner.get_ParentComponent()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ReportSource">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ReportSourceID">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSourceID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ShouldCodeSerialize">
+            <summary>Sets the stub of HtmlControlDesigner.get_ShouldCodeSerialize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.TemplateGroups">
+            <summary>Sets the stub of ControlDesigner.get_TemplateGroups()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.UseDefaultActionList">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_UseDefaultActionList()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.UsePreviewControl">
+            <summary>Sets the stub of ControlDesigner.get_UsePreviewControl()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.Verbs">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Verbs()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.ViewControlCreated">
+            <summary>Sets the stub of ControlDesigner.get_ViewControlCreated()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesigner.Visible">
+            <summary>Sets the stub of ControlDesigner.get_Visible()</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper">
+            <summary>Stub type of CrystalDecisions.Web.Design.ReportSourceBoundDesignerHelper</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.#ctor(System.Web.UI.Design.ControlDesigner)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.AllowResizeGet">
+            <summary>Sets the stub of DesignerHelper.get_AllowResize()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.AttachBackingFieldToReportSource">
+            <summary>Attaches delegates to emulate StubReportSourceBoundDesignerHelper.ReportSource as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.AttachBackingFieldToReportSourceID">
+            <summary>Attaches delegates to emulate StubReportSourceBoundDesignerHelper.ReportSourceID as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.ComponentChanged(System.Object,System.ComponentModel.Design.ComponentChangedEventArgs)">
+            <summary>Sets the stub of DesignerHelper.ComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.ComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the stub of DesignerHelper.ComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.CreatePlaceHolderDesignTimeHtml(System.String)">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.CreatePlaceHolderDesignTimeHtmlString">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.CreatePlaceHolderDesignTimeHtml(String inst)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.Dispose(System.Boolean)">
+            <summary>Sets the stub of DesignerHelper.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.DisposeBoolean">
+            <summary>Sets the stub of DesignerHelper.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetActionLists">
+            <summary>Sets the stub of DesignerHelper.GetActionLists()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetActionLists01">
+            <summary>Sets the stub of DesignerHelper.GetActionLists()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetActionVerbs">
+            <summary>Sets the stub of DesignerHelper.GetActionVerbs()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetActionVerbs01">
+            <summary>Sets the stub of DesignerHelper.GetActionVerbs()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetDesignTimeHtml">
+            <summary>Sets the stub of DesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetDesignTimeHtml01">
+            <summary>Sets the stub of DesignerHelper.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetDesignerVerbs">
+            <summary>Sets the stub of DesignerHelper.GetDesignerVerbs()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetDesignerVerbs01">
+            <summary>Sets the stub of DesignerHelper.GetDesignerVerbs()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetService(System.Type)">
+            <summary>Sets the stub of DesignerHelper.GetService(Type type)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.GetServiceType">
+            <summary>Sets the stub of DesignerHelper.GetService(Type type)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.Initialize">
+            <summary>Sets the stub of DesignerHelper.Initialize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.Initialize01">
+            <summary>Sets the stub of DesignerHelper.Initialize()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.InitializeStub">
+            <summary>Initializes a new instance of type StubReportSourceBoundDesignerHelper</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.PreFilterProperties(System.Collections.IDictionary)">
+            <summary>Sets the stub of DesignerHelper.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.PreFilterPropertiesIDictionary">
+            <summary>Sets the stub of DesignerHelper.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.ReportSourceGet">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.get_ReportSource()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.ReportSourceIDGet">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.get_ReportSourceID()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.ReportSourceIDSetString">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.set_ReportSourceID(String value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.ReportSourceSetString">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.set_ReportSource(String value)</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.AllowResize">
+            <summary>Sets the stub of DesignerHelper.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.ReportSource">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportSourceBoundDesignerHelper.ReportSourceID">
+            <summary>Sets the stub of ReportSourceBoundDesignerHelper.get_ReportSourceID()</summary>
+        </member>
+        <member name="T:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner">
+            <summary>Stub type of CrystalDecisions.Web.Design.ReportViewerDesigner</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ActionListsGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ActionLists()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AllowResizeGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_AllowResize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AssociatedComponentsGet">
+            <summary>Sets the stub of ComponentDesigner.get_AssociatedComponents()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AttachBackingFieldToHelper">
+            <summary>Attaches delegates to emulate StubReportViewerDesigner.Helper as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AttachBackingFieldToID">
+            <summary>Attaches delegates to emulate StubReportViewerDesigner.ID as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AttachBackingFieldToReportSource">
+            <summary>Attaches delegates to emulate StubReportViewerDesigner.ReportSource as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AttachBackingFieldToReportSourceID">
+            <summary>Attaches delegates to emulate StubReportViewerDesigner.ReportSourceID as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AttachBackingFieldToShouldCodeSerialize">
+            <summary>Attaches delegates to emulate StubReportViewerDesigner.ShouldCodeSerialize as a property with a backing field.</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AttachBackingFieldToViewControlCreated">
+            <summary>Attaches delegates to emulate StubReportViewerDesigner.ViewControlCreated as a property with a backing field.</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AutoFormatsGet">
+            <summary>Sets the stub of ControlDesigner.get_AutoFormats()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.CreateViewControl">
+            <summary>Sets the stub of ControlDesigner.CreateViewControl()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.CreateViewControl01">
+            <summary>Sets the stub of ControlDesigner.CreateViewControl()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.DataBindingsEnabledGet">
+            <summary>Sets the stub of ControlDesigner.get_DataBindingsEnabled()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.DesignTimeHtmlRequiresLoadCompleteGet">
+            <summary>Sets the stub of ControlDesigner.get_DesignTimeHtmlRequiresLoadComplete()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.Dispose(System.Boolean)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.DisposeBoolean">
+            <summary>Sets the stub of ReportSourceBoundDesigner.Dispose(Boolean disposeManaged)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.DoDefaultAction">
+            <summary>Sets the stub of ComponentDesigner.DoDefaultAction()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.DoDefaultAction01">
+            <summary>Sets the stub of ComponentDesigner.DoDefaultAction()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetDesignTimeHtml">
+            <summary>Sets the stub of ReportSourceBoundDesigner.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetDesignTimeHtml(System.Web.UI.Design.DesignerRegionCollection)">
+            <summary>Sets the stub of ControlDesigner.GetDesignTimeHtml(DesignerRegionCollection regions)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetDesignTimeHtml01">
+            <summary>Sets the stub of ReportSourceBoundDesigner.GetDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetDesignTimeHtmlDesignerRegionCollection">
+            <summary>Sets the stub of ControlDesigner.GetDesignTimeHtml(DesignerRegionCollection regions)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion)">
+            <summary>Sets the stub of ControlDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion region)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetEditableDesignerRegionContentEditableDesignerRegion">
+            <summary>Sets the stub of ControlDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion region)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetEmptyDesignTimeHtml">
+            <summary>Sets the stub of ControlDesigner.GetEmptyDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetEmptyDesignTimeHtml01">
+            <summary>Sets the stub of ControlDesigner.GetEmptyDesignTimeHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetErrorDesignTimeHtml(System.Exception)">
+            <summary>Sets the stub of ControlDesigner.GetErrorDesignTimeHtml(Exception e)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetErrorDesignTimeHtmlException">
+            <summary>Sets the stub of ControlDesigner.GetErrorDesignTimeHtml(Exception e)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetPersistInnerHtml">
+            <summary>Sets the stub of ControlDesigner.GetPersistInnerHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetPersistInnerHtml01">
+            <summary>Sets the stub of ControlDesigner.GetPersistInnerHtml()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetPersistenceContent">
+            <summary>Sets the stub of ControlDesigner.GetPersistenceContent()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetPersistenceContent01">
+            <summary>Sets the stub of ControlDesigner.GetPersistenceContent()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetService(System.Type)">
+            <summary>Sets the stub of ComponentDesigner.GetService(Type serviceType)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.GetServiceType">
+            <summary>Sets the stub of ComponentDesigner.GetService(Type serviceType)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.HelperGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Helper()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.HelperSetReportSourceBoundDesignerHelper">
+            <summary>Sets the stub of ReportSourceBoundDesigner.set_Helper(ReportSourceBoundDesignerHelper value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.HidePropertiesInTemplateModeGet">
+            <summary>Sets the stub of ControlDesigner.get_HidePropertiesInTemplateMode()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.IDGet">
+            <summary>Sets the stub of ControlDesigner.get_ID()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.IDSetString">
+            <summary>Sets the stub of ControlDesigner.set_ID(String value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InheritanceAttributeGet">
+            <summary>Sets the stub of ComponentDesigner.get_InheritanceAttribute()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>Sets the stub of ReportViewerDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InitializeExistingComponent(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.InitializeExistingComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InitializeExistingComponentIDictionary">
+            <summary>Sets the stub of ComponentDesigner.InitializeExistingComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InitializeIComponent">
+            <summary>Sets the stub of ReportViewerDesigner.Initialize(IComponent component)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InitializeNewComponent(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.InitializeNewComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InitializeNewComponentIDictionary">
+            <summary>Sets the stub of ComponentDesigner.InitializeNewComponent(IDictionary defaultValues)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InitializeNonDefault">
+            <summary>Sets the stub of ComponentDesigner.InitializeNonDefault()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InitializeNonDefault01">
+            <summary>Sets the stub of ComponentDesigner.InitializeNonDefault()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InitializeStub">
+            <summary>Initializes a new instance of type StubReportViewerDesigner</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnAutoFormatApplied(System.Web.UI.Design.DesignerAutoFormat)">
+            <summary>Sets the stub of ControlDesigner.OnAutoFormatApplied(DesignerAutoFormat appliedAutoFormat)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnAutoFormatAppliedDesignerAutoFormat">
+            <summary>Sets the stub of ControlDesigner.OnAutoFormatApplied(DesignerAutoFormat appliedAutoFormat)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnBehaviorAttached">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorAttached()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnBehaviorAttached01">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorAttached()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnBehaviorDetaching">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorDetaching()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnBehaviorDetaching01">
+            <summary>Sets the stub of HtmlControlDesigner.OnBehaviorDetaching()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnBindingsCollectionChanged(System.String)">
+            <summary>Sets the stub of ControlDesigner.OnBindingsCollectionChanged(String propName)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnBindingsCollectionChangedString">
+            <summary>Sets the stub of ControlDesigner.OnBindingsCollectionChanged(String propName)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnClick(System.Web.UI.Design.DesignerRegionMouseEventArgs)">
+            <summary>Sets the stub of ControlDesigner.OnClick(DesignerRegionMouseEventArgs e)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnClickDesignerRegionMouseEventArgs">
+            <summary>Sets the stub of ControlDesigner.OnClick(DesignerRegionMouseEventArgs e)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnComponentChanged(System.Object,System.ComponentModel.Design.ComponentChangedEventArgs)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.OnComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnComponentChangedObjectComponentChangedEventArgs">
+            <summary>Sets the stub of ReportSourceBoundDesigner.OnComponentChanged(Object sender, ComponentChangedEventArgs ce)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnComponentChanging(System.Object,System.ComponentModel.Design.ComponentChangingEventArgs)">
+            <summary>Sets the stub of ControlDesigner.OnComponentChanging(Object sender, ComponentChangingEventArgs ce)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnComponentChangingObjectComponentChangingEventArgs">
+            <summary>Sets the stub of ControlDesigner.OnComponentChanging(Object sender, ComponentChangingEventArgs ce)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnControlResize">
+            <summary>Sets the stub of ControlDesigner.OnControlResize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnControlResize01">
+            <summary>Sets the stub of ControlDesigner.OnControlResize()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>Sets the stub of ControlDesigner.OnPaint(PaintEventArgs e)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnPaintPaintEventArgs">
+            <summary>Sets the stub of ControlDesigner.OnPaint(PaintEventArgs e)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnSetComponentDefaults">
+            <summary>Sets the stub of ComponentDesigner.OnSetComponentDefaults()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnSetComponentDefaults01">
+            <summary>Sets the stub of ComponentDesigner.OnSetComponentDefaults()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnSetParent">
+            <summary>Sets the stub of HtmlControlDesigner.OnSetParent()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.OnSetParent01">
+            <summary>Sets the stub of HtmlControlDesigner.OnSetParent()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ParentComponentGet">
+            <summary>Sets the stub of ComponentDesigner.get_ParentComponent()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PostFilterAttributes(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PostFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PostFilterAttributesIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PostFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PostFilterEvents(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PostFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PostFilterEventsIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PostFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PostFilterProperties(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PostFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PostFilterPropertiesIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PostFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PreFilterAttributes(System.Collections.IDictionary)">
+            <summary>Sets the stub of ComponentDesigner.PreFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PreFilterAttributesIDictionary">
+            <summary>Sets the stub of ComponentDesigner.PreFilterAttributes(IDictionary attributes)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PreFilterEvents(System.Collections.IDictionary)">
+            <summary>Sets the stub of HtmlControlDesigner.PreFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PreFilterEventsIDictionary">
+            <summary>Sets the stub of HtmlControlDesigner.PreFilterEvents(IDictionary events)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PreFilterProperties(System.Collections.IDictionary)">
+            <summary>Sets the stub of ReportSourceBoundDesigner.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.PreFilterPropertiesIDictionary">
+            <summary>Sets the stub of ReportSourceBoundDesigner.PreFilterProperties(IDictionary properties)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ReportSourceGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ReportSourceIDGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSourceID()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ReportSourceIDSetString">
+            <summary>Sets the stub of ReportSourceBoundDesigner.set_ReportSourceID(String value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ReportSourceSetString">
+            <summary>Sets the stub of ReportSourceBoundDesigner.set_ReportSource(String value)</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.SetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion,System.String)">
+            <summary>Sets the stub of ControlDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion region, String content)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.SetEditableDesignerRegionContentEditableDesignerRegionString">
+            <summary>Sets the stub of ControlDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion region, String content)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ShouldCodeSerializeGet">
+            <summary>Sets the stub of HtmlControlDesigner.get_ShouldCodeSerialize()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ShouldCodeSerializeSetBoolean">
+            <summary>Sets the stub of HtmlControlDesigner.set_ShouldCodeSerialize(Boolean value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.TemplateGroupsGet">
+            <summary>Sets the stub of ControlDesigner.get_TemplateGroups()</summary>
+        </member>
+        <member name="M:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.UpdateDesignTimeHtml">
+            <summary>Sets the stub of ControlDesigner.UpdateDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.UpdateDesignTimeHtml01">
+            <summary>Sets the stub of ControlDesigner.UpdateDesignTimeHtml()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.UseDefaultActionListGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_UseDefaultActionList()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.UsePreviewControlGet">
+            <summary>Sets the stub of ControlDesigner.get_UsePreviewControl()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.VerbsGet">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Verbs()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ViewControlCreatedGet">
+            <summary>Sets the stub of ControlDesigner.get_ViewControlCreated()</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ViewControlCreatedSetBoolean">
+            <summary>Sets the stub of ControlDesigner.set_ViewControlCreated(Boolean value)</summary>
+        </member>
+        <member name="F:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.VisibleGet">
+            <summary>Sets the stub of ControlDesigner.get_Visible()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ActionLists">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ActionLists()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AllowResize">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_AllowResize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AssociatedComponents">
+            <summary>Sets the stub of ComponentDesigner.get_AssociatedComponents()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.AutoFormats">
+            <summary>Sets the stub of ControlDesigner.get_AutoFormats()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.DataBindingsEnabled">
+            <summary>Sets the stub of ControlDesigner.get_DataBindingsEnabled()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.DesignTimeHtmlRequiresLoadComplete">
+            <summary>Sets the stub of ControlDesigner.get_DesignTimeHtmlRequiresLoadComplete()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.Helper">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Helper()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.HidePropertiesInTemplateMode">
+            <summary>Sets the stub of ControlDesigner.get_HidePropertiesInTemplateMode()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ID">
+            <summary>Sets the stub of ControlDesigner.get_ID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InheritanceAttribute">
+            <summary>Sets the stub of ComponentDesigner.get_InheritanceAttribute()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ParentComponent">
+            <summary>Sets the stub of ComponentDesigner.get_ParentComponent()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ReportSource">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSource()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ReportSourceID">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_ReportSourceID()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ShouldCodeSerialize">
+            <summary>Sets the stub of HtmlControlDesigner.get_ShouldCodeSerialize()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.TemplateGroups">
+            <summary>Sets the stub of ControlDesigner.get_TemplateGroups()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.UseDefaultActionList">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_UseDefaultActionList()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.UsePreviewControl">
+            <summary>Sets the stub of ControlDesigner.get_UsePreviewControl()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.Verbs">
+            <summary>Sets the stub of ReportSourceBoundDesigner.get_Verbs()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.ViewControlCreated">
+            <summary>Sets the stub of ControlDesigner.get_ViewControlCreated()</summary>
+        </member>
+        <member name="P:CrystalDecisions.Web.Design.Fakes.StubReportViewerDesigner.Visible">
+            <summary>Sets the stub of ControlDesigner.get_Visible()</summary>
+        </member>
+    </members>
+</doc>

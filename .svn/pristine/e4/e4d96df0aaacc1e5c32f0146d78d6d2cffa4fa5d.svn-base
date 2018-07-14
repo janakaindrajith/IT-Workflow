@@ -1,0 +1,220 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.OracleClient;
+using System.Configuration;
+
+namespace quickinfo_v2.Views.ITWorkflow
+{
+    public partial class ChangeAssignUsers : System.Web.UI.Page
+    {
+        string selected_jobID = "";
+        string user_type = "";
+        string user_department = "";
+        bool manual_search = false;
+        string sql_where = "";
+
+
+        string myConn = ConfigurationManager.ConnectionStrings["ORAWF"].ToString();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if(!IsPostBack)
+            {
+                if (Session["Temp_ActiveUser"] != null)//IT Users
+                {
+                    string temp_activeUser = Session["Temp_ActiveUser"].ToString();
+                    sql_where = "HELP_DESK";
+                    get_another_it_users_job_list(temp_activeUser);
+                }
+                else if(Session["UserType"] == "Approval_User")//Approval Users
+                {
+                    user_type = Session["UserType"].ToString();
+                    sql_where = "APPROVAL";
+
+                    if ((user_type == "Approval_User") && (manual_search == false))
+                    {
+                        get_common_jobs_for_approval_user();
+                    }
+                }
+                else
+                {
+                    return;
+                }
+
+
+                get_reAssign_Users();
+                txtJobID.Text = "";
+
+            }
+        }
+
+        public void get_reAssign_Users()
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_it_users = conn.CreateCommand();
+            cmd_get_it_users.CommandText = "select t.user_name, t.full_name from wf_it_ref_handled_users t where t.user_type ='" + sql_where + "'";//"select distinct(u.user_name) from wf_it_ref_users_systemwise u";
+
+            OracleDataReader odr_get_it_users = cmd_get_it_users.ExecuteReader();
+
+            DataTable dt_get_it_users = new DataTable();
+            dt_get_it_users.Load(odr_get_it_users);
+
+            ddl_it_users.DataTextField = "full_name";
+            ddl_it_users.DataValueField = "user_name";
+            ddl_it_users.DataSource = dt_get_it_users;
+
+            ddl_it_users.DataBind();
+            ddl_it_users.Items.Insert(0, new ListItem("--Re Assign User--", "-1"));
+        }
+
+        protected void btn_jobSearch_Click(object sender, EventArgs e)
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            if (txtJobID.Text != "")
+            {
+                string search_job_id = txtJobID.Text.Trim();
+
+                OracleCommand cmd_getJobs = conn.CreateCommand();
+                cmd_getJobs.CommandText = "SELECT R.REQUEST_ID, R.REF_NO, R.REQUEST_USER, R.ASSIGN_USER AS CURRENT_ASSIGNED_USER " +
+                                            "FROM WF_IT_REQUEST_REGISTER R WHERE R.REQUEST_ID = '" + search_job_id + "'";
+
+                OracleDataReader odr_getJobs = cmd_getJobs.ExecuteReader();
+                DataTable dt_searchResult = new DataTable();
+                dt_searchResult.Load(odr_getJobs);
+
+                grd_searchResult.DataSource = dt_searchResult;
+                grd_searchResult.DataBind();
+
+                if(dt_searchResult.Rows.Count > 0)
+                {
+                    assignUser_UpdatePanel.Visible = true;
+                }
+                else
+                {
+                    assignUser_UpdatePanel.Visible = false;
+                }
+
+                
+
+            }
+        }
+
+        protected void grd_searchResult_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            //OracleConnection conn = new OracleConnection(myConn);
+            //conn.Open();
+            if (e.CommandName == "Select")
+            {
+                
+
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                selected_jobID = grd_searchResult.Rows[rowIndex].Cells[1].Text;
+
+                lbl_selected_job_id.Text = selected_jobID;
+                btn_Reassign.Enabled = true;
+                
+            }
+        }
+
+        protected void btn_Reassign_Click(object sender, EventArgs e)
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            if ((ddl_it_users.SelectedIndex != 0) && (lbl_selected_job_id.Text != "") && (lbl_selected_job_id.Text != "No Jobs Available!"))
+            {
+                string newAssignUser = ddl_it_users.SelectedValue.ToString();
+                selected_jobID = lbl_selected_job_id.Text;
+
+
+                //Update Request Register
+
+                if (Session["Temp_ActiveUser"] != null)
+                {
+                    OracleCommand cmd_update_assign_user = conn.CreateCommand();
+                    cmd_update_assign_user.CommandText = "UPDATE WF_IT_REQUEST_REGISTER RR SET RR.ASSIGN_USER = '" + newAssignUser + "' WHERE RR.REQUEST_ID = '" + selected_jobID + "'";
+                    cmd_update_assign_user.ExecuteNonQuery();
+
+                }
+                else
+                {
+                    OracleCommand cmd_update_assign_user = conn.CreateCommand();
+                    cmd_update_assign_user.CommandText = "UPDATE WF_IT_REQUEST_REGISTER RR SET RR.JOB_HANDLED_BY = '" + newAssignUser + "' WHERE RR.REQUEST_ID = '" + selected_jobID + "'";
+                    cmd_update_assign_user.ExecuteNonQuery();
+                }
+
+                
+
+                //Insert Record To Events Table
+
+                OracleCommand cmd_insert_event_record = conn.CreateCommand();
+                cmd_insert_event_record.CommandText = "INSERT INTO WF_IT_EVENTS E (EVENT_DATE,JOB_NO,STATUS,USER_NAME,REMARKS_UNIT,REMARKS_BRANCH)VALUES " +
+                                                      "(sysdate,'" + selected_jobID + "','PENDING-APPROVAL','" + Session["WF_User"].ToString() +"','Job Handle By Changed','')";
+
+                cmd_insert_event_record.ExecuteNonQuery();
+
+
+                conn.Close();
+
+                selected_jobID = "";
+                lbl_selected_job_id.Text = "";
+
+
+            }
+        }
+
+        public void get_common_jobs_for_approval_user()//Common Jobs For Approval Users
+        {
+            if(user_department == "")
+            {
+                user_department = Session["User_Department"].ToString();
+            }
+            
+
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_common_jobs_for_approval_user = conn.CreateCommand();
+            cmd_get_common_jobs_for_approval_user.CommandText = "SELECT R.REQUEST_ID, R.REF_NO, R.REQUEST_USER, R.ASSIGN_USER AS CURRENT_ASSIGNED_USER " +
+                                                                "FROM WF_IT_REQUEST_REGISTER R WHERE R.STATUS = 'PENDING-APPROVAL' AND R.REQUEST_USER_DEPT = '" + user_department + "'";
+            OracleDataReader odr_get_common_jobs_for_approval_user = cmd_get_common_jobs_for_approval_user.ExecuteReader();
+            DataTable dt_get_common_jobs_for_approval_user = new DataTable();
+
+            dt_get_common_jobs_for_approval_user.Load(odr_get_common_jobs_for_approval_user);
+            grd_searchResult.DataSource = dt_get_common_jobs_for_approval_user;
+            grd_searchResult.DataBind();
+
+
+
+        }
+
+        public void get_another_it_users_job_list(string temp_usr)//Common Jobs For IT Users
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_another_it_users_job_list = conn.CreateCommand();
+            cmd_get_another_it_users_job_list.CommandText = "SELECT R.REQUEST_ID, R.REF_NO, R.REQUEST_USER, R.ASSIGN_USER AS CURRENT_ASSIGNED_USER " + 
+                                                            "FROM WF_IT_REQUEST_REGISTER R WHERE R.STATUS NOT IN ('PENDING-APPROVAL','PENDING-CLARIFICATION','CLOSE-CONFIRM') " +
+                                                            "AND R.ASSIGN_USER = '" + temp_usr + "'";
+
+
+            OracleDataReader odr_get_another_it_users_job_list = cmd_get_another_it_users_job_list.ExecuteReader();
+            DataTable dt_get_another_it_users_job_list = new DataTable();
+
+            dt_get_another_it_users_job_list.Load(odr_get_another_it_users_job_list);
+            grd_searchResult.DataSource = dt_get_another_it_users_job_list;
+            grd_searchResult.DataBind();
+
+        }
+    }
+}

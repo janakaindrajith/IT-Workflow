@@ -1,0 +1,790 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Drawing;
+using System.Text;
+using System.Net;
+using System.DirectoryServices;
+using System.Net.Mail;
+using System.IO;
+using Telerik.Web.UI;
+using System.Web.Configuration;
+using Oracle.DataAccess;
+using Oracle.DataAccess.Client;
+using quickinfo_v2.Connectivity;
+using quickinfo_v2.CommonCLS;
+
+namespace quickinfo_v2.Views.ITWorkflow
+{
+    public partial class HelpDeskDashboard : System.Web.UI.Page
+    {
+        string myConn = ConfigurationManager.ConnectionStrings["ORAWF"].ToString();
+        IT_WrokflowMainClass Main = new IT_WrokflowMainClass();
+        DataTable DtRef;
+        string UserName = "";
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!IsPostBack)
+                {
+                    grdRequest.DataSource = new int[] { };
+                    GrdRequestUserWise.DataSource = new int[] { };
+                    Session["Temp_ActiveUser"] = null;
+
+                    UserName = User.Identity.Name;
+                    if (Left(UserName, 4) == "HNBA")
+                    {
+
+                        UserName = Right(UserName, (UserName.Length) - 5);
+                        Session["USER"] = UserName;
+                        GetUser(UserName.ToString());
+
+                    }
+
+                    /*----------------------Deshapriya---------------------*/
+                    //if(Session["Temp_ActiveUser"]!=null)
+                    //{
+                    //    if(Session["Temp_ActiveUser"]==UserName)
+                    //    {
+                    //        return;
+                    //    }
+                    //    else
+                    //    {
+                    //        UserName = Session["Temp_ActiveUser"].ToString();
+                    //        Session["USER"] = UserName;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    return;
+                    //}
+
+                    //ER-TAKEN
+                    DataTable Reg_ER = Main.SelectJobFromRegister("CASE27", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    grd_er_taken.DataSource = Reg_ER;
+                    grd_er_taken.DataBind();
+
+                    //SR-TAKEN
+                    DataTable Reg_SR = Main.SelectJobFromRegister("CASE26", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    grd_sr_taken.DataSource = Reg_SR;
+                    grd_sr_taken.DataBind();
+
+                    //CR-TAKEN
+                    DataTable Reg_CR = Main.SelectJobFromRegister("CASE28", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    grd_cr_taken.DataSource = Reg_CR;
+                    grd_cr_taken.DataBind();
+
+                    //ALL TAKEN JOBS
+                    DataTable Reg = Main.SelectJobFromRegister("CASE2", "", "", "", System.DateTime.Now);
+                    grdRequest.DataSource = Reg;
+                    grdRequest.DataBind();
+
+                    DataTable RegUser = Main.SelectJobFromRegister("CASE3", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdRequestUserWise.DataSource = RegUser;
+                    GrdRequestUserWise.DataBind();
+
+
+                    DataTable RegUserSysWise = Main.SelectJobFromRegister("CASE12", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdSysWiseAssigned.DataSource = RegUserSysWise;
+                    GrdSysWiseAssigned.DataBind();
+
+                    //PENDING CLARIFICATION COMPLETE - ER
+                    DataTable RegUserPendingClarification_ER = Main.SelectJobFromRegister("CASE21", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdPenClariCom_ER.DataSource = RegUserPendingClarification_ER;
+                    GrdPenClariCom_ER.DataBind();
+
+                    //PENDING CLARIFICATION COMPLETE - SR
+                    DataTable RegUserPendingClarification_SR = Main.SelectJobFromRegister("CASE23", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdPenClariCom_SR.DataSource = RegUserPendingClarification_SR;
+                    GrdPenClariCom_SR.DataBind();
+
+                    //PENDING CLARIFICATION COMPLETE - CR
+                    DataTable RegUserPendingClarification_CR = Main.SelectJobFromRegister("CASE34", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdPenClariCom_CR.DataSource = RegUserPendingClarification_CR;
+                    GrdPenClariCom_CR.DataBind();
+
+                    //REOPEN
+                    DataTable RegUserReopend = Main.SelectJobFromRegister("CASE14", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdReopend.DataSource = RegUserReopend;
+                    GrdReopend.DataBind();
+
+                    //APPROVED - CR
+                    DataTable RegUserApproved = Main.SelectJobFromRegister("CASE36", Session["USER"].ToString(), "", "", System.DateTime.Now);
+                    GrdApprovedJobs.DataSource = RegUserApproved;
+                    GrdApprovedJobs.DataBind();
+
+                    //APPROVED - SR
+                    DataTable RegUserApprovedSR = Main.SelectJobFromRegister("CASE18", "rashan.thanapathi", "", "", System.DateTime.Now);
+                    GrdApprovedSR.DataSource = RegUserApprovedSR;
+                    GrdApprovedSR.DataBind();
+
+
+
+                    //disable_all_grids();//deshapriya
+                    gridviews_validation();//deshapriya
+                }
+                if (IsPostBack)
+                {
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        public DirectoryEntry GetDirectoryObject()
+        {
+            DirectoryEntry oDE;
+            CommonFunctions cmnFunctions = new CommonFunctions();
+            oDE = new DirectoryEntry(cmnFunctions.getADIPAddress(Cache["user_company"].ToString()));
+            return oDE;
+        }
+
+        public DirectoryEntry GetUser(string UserName)
+        {
+            DirectoryEntry de = GetDirectoryObject();
+            DirectorySearcher deSearch = new DirectorySearcher();
+            deSearch.SearchRoot = de;
+
+            deSearch.Filter = "(&(objectClass=user)(SAMAccountName=" + UserName + "))";
+            deSearch.SearchScope = SearchScope.Subtree;
+            SearchResult results = deSearch.FindOne();
+
+
+            if (!(results == null))
+            {
+
+                de = new DirectoryEntry(results.Path);
+                Session["EmployeeID"] = de.Properties["EmployeeID"][0].ToString();
+                Session["DisplayName"] = de.Properties["displayName"][0].ToString();
+                Session["HnbaEmail"] = de.Properties["Mail"][0].ToString();
+                Session["Departmnet"] = de.Properties["Department"].Value.ToString();
+                // Session["Manager"] = de.Properties["Manager"].Value.ToString();
+                Session["Branch"] = de.Properties["postalCode"].Value.ToString();
+                //  Session["Branch"] = "APR";
+
+                return de;
+            }
+            else
+            {
+                Session["EmployeeID"] = "";
+                Session["DisplayName"] = "";
+                Session["HnbaEmail"] = "";
+                Session["Departmnet"] = "";
+                // Session["Manager"] = "";
+                Session["Branch"] = "";
+                return null;
+            }
+        }
+
+        public static string Left(string text, int length)
+        {
+            return text.Substring(0, length);
+        }
+
+        public static string Right(string text, int length)
+        {
+            return text.Substring(text.Length - length, length);
+        }
+
+        public static string Mid(string text, int start, int end)
+        {
+            return text.Substring(start, end);
+        }
+
+        public static string Mid(string text, int start)
+        {
+            return text.Substring(start, text.Length - start);
+        }
+
+        protected void grdRequest_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE2", "", "", "", System.DateTime.Now);
+            grdRequest.DataSource = dt3;
+        }
+
+        protected void grd_er_taken_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE27", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            grd_er_taken.DataSource = dt3;
+        }
+
+        protected void GrdRequestUserWise_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE3", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdRequestUserWise.DataSource = dt3;
+        }
+
+        protected void grdRequest_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+                    //  Main.UpdateAssignUser(ReqID, Session["USER"].ToString());
+
+                    Session["selected_id"] = ReqID;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+
+        }
+
+        protected void GrdRequestUserWise_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void LnkBtnSelect_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Views/ITWorkflow/IT_WF_Dashboard_New.aspx", false);
+        }
+
+        protected void GrdSysWiseAssigned_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE12", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdSysWiseAssigned.DataSource = dt3;
+        }
+
+        protected void GrdSysWiseAssigned_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+                    // Main.UpdateAssignUser(ReqID, Session["USER"].ToString());
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+                }
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdPenClariCom_ER_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE21", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdPenClariCom_ER.DataSource = dt3;
+        }
+
+        protected void GrdPenClariCom_SR_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE23", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdPenClariCom_SR.DataSource = dt3;
+        }
+
+        protected void GrdPenClariCom_CR_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE34", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdPenClariCom_CR.DataSource = dt3;
+        }
+
+        protected void GrdReopend_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE14", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdReopend.DataSource = dt3;
+        }
+
+        protected void GrdPenClariCom_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdPenClariCom_ER_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdPenClariCom_SR_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdPenClariCom_CR_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+
+
+
+
+        protected void GrdReopend_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdApprovedJobs_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+
+            if (e.CommandName == "Select")
+            {
+                GridDataItem dataitem = e.Item as GridDataItem;
+                string ReqID = dataitem["REQUEST_ID"].Text;
+
+                OracleConnection conn = new OracleConnection(myConn);
+                conn.Open();
+
+                try
+                {
+                    OracleCommand cmd_change_management_validation = conn.CreateCommand();
+                    cmd_change_management_validation.CommandText = "SELECT IT.REQUEST_ID, CM.IT_REQUEST_ID, CM.REQUEST_ID, IT.STATUS, IT.JOB_TYPE, IT.SYSTEM_TYPE, CM.STATUS " +
+                                                                    "FROM WF_IT_REQUEST_REGISTER IT, WF_CM_REQUEST_REGISTER CM " +
+                                                                    "WHERE IT.REQUEST_ID = CM.IT_REQUEST_ID AND IT.REQUEST_ID = '" + ReqID + "' AND IT.STATUS = 'APPROVE' ";
+
+                    OracleDataReader odr_get_matching_recored_count = cmd_change_management_validation.ExecuteReader();
+
+                    DataTable dt_records = new DataTable();
+                    dt_records.Load(odr_get_matching_recored_count);
+
+                    if (dt_records.Rows.Count != 0)
+                    {
+                        odr_get_matching_recored_count.Close();
+                        conn.Clone();
+
+                        Response.Redirect("~/Views/ITWorkflow/IT_WF_Dashboard_New.aspx?ecode=e_01", false);
+                    }
+                    else
+                    {
+                        odr_get_matching_recored_count.Close();
+                        conn.Close();
+                        Response.Redirect("~/Views/ChangeManagement/IntimateChange.aspx?ReqID=" + ReqID, false);
+                    }
+                }
+                catch (Exception ex)
+                {                    
+                    throw ex;
+                }
+
+            }
+
+            if (e.CommandName == "SelectID")
+            {
+                GridDataItem dataitem = e.Item as GridDataItem;
+                string ReqID = dataitem["REQUEST_ID"].Text;
+                Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+                OracleConnection conn = new OracleConnection(myConn);
+                conn.Open();
+
+                try
+                {
+                    OracleCommand cmd_change_management_validation = conn.CreateCommand();
+                    cmd_change_management_validation.CommandText = "SELECT IT.REQUEST_ID, CM.IT_REQUEST_ID, CM.REQUEST_ID, IT.STATUS, IT.JOB_TYPE, IT.SYSTEM_TYPE, CM.STATUS " +
+                                                                    "FROM WF_IT_REQUEST_REGISTER IT, WF_CM_REQUEST_REGISTER CM " +
+                                                                    "WHERE IT.REQUEST_ID = CM.IT_REQUEST_ID AND IT.REQUEST_ID = '" + ReqID + "' AND IT.STATUS = 'APPROVE' ";
+
+                    OracleDataReader odr_get_matching_recored_count = cmd_change_management_validation.ExecuteReader();
+
+                    DataTable dt_records = new DataTable();
+                    dt_records.Load(odr_get_matching_recored_count);
+
+                    if (dt_records.Rows.Count != 0)
+                    {
+                        odr_get_matching_recored_count.Close();
+                        conn.Clone();
+
+                        Response.Redirect("~/Views/ITWorkflow/IT_WF_Dashboard_New.aspx?ecode=e_02", false);
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Views/ITWorkflow/IT_WF_Dashboard_New.aspx?ecode=e_03", false);
+                    }
+                }
+                catch (Exception ex)
+                {                    
+                    throw ex;
+                }
+
+            }
+
+        }
+
+        protected void GrdApprovedJobs_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dt3 = Main.SelectJobFromRegister("CASE17", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdApprovedJobs.DataSource = dt3;
+        }
+
+        protected void GrdApprovedSR_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Select")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+
+                if (e.CommandName == "SelectID")
+                {
+                    GridDataItem dataitem = e.Item as GridDataItem;
+                    string ReqID = dataitem["REQUEST_ID"].Text;
+
+                    Response.Redirect("HelpDeskView.aspx?ReqID=" + ReqID, false);
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                lblError.Visible = true;
+                return;
+            }
+        }
+
+        protected void GrdApprovedSR_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt3 = Main.SelectJobFromRegister("CASE18", Session["USER"].ToString(), "", "", System.DateTime.Now);
+            GrdApprovedSR.DataSource = dt3;
+        }
+
+        protected void grdRequest_ItemCreated(object sender, GridItemEventArgs e)
+        {
+
+        }
+
+        private void gridviews_validation()//Grid View Panels Handle
+        {
+            string fullurl = Request.Url.ToString();
+
+
+            if (Session["Temp_ActiveUser"] != null)
+            {
+                string temp_activeUser = Session["Temp_ActiveUser"].ToString();
+
+                if (UserName != temp_activeUser)
+                {
+                    Response.Redirect("~/Views/ITWorkflow/ChangeAssignUsers.aspx", false);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                //return;
+
+                if (fullurl.Contains("PnlH_ID") && fullurl.Contains("PnlB_ID"))
+                {
+                    disable_all_grids_panels();
+                    string req_panel_hid = Request.QueryString["PnlH_ID"].ToString();
+                    string req_panel_bid = Request.QueryString["PnlB_ID"].ToString();
+
+                    string[] pageGrids = { "pnl_all_pendingJobs", "pnlBdy_all_pendingJobs", "pnl_systemWisePendingJobs", "pnlBdy_systemWisePendingJobs", "pnl_jobsTaken", "pnlBdy_jobsTaken", "pnl_reopendJobs", "pnlBdy_reopendJobs", "pnl_approvedJobsCR", "pnlBdy_approvedJobsCR", "pnl_approvedJobsSR", "pnlBdy_approvedJobsSR", "pnl_job_type_wise_sr", "pnlBdy_job_type_wise_sr", "pnl_job_type_wise_cr", "pnlBdy_job_type_wise_cr", "pnl_job_type_wise_er", "pnlBdy_job_type_wise_er", "pnl_pendingClarificationPendingJobs_ER", "pnlBdy_pendingClarificationPendingJobs_ER", "pnl_pendingClarificationPendingJobs_ER", "pnlBdy_pendingClarificationPendingJobs_ER", "pnl_pendingClarificationPendingJobs_ER", "pnlBdy_pendingClarificationPendingJobs_ER", "pnl_pendingClarificationPendingJobs_SR", "pnlBdy_pendingClarificationPendingJobs_SR", "pnl_pendingClarificationPendingJobs_CR", "pnlBdy_pendingClarificationPendingJobs_CR" };
+
+                    foreach (string page_controls in pageGrids)
+                    {
+                        if ((page_controls == req_panel_hid) || page_controls == (req_panel_bid))
+                        {
+                            //GridView myGrid = Master.FindControl("ContentPlaceHolder1").FindControl(page_controls) as GridView;
+                            //myGrid.Visible = true;
+                            Control myDivs = Master.FindControl("ContentPlaceHolder1").FindControl(page_controls) as Control;
+                            myDivs.Visible = true;
+                        }
+                        else
+                        {
+                            //GridView myGrid = Master.FindControl("ContentPlaceHolder1").FindControl(page_controls) as GridView;
+                            //myGrid.Visible = false;
+                            Control myDivs = Master.FindControl("ContentPlaceHolder1").FindControl(page_controls) as Control;
+                            myDivs.Visible = false;
+                        }
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+
+
+        }
+
+        public void disable_all_grids_panels()//Disable Gridview Panel Headers And Body
+        {
+            pnl_all_pendingJobs.Visible = false;
+            pnl_approvedJobsCR.Visible = false;
+            pnl_approvedJobsSR.Visible = false;
+            pnl_jobsTaken.Visible = false;
+            pnl_pendingClarificationPendingJobs_ER.Visible = false;
+            pnl_pendingClarificationPendingJobs_SR.Visible = false;
+            pnl_pendingClarificationPendingJobs_CR.Visible = false;
+            pnl_reopendJobs.Visible = false;
+            pnl_systemWisePendingJobs.Visible = false;
+
+
+            pnlBdy_all_pendingJobs.Visible = false;
+            pnlBdy_approvedJobsCR.Visible = false;
+            pnlBdy_approvedJobsSR.Visible = false;
+            pnlBdy_jobsTaken.Visible = false;
+            pnlBdy_pendingClarificationPendingJobs_CR.Visible = false;
+            pnlBdy_pendingClarificationPendingJobs_ER.Visible = false;
+            pnlBdy_pendingClarificationPendingJobs_SR.Visible = false;
+            pnlBdy_reopendJobs.Visible = false;
+            pnlBdy_systemWisePendingJobs.Visible = false;
+
+        }
+
+        //public void get_clarification_requested_jobs()
+        //{
+        //    OracleConnection conn = new OracleConnection(myConn);
+        //    conn.Open();
+
+        //    OracleCommand cmd_clarification_requested_jobs = conn.CreateCommand();
+        //    cmd_clarification_requested_jobs.CommandText = "SELECT * FROM WF_IT_REQUEST_REGISTER RR WHERE RR.STATUS = 'PENDING-CLARIFICATION' RR.JOB_TYPE = 'ER' AND RR.ASSIGN_USER = '" + Session["USER"].ToString() + "'";
+        //    OracleDataReader odr_clarification_requested_jobs = cmd_clarification_requested_jobs.ExecuteReader();
+
+        //    DataTable dt_clarification_requested_jobs = new DataTable();
+
+        //    dt_clarification_requested_jobs.Load(odr_clarification_requested_jobs);
+        //    grd_clarification_req_ER.DataSource = dt_clarification_requested_jobs;
+        //    grd_clarification_req_ER.DataBind();
+
+        //    conn.Close();
+        //}
+
+    }
+}

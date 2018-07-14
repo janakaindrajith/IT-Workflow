@@ -1,0 +1,119 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.OracleClient;
+using System.Configuration;
+
+namespace quickinfo_v2.Views.ITWorkflow
+{
+    public partial class ChangeAssignUsers : System.Web.UI.Page
+    {
+        string selected_jobID = "";
+        string myConn = ConfigurationManager.ConnectionStrings["ORAWF"].ToString();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if(!IsPostBack)
+            {
+                get_IT_users();
+                txtJobID.Text = "";
+                assignUser_UpdatePanel.Visible = false;
+            }
+        }
+
+        public void get_IT_users()
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_it_users = conn.CreateCommand();
+            cmd_get_it_users.CommandText = "select distinct(u.user_name) from wf_it_ref_users_systemwise u";
+
+            OracleDataReader odr_get_it_users = cmd_get_it_users.ExecuteReader();
+
+            DataTable dt_get_it_users = new DataTable();
+            dt_get_it_users.Load(odr_get_it_users);
+
+            ddl_it_users.DataTextField = "user_name";
+            ddl_it_users.DataValueField = "user_name";
+            ddl_it_users.DataSource = dt_get_it_users;
+
+            ddl_it_users.DataBind();
+            ddl_it_users.Items.Insert(0, new ListItem("--Re Assign User--", "-1"));
+        }
+
+        protected void btn_jobSearch_Click(object sender, EventArgs e)
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            if (txtJobID.Text != "")
+            {
+                string search_job_id = txtJobID.Text.Trim();
+
+                OracleCommand cmd_getJobs = conn.CreateCommand();
+                cmd_getJobs.CommandText = "SELECT R.REQUEST_ID, R.REF_NO, R.REQUEST_USER, R.ASSIGN_USER AS CURRENT_ASSIGNED_USER " +
+                                            "FROM WF_IT_REQUEST_REGISTER R WHERE R.REQUEST_ID = '" + search_job_id + "'";
+
+                OracleDataReader odr_getJobs = cmd_getJobs.ExecuteReader();
+                DataTable dt_searchResult = new DataTable();
+                dt_searchResult.Load(odr_getJobs);
+
+                grd_searchResult.DataSource = dt_searchResult;
+                grd_searchResult.DataBind();
+
+                if(dt_searchResult.Rows.Count > 0)
+                {
+                    assignUser_UpdatePanel.Visible = true;
+                }
+                else
+                {
+                    assignUser_UpdatePanel.Visible = false;
+                }
+
+                
+
+            }
+        }
+
+        protected void grd_searchResult_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            //OracleConnection conn = new OracleConnection(myConn);
+            //conn.Open();
+            if (e.CommandName == "Select")
+            {
+                
+
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                selected_jobID = grd_searchResult.Rows[rowIndex].Cells[1].Text;
+
+                lbl_selected_job_id.Text = selected_jobID;
+                btn_Reassign.Enabled = true;
+                
+            }
+        }
+
+        protected void btn_Reassign_Click(object sender, EventArgs e)
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            if ((ddl_it_users.SelectedIndex != 0) && (selected_jobID != ""))
+            {
+                string newAssignUser = ddl_it_users.SelectedValue.ToString();
+
+                OracleCommand cmd_update_assign_user = conn.CreateCommand();
+                cmd_update_assign_user.CommandText = "UPDATE WF_IT_REQUEST_REGISTER RR SET RR.ASSIGN_USER = '" + newAssignUser + "' WHERE RR.REQUEST_ID = '" + selected_jobID + "'";
+                cmd_update_assign_user.ExecuteNonQuery();
+
+                selected_jobID = "";
+                //btn_Reassign.Enabled = false;
+
+            }
+        }
+    }
+}

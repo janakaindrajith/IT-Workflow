@@ -1,0 +1,78 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ChangeAssignUsers.aspx.cs" Inherits="quickinfo_v2.Views.ITWorkflow.ChangeAssignUsers" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <form id="form1" runat="server">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="well well-lg">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <h4>Job ID:</h4>
+                                </div>
+                                <div class="col-md-7">
+                                    <asp:TextBox runat="server" ID="txtJobID" class="form-control"></asp:TextBox>
+                                </div>
+                                <div class="col-md-1">
+                                    <asp:Button runat="server" Text="Search" class="btn btn-green" ID="btn_jobSearch" OnClick="btn_jobSearch_Click" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:UpdatePanel ID="assignUser_UpdatePanel" runat="server">
+            <ContentTemplate>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <asp:Panel ID="grd_searchResult_Panel" runat="server" Height="300px" Width="95%" ScrollBars="Horizontal">
+                                <asp:GridView ID="grd_searchResult" runat="server" CssClass="table table-bordered table-hover" OnRowCommand="grd_searchResult_RowCommand">
+                                    <Columns>
+                                        <asp:ButtonField CommandName="Select" Text="Select" ButtonType="Link">
+                                            <ControlStyle Height="20px" Width="110px" />
+                                            <ItemStyle Height="20px" Width="20px" />
+                                        </asp:ButtonField>
+                                    </Columns>
+
+                                </asp:GridView>
+                            </asp:Panel>
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="well well-lg">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4>
+                                                <asp:Label ID="lbl_selected_job_id" runat="server" Text="No Jobs Available!"></asp:Label></h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <asp:DropDownList runat="server" ID="ddl_it_users" class="form-control"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="row">&nbsp;</div>
+                                    <div class="row">
+                                        <div class="col-md-7">&nbsp;</div>
+                                        <div class="col-md-1">
+                                            <asp:Button runat="server" Text="Re Assign" class="btn btn-success" ID="btn_Reassign"  OnClick="btn_Reassign_Click" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </form>
+</asp:Content>

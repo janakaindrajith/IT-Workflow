@@ -1,0 +1,169 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.OracleClient;
+using System.Configuration;
+using quickinfo_v2.CommonCLS;
+
+namespace quickinfo_v2.Views.ITWorkflow
+{
+    public partial class IT_WF_Dashboard_New : System.Web.UI.Page
+    {
+        string myConn = ConfigurationManager.ConnectionStrings["ORAWF"].ToString();
+        string not_taken_jobs, er_pending_clarification,er_taken_and_assign, er_reopen,er_clarification_complete, sr_pending_clarification,sr_taken_and_assign, sr_approved, sr_reopend, sr_complete, cr_pending_clarification,cr_taken_and_assign, cr_approved, cr_reopend, cr_complete;
+        string ActiveUser = "";
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            getADUser();
+            get_not_takenJobs_count();
+            get_er_summary();
+            get_sr_summary();
+        }
+
+        public void getADUser()//Get AD Loging Details
+        {
+            CommonFunctions cmnFunctions = new CommonFunctions();
+
+            ActiveUser = Context.User.Identity.Name;//Get AD Name
+
+            if (ActiveUser.Contains("HNBGI"))
+            {
+                ActiveUser = cmnFunctions.Right(ActiveUser, (ActiveUser.Length) - 6);
+            }
+            else
+            {
+                ActiveUser = cmnFunctions.Right(ActiveUser, (ActiveUser.Length) - 5);
+            }
+
+            Session["WF_User"] = ActiveUser;
+        }
+
+        public void get_not_takenJobs_count()//Not Taken Jobs
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_notTakenJobs = conn.CreateCommand();
+            cmd_notTakenJobs.CommandText = "SELECT COUNT(*) AS TOTAL_NOT_TAKEN_JOBS FROM (SELECT RR.* FROM WF_IT_REQUEST_REGISTER RR WHERE RR.STATUS = 'INTIMATE')";
+
+            OracleDataReader odr_notTakenJobs = cmd_notTakenJobs.ExecuteReader();
+            while (odr_notTakenJobs.Read())
+            {
+                not_taken_jobs = odr_notTakenJobs["TOTAL_NOT_TAKEN_JOBS"].ToString();
+            }
+            lbl_count_notTaken_jobs.Text = not_taken_jobs;
+            odr_notTakenJobs.Close();
+            conn.Close();
+        }
+
+        public void get_er_summary()//er summary
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_er_summary = conn.CreateCommand();
+            cmd_get_er_summary.CommandText = "SELECT " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION' then K.REQUEST_ID ELSE null END)AS PENDING_CLARIFICATION, " +
+                                                "COUNT (CASE when K.STATUS ='REOPEN' then K.REQUEST_ID ELSE null END)AS REOPEN, " +
+                                                "COUNT (CASE when K.STATUS ='TAKEN & ASSIGN' then K.REQUEST_ID ELSE null END)AS TAKEN_AND_ASSIGN, " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION-COMPLETE' then K.REQUEST_ID ELSE null END)AS CLARIFICATION_COMPLETE " +
+                                                "FROM( " +
+                                                "SELECT * FROM WF_IT_REQUEST_REGISTER TT " +
+                                                "WHERE TT.STATUS <> 'INTIMATE' AND TT.STATUS <> 'CLOSE-CONFIRM' " +
+                                                "AND TT.JOB_TYPE = 'ER' AND TT.ASSIGN_USER = '" + ActiveUser + "')K ";
+
+            OracleDataReader odr_get_er_summary = cmd_get_er_summary.ExecuteReader();
+
+            while (odr_get_er_summary.Read())
+            {
+                er_pending_clarification = odr_get_er_summary["PENDING_CLARIFICATION"].ToString();
+                er_reopen = odr_get_er_summary["REOPEN"].ToString();
+                er_taken_and_assign = odr_get_er_summary["TAKEN_AND_ASSIGN"].ToString();
+                er_clarification_complete = odr_get_er_summary["CLARIFICATION_COMPLETE"].ToString();
+            }
+
+            lbl_er_pending_clarification.Text = er_pending_clarification;
+            lbl_er_reopen.Text = er_reopen;
+            lbl_er_taken_and_assign.Text = er_taken_and_assign;
+            lbl_er_clarification_complete.Text = er_clarification_complete;
+        }
+
+        public void get_sr_summary()//sr summary
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_sr_summary = conn.CreateCommand();
+            cmd_get_sr_summary.CommandText = "SELECT " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION' then K.REQUEST_ID ELSE null END)AS PENDING_CLARIFICATION, " +
+                                                "COUNT (CASE when K.STATUS ='APPROVE' then K.REQUEST_ID ELSE null END)AS APPROVED, " +
+                                                "COUNT (CASE when K.STATUS ='REOPEN' then K.REQUEST_ID ELSE null END)AS REOPEN, " +
+                                                "COUNT (CASE when K.STATUS ='COMPLETE' then K.REQUEST_ID ELSE null END)AS COMPLETE, " +
+                                                "COUNT (CASE when K.STATUS ='TAKEN & ASSIGN' then K.REQUEST_ID ELSE null END)AS TAKEN_AND_ASSIGN " +
+                                                "FROM( " +
+                                                "SELECT * FROM WF_IT_REQUEST_REGISTER TT  " +
+                                                "WHERE TT.STATUS <> 'INTIMATE' AND TT.STATUS <> 'CLOSE-CONFIRM'  " +
+                                                "AND TT.JOB_TYPE = 'SR' AND TT.ASSIGN_USER = '" + ActiveUser + "')K ";
+
+            OracleDataReader odr_get_sr_summary = cmd_get_sr_summary.ExecuteReader();
+
+            while (odr_get_sr_summary.Read())
+            {
+                sr_pending_clarification = odr_get_sr_summary["PENDING_CLARIFICATION"].ToString();
+                sr_approved = odr_get_sr_summary["APPROVED"].ToString();
+                sr_reopend = odr_get_sr_summary["REOPEN"].ToString();
+                sr_complete = odr_get_sr_summary["COMPLETE"].ToString();
+                sr_taken_and_assign = odr_get_sr_summary["TAKEN_AND_ASSIGN"].ToString();
+            }
+
+            lbl_sr_pending_clarification.Text = sr_pending_clarification;
+            lbl_sr_taken_and_assign.Text = sr_taken_and_assign;
+            lbl_sr_approved.Text = sr_approved;
+            lbl_sr_reopend.Text = sr_reopend;            
+            lbl_sr_complete.Text = sr_complete;
+
+        }
+
+        public void get_cr_summary()//cr summary
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_cr_summary = conn.CreateCommand();
+            cmd_get_cr_summary.CommandText = "SELECT " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION' then K.REQUEST_ID ELSE null END)AS PENDING_CLARIFICATION, " +
+                                                "COUNT (CASE when K.STATUS ='TAKEN & ASSIGN' then K.REQUEST_ID ELSE null END)AS TAKEN_AND_ASSIGN " +
+                                                "COUNT (CASE when K.STATUS ='APPROVE' then K.REQUEST_ID ELSE null END)AS APPROVED, " +
+                                                "COUNT (CASE when K.STATUS ='REOPEN' then K.REQUEST_ID ELSE null END)AS REOPEN, " +
+                                                "COUNT (CASE when K.STATUS ='COMPLETE' then K.REQUEST_ID ELSE null END)AS COMPLETE " +
+                                                "FROM( " +
+                                                "SELECT * FROM WF_IT_REQUEST_REGISTER TT  " +
+                                                "WHERE TT.STATUS <> 'INTIMATE' AND TT.STATUS <> 'CLOSE-CONFIRM'  " +
+                                                "AND TT.JOB_TYPE = 'CR' AND TT.ASSIGN_USER = '" + ActiveUser + "')K ";
+
+            OracleDataReader odr_get_cr_summary = cmd_get_cr_summary.ExecuteReader();
+
+            while (odr_get_cr_summary.Read())
+            {
+                cr_pending_clarification = odr_get_cr_summary["PENDING_CLARIFICATION"].ToString();
+                cr_approved = odr_get_cr_summary["APPROVED"].ToString();
+                cr_reopend = odr_get_cr_summary["REOPEN"].ToString();
+                cr_complete = odr_get_cr_summary["COMPLETE"].ToString();
+                cr_taken_and_assign = odr_get_cr_summary[""].ToString();
+            }
+
+            lbl_cr_pending_clarification.Text = cr_pending_clarification;
+            lbl_cr_taken_and_assign.Text = cr_taken_and_assign;
+            lbl_cr_approved.Text = cr_approved;
+            lbl_cr_reopend.Text = cr_reopend;
+            lbl_cr_complete.Text = cr_complete;
+
+        }
+
+    }
+}

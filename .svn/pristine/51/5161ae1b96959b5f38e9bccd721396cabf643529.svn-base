@@ -1,0 +1,415 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.OracleClient;
+using System.Configuration;
+using System.Web.Configuration;
+using quickinfo_v2.Connectivity;
+using quickinfo_v2.CommonCLS;
+using System.DirectoryServices;
+using System.Threading;
+
+namespace quickinfo_v2.Views.ITWorkflow
+{
+    public partial class ChangeAssignUsers : System.Web.UI.Page
+    {
+        string selected_jobID = "";
+        string user_type = "";
+        string user_department = "";
+        bool manual_search = false;
+        string sql_where = "";
+
+
+        string ActiveUser = "";//AD
+        string temp_ActiveUser = "";//Selected User
+        string Company = "";
+        string userDepartment = "";
+        string UserRoleCode = "";
+        string userType = "";
+
+        string myConn = ConfigurationManager.ConnectionStrings["ORAWF"].ToString();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if(!IsPostBack)
+            {
+
+                if ((Session["Temp_ActiveUser"] != null)&&(Session["Temp_ActiveUser"] != ""))//All Users
+                {
+                    selected_jobID = Request.QueryString["ReqID"];//If it is IT Request, job id must available
+                    setActiveUserType(Session["Temp_ActiveUser"].ToString());
+
+                    if(Session["UserType"]==null)
+                    {
+                        return;
+                    }
+
+                    if ((Request.QueryString["ReqID"] == null) && (Session["UserType"].ToString() == "Approval_User") && ((Session["UserType"].ToString() != "NON_IT_User")))
+                    {
+                        //Approval User ReAssign Request
+                        sql_where = "APPROVAL";//where clause for 'Reassign Users' function 
+                        get_reAssign_Users();
+                        get_common_jobs_for_approval_user();
+                    }
+                    else
+                    {
+                        //IT Users ReAssign Request
+                        sql_where = "HELP_DESK','IN_HOUSE_DEV";//where clause for 'Reassign Users' function
+                        get_reAssign_Users();
+                        txtJobID.Text = selected_jobID;
+                        btn_jobSearch_Click(sender, null);
+                    }
+
+                }
+            }
+            else
+            {
+                getADUser();
+                setActiveUserType(ActiveUser);
+                //getActiveUser_Department(ActiveUser);
+
+                if (userType == "IT_User")
+                {
+                    //IT Users ReAssign Request
+                    sql_where = "HELP_DESK','IN_HOUSE_DEV";//where clause for 'Reassign Users' function
+                   // get_reAssign_Users();
+                }
+                else if (userType == "Approval_User")
+                {
+                    sql_where = "APPROVAL";//where clause for 'Reassign Users' function 
+                    //get_reAssign_Users();
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+        public void get_reAssign_Users()
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_it_users = conn.CreateCommand();
+            cmd_get_it_users.CommandText = "select t.user_name, t.full_name from wf_it_ref_handled_users t where t.user_type in ('" + sql_where + "')";//"select distinct(u.user_name) from wf_it_ref_users_systemwise u";
+
+            OracleDataReader odr_get_it_users = cmd_get_it_users.ExecuteReader();
+
+            DataTable dt_get_it_users = new DataTable();
+            dt_get_it_users.Load(odr_get_it_users);
+
+            ddl_it_users.DataTextField = "full_name";
+            ddl_it_users.DataValueField = "user_name";
+            ddl_it_users.DataSource = dt_get_it_users;
+
+            ddl_it_users.DataBind();
+            ddl_it_users.Items.Insert(0, new ListItem("--Re Assign User--", "-1"));
+        }
+
+        protected void btn_jobSearch_Click(object sender, EventArgs e)
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            if (txtJobID.Text != "")
+            {
+                string search_job_id = txtJobID.Text.Trim();
+
+                OracleCommand cmd_getJobs = conn.CreateCommand();
+                cmd_getJobs.CommandText = "SELECT R.REQUEST_ID, R.REF_NO, R.REQUEST_USER, R.ASSIGN_USER AS CURRENT_ASSIGNED_USER " +
+                                            "FROM WF_IT_REQUEST_REGISTER R WHERE R.REQUEST_ID = '" + search_job_id + "'";
+
+                OracleDataReader odr_getJobs = cmd_getJobs.ExecuteReader();
+                DataTable dt_searchResult = new DataTable();
+                dt_searchResult.Load(odr_getJobs);
+
+                grd_searchResult.DataSource = dt_searchResult;
+                grd_searchResult.DataBind();                
+
+            }
+        }
+
+        protected void grd_searchResult_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            //OracleConnection conn = new OracleConnection(myConn);
+            //conn.Open();
+            if (e.CommandName == "Select")
+            {
+                
+
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                selected_jobID = grd_searchResult.Rows[rowIndex].Cells[1].Text;
+
+                lbl_selected_job_id.Text = selected_jobID;
+                btn_Reassign.Enabled = true;
+                
+            }
+        }
+
+        protected void btn_Reassign_Click(object sender, EventArgs e)
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            try
+            {
+                string tst = ddl_it_users.SelectedIndex.ToString();
+                if ((ddl_it_users.SelectedIndex != 0) && (lbl_selected_job_id.Text != "") && (lbl_selected_job_id.Text != "No Jobs Available!"))
+                {
+                    string newAssignUser = ddl_it_users.SelectedValue.ToString();
+                    selected_jobID = lbl_selected_job_id.Text;
+
+
+                    //Update Request Register
+
+                    if (Session["Temp_ActiveUser"] != null)
+                    {
+                        OracleCommand cmd_update_assign_user = conn.CreateCommand();
+                        cmd_update_assign_user.CommandText = "UPDATE WF_IT_REQUEST_REGISTER RR SET RR.ASSIGN_USER = '" + newAssignUser + "' WHERE RR.REQUEST_ID = '" + selected_jobID + "'";
+                        cmd_update_assign_user.ExecuteNonQuery();
+
+                    }
+                    else
+                    {
+                        OracleCommand cmd_update_assign_user = conn.CreateCommand();
+                        cmd_update_assign_user.CommandText = "UPDATE WF_IT_REQUEST_REGISTER RR SET RR.JOB_HANDLED_BY = '" + newAssignUser + "' WHERE RR.REQUEST_ID = '" + selected_jobID + "'";
+                        cmd_update_assign_user.ExecuteNonQuery();
+                    }
+
+
+
+                    //Insert Record To Events Table
+
+                    OracleCommand cmd_insert_event_record = conn.CreateCommand();
+                    cmd_insert_event_record.CommandText = "INSERT INTO WF_IT_EVENTS E (EVENT_DATE,JOB_NO,STATUS,USER_NAME,REMARKS_UNIT,REMARKS_BRANCH)VALUES " +
+                                                          "(sysdate,'" + selected_jobID + "','PENDING-APPROVAL','" + Session["WF_User"].ToString() + "','Job Handle By Changed','')";
+
+                    cmd_insert_event_record.ExecuteNonQuery();
+
+                    lbl_result.Text = "Re Assign Successfull!";
+                    conn.Close();
+
+                    selected_jobID = "";
+                    lbl_selected_job_id.Text = "";
+
+                    Thread.Sleep(3000);
+                    
+                    Session["Temp_ActiveUser"] = null;
+                    Response.Redirect("~/Views/ITWorkflow/IT_WF_Dashboard_New.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                lbl_result.Text = "Re Assign Fail!";
+                throw ex;
+            }
+            finally
+            {
+                if(conn.State!=null)
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public void get_common_jobs_for_approval_user()//Common Jobs For Approval Users
+        {
+            if(user_department == "")
+            {
+                user_department = Session["User_Department"].ToString();
+            }
+            
+
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_common_jobs_for_approval_user = conn.CreateCommand();
+            cmd_get_common_jobs_for_approval_user.CommandText = "SELECT R.REQUEST_ID, R.REF_NO, R.REQUEST_USER, R.ASSIGN_USER AS CURRENT_ASSIGNED_USER " +
+                                                                "FROM WF_IT_REQUEST_REGISTER R WHERE R.STATUS = 'PENDING-APPROVAL' AND R.REQUEST_USER_DEPT = '" + user_department + "'";
+            OracleDataReader odr_get_common_jobs_for_approval_user = cmd_get_common_jobs_for_approval_user.ExecuteReader();
+            DataTable dt_get_common_jobs_for_approval_user = new DataTable();
+
+            dt_get_common_jobs_for_approval_user.Load(odr_get_common_jobs_for_approval_user);
+            grd_searchResult.DataSource = dt_get_common_jobs_for_approval_user;
+            grd_searchResult.DataBind();
+
+
+
+        }
+
+        public void get_another_it_users_job_list(string temp_usr)//Common Jobs For IT Users
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_another_it_users_job_list = conn.CreateCommand();
+            cmd_get_another_it_users_job_list.CommandText = "SELECT R.REQUEST_ID, R.REF_NO, R.REQUEST_USER, R.ASSIGN_USER AS CURRENT_ASSIGNED_USER " + 
+                                                            "FROM WF_IT_REQUEST_REGISTER R WHERE R.STATUS NOT IN ('PENDING-APPROVAL','PENDING-CLARIFICATION','CLOSE-CONFIRM') " +
+                                                            "AND R.ASSIGN_USER = '" + temp_usr + "'";
+
+
+            OracleDataReader odr_get_another_it_users_job_list = cmd_get_another_it_users_job_list.ExecuteReader();
+            DataTable dt_get_another_it_users_job_list = new DataTable();
+
+            dt_get_another_it_users_job_list.Load(odr_get_another_it_users_job_list);
+            grd_searchResult.DataSource = dt_get_another_it_users_job_list;
+            grd_searchResult.DataBind();
+
+        }
+
+        public void getADUser()//Get AD Loging Details
+        {
+            CommonFunctions cmnFunctions = new CommonFunctions();
+
+            ActiveUser = Context.User.Identity.Name;//Get AD Name
+
+            if (ActiveUser.Contains("HNBGI"))
+            {
+                ActiveUser = cmnFunctions.Right(ActiveUser, (ActiveUser.Length) - 6);
+                Company = "GENERAL";
+            }
+            else
+            {
+                ActiveUser = cmnFunctions.Right(ActiveUser, (ActiveUser.Length) - 5);
+                Company = "LIFE";
+            }
+
+            Session["WF_User"] = ActiveUser;
+            Session["Temp_ActiveUser"] = ActiveUser;
+            temp_ActiveUser = Session["Temp_ActiveUser"].ToString();
+        }
+
+        private void getActiveUser_Department(string usr)//Get Acetive User's Department
+        {
+            CommonFunctions clsCom = new CommonFunctions();
+            String LDAP = clsCom.getADIPAddress(Company);
+
+            System.DirectoryServices.DirectoryEntry dirEntry;
+            System.DirectoryServices.DirectorySearcher dirSearcher;
+            dirEntry = new System.DirectoryServices.DirectoryEntry(LDAP);
+
+            dirSearcher = new System.DirectoryServices.DirectorySearcher(Company);
+            dirSearcher.Filter = "(&(objectClass=user)(SAMAccountName=" + usr + "))";
+
+
+            SearchResult sr = dirSearcher.FindOne();
+
+            System.DirectoryServices.DirectoryEntry de = sr.GetDirectoryEntry();
+
+            if (sr == null)
+            {
+                return;
+            }
+            else
+            {
+                userDepartment = de.Properties["Department"].Value.ToString();
+                Session["User_Department"] = userDepartment;
+            }
+        }
+
+        public void setActiveUserType(string usr)//SET Active User Type (IT /NON IT/ APPROVAL)
+        {
+            if (ActiveUser == "")
+            {
+                ActiveUser = Session["WF_User"].ToString();
+            }
+
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+            try
+            {
+                int IT_UserRoleCode_Count = 0;
+                int Non_IT_UserRoleCode_Count = 0;
+                int Approval_UserRoleCode_Count = 0;
+
+                OracleCommand cmd_get_roleID = conn.CreateCommand();
+                cmd_get_roleID.CommandText = "SELECT DISTINCT(R.USER_ROLE_NAME) FROM WF_ADMIN_USER_ROLES R INNER JOIN WF_ADMIN_USERS U ON U.USER_ROLE_CODE = R.USER_ROLE_CODE " +
+                                                "WHERE U.USER_CODE = '" + usr + "'";
+
+                OracleDataReader odr_get_role_id = cmd_get_roleID.ExecuteReader();
+                while (odr_get_role_id.Read())
+                {
+                    UserRoleCode = odr_get_role_id[0].ToString();
+                }
+
+
+                //----------------------------IT Users---------------------------//
+                string active_user_roles_IT = WebConfigurationManager.AppSettings["IT_UserRoleCode"].ToString();
+                string[] tokens_IT = active_user_roles_IT.Split(',');
+
+                foreach (string t in tokens_IT)
+                {
+                    if (UserRoleCode == t)
+                    {
+                        IT_UserRoleCode_Count++;
+                    }
+                }
+
+                //---------------------------NON_IT_Users----------------------------------------------//
+
+                string active_user_roles_Non_IT = WebConfigurationManager.AppSettings["Non_IT_UserRoleCode"].ToString();
+                string[] tokens_NON_IT = active_user_roles_Non_IT.Split(',');
+
+                foreach (string t in tokens_NON_IT)
+                {
+                    if (UserRoleCode == t)
+                    {
+                        Non_IT_UserRoleCode_Count++;
+                    }
+                }
+
+                //----------------------------Approval_Users-------------------------------------------//
+
+
+                string active_user_roles_Approval = WebConfigurationManager.AppSettings["Approval_UserRoleCode"].ToString();
+                string[] tokens_Approval = active_user_roles_Approval.Split(',');
+
+                foreach (string t in tokens_Approval)
+                {
+                    if (UserRoleCode == t)
+                    {
+                        Approval_UserRoleCode_Count++;
+                    }
+                }
+
+                if ((IT_UserRoleCode_Count != 0) || (IT_UserRoleCode_Count > 1))
+                {
+                    userType = "IT_User";
+                    Session["UserType"] = userType;
+                }
+                if ((Non_IT_UserRoleCode_Count != 0) || (Non_IT_UserRoleCode_Count > 1))
+                {
+                    userType = "NON_IT_User";
+                    Session["UserType"] = userType;
+                }
+                if ((Approval_UserRoleCode_Count != 0) || (Approval_UserRoleCode_Count > 1))
+                {
+                    userType = "Approval_User";
+                    Session["UserType"] = userType;
+                }
+                if (Approval_UserRoleCode_Count == 0)
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+        }
+    }
+}

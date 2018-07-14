@@ -1,0 +1,618 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.OracleClient;
+using System.Configuration;
+using quickinfo_v2.CommonCLS;
+
+namespace quickinfo_v2.Views.ITWorkflow
+{
+    public partial class IT_Workflow_Dashboard : System.Web.UI.Page
+    {
+        string myConn = ConfigurationManager.ConnectionStrings["ORAWF"].ToString();
+        public string main_sql_where = "";
+        public bool is_it_user = false;
+
+        public string usr_type_for_sqlWhere = "";
+        public string status_type_for_sqlWhere = "";
+        public string req_date_for_sqlWhere = "";
+        //string UserName = "";
+
+
+
+        string Active_User = "";
+        private string fromDate = "";
+        private string toDate = "";
+        string firstDate_OfMonth = "";
+        private string current_date = System.DateTime.Now.ToShortDateString();
+        string sub_date = "";
+        string sub_monthYear = "";
+
+        protected void Page_Load(object sender, EventArgs e)//Page Load Events
+        {
+            if (!IsPostBack)
+            {
+                txtToDate.Attributes.Add("readonly", "readonly");
+                txtFromDate.Attributes.Add("readonly", "readonly");
+
+
+                sub_date = current_date.Substring(0, 2);
+                sub_monthYear = current_date.Substring(2, 8);
+                firstDate_OfMonth = "01" + sub_monthYear;
+
+                fromDate = firstDate_OfMonth;
+                toDate = current_date;
+
+                DateTime from_d = Convert.ToDateTime(fromDate);
+                DateTime to_d = Convert.ToDateTime(toDate);
+                
+                getUser();//Get Current User AD Name
+
+                is_it_user = get_IT_Users(Session["WF_User"].ToString());
+
+                User_Filters(firstDate_OfMonth, current_date);
+
+                get_ER_CR_SR_Count();
+
+                get_status_summary();
+                //get_summary("Normal", true, true, fromDate, toDate, firstDate_OfMonth);                
+
+                get_status_summary();
+            }
+            else
+            {
+                txtToDate.Attributes.Add("readonly", "readonly");
+                txtFromDate.Attributes.Add("readonly", "readonly");
+
+                fromDate = txtFromDate.Text;
+                toDate = txtToDate.Text;
+
+                getUser();//Get Current User AD Name
+
+                is_it_user = get_IT_Users(Session["WF_User"].ToString());
+
+                User_Filters(fromDate, toDate);
+
+                get_ER_CR_SR_Count();
+
+                get_status_summary();
+            }
+        }
+
+
+
+
+
+
+        private void User_Filters(string f_date, string t_date)
+        {
+            if (is_it_user == true)//IT User
+            {
+                usr_type_for_sqlWhere = "RR.REQUEST_USER";//"RR.ASSIGN_USER";
+                status_type_for_sqlWhere = "RR.STATUS <> 'CLOSE'";
+                req_date_for_sqlWhere = "TRUNC(RR.REQUEST_DATE) BETWEEN TO_DATE('" + f_date + "', 'DD/MM/RRRR') AND TO_DATE('"+ toDate +"','DD/MM/RRRR')";
+            }
+            else//Request User
+            {
+                usr_type_for_sqlWhere = "RR.REQUEST_USER";
+                status_type_for_sqlWhere = "RR.STATUS <> 'CLOSE-CONFIRM'";
+                req_date_for_sqlWhere = "TRUNC(RR.REQUEST_DATE) BETWEEN TO_DATE('" + f_date + "', 'DD/MM/RRRR') AND TO_DATE('"+ toDate +"','DD/MM/RRRR')";
+            }
+        }
+
+        public void getUser()//Get AD Loging Details
+        {
+            CommonFunctions cmnFunctions = new CommonFunctions();
+            Active_User = Context.User.Identity.Name;//Get AD Name
+
+            if (Active_User.Contains("HNBGI"))
+            {
+                Active_User = cmnFunctions.Right(Active_User, (Active_User.Length) - 6);
+            }
+            else
+            {
+                Active_User = cmnFunctions.Right(Active_User, (Active_User.Length) - 5);
+            }
+
+            Session["WF_User"] = Active_User;
+        }
+
+        public bool get_IT_Users(string usr)//Get IT Users need to put inside common cls
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            bool is_it_user = false;
+
+            OracleCommand cmd_get_it_users = conn.CreateCommand();
+            cmd_get_it_users.CommandText = "SELECT DISTINCT(UU.USER_NAME) FROM WF_IT_REF_USERS_SYSTEMWISE UU ";
+
+
+            OracleDataReader odr_get_it_users = cmd_get_it_users.ExecuteReader();
+
+            DataTable dt_it_users = new DataTable();
+
+            dt_it_users.Load(odr_get_it_users);
+
+            if(dt_it_users.Rows.Count > 0)
+            {
+                string it_user = Session["WF_User"].ToString();
+                string dt_where = "user_name='" + it_user + "'";
+
+                DataRow[] dr = dt_it_users.Select(dt_where);//("user_name='deshapriya.sooriya'");
+
+                if (dr.Length > 0)
+                {
+                    string avalue = dr[0]["user_name"].ToString();
+
+                    is_it_user = true;
+                }
+
+                return is_it_user;
+            }
+
+
+            odr_get_it_users.Close();
+            conn.Close();
+
+            return is_it_user;
+        }
+
+        public void get_ER_CR_SR_Count()
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            int count_SR = 0;
+            int count_ER = 0;
+            int count_CR = 0;
+
+
+            OracleCommand cmd_get_er_cr_sr_count = conn.CreateCommand();
+            cmd_get_er_cr_sr_count.CommandText = "SELECT " +
+                                                    "COUNT (CASE WHEN K.JOB_TYPE ='SR' THEN K.REQUEST_ID ELSE NULL END) AS SR, " +
+                                                    "COUNT (CASE WHEN K.JOB_TYPE ='ER' THEN K.REQUEST_ID ELSE NULL END) AS ER, " +
+                                                    "COUNT (CASE WHEN K.JOB_TYPE ='CR' THEN K.REQUEST_ID ELSE NULL END) AS CR " +
+                                                    "FROM ( " +
+                                                    "SELECT RR.JOB_TYPE,RR.REQUEST_ID FROM WF_IT_REQUEST_REGISTER RR WHERE " + 
+                                                    req_date_for_sqlWhere + " AND " + status_type_for_sqlWhere + " AND " +
+                                                    usr_type_for_sqlWhere + " = '" + Active_User + "')K";
+
+            OracleDataReader odr_get_er_cr_sr_count = cmd_get_er_cr_sr_count.ExecuteReader();
+
+            while(odr_get_er_cr_sr_count.Read())
+            {
+                count_SR = int.Parse(odr_get_er_cr_sr_count["SR"].ToString());
+                count_CR = int.Parse(odr_get_er_cr_sr_count["CR"].ToString());
+                count_ER = int.Parse(odr_get_er_cr_sr_count["ER"].ToString());
+            }
+
+            lbl_count_cr.Text = count_CR.ToString();
+            lbl_count_er.Text = count_ER.ToString();
+            lbl_count_sr.Text = count_SR.ToString();
+        }
+
+        public void get_status_summary()
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_status_summary = conn.CreateCommand();
+            cmd_get_status_summary.CommandText =    "SELECT " +
+                                                    "COUNT (*) ALL_RECS, " +
+                                                    "COUNT (CASE WHEN K.STATUS ='INTIMATE' THEN K.REQUEST_ID ELSE NULL END) AS INTIMATE, " +
+                                                    "COUNT (CASE WHEN K.STATUS ='APPROVE' THEN K.REQUEST_ID ELSE NULL END) AS APPROVE, " +
+                                                    "COUNT (CASE WHEN K.STATUS ='TAKEN & ASSIGN' THEN K.REQUEST_ID ELSE NULL END) AS TAKEN_AND_ASSIGN, " +
+                                                    "COUNT (CASE WHEN K.STATUS ='CLOSE' THEN K.REQUEST_ID ELSE NULL END) AS CLOSE, " +
+                                                    "COUNT (CASE WHEN K.STATUS ='REOPEN' THEN K.REQUEST_ID ELSE NULL END) AS REOPEN, " +
+                                                    "COUNT (CASE WHEN K.STATUS ='PENDING-APPROVAL' THEN K.REQUEST_ID ELSE NULL END) AS PENDING_APPROVAL, " +
+                                                    "COUNT (CASE WHEN K.STATUS ='RETURN' THEN K.REQUEST_ID ELSE NULL END) AS RETURN, " +
+                                                    "COUNT (CASE WHEN K.STATUS ='PENDING-CLARIFICATION-COMPLETE' THEN K.REQUEST_ID ELSE NULL END) AS PENDING_CLARIFICATION_COMPLETE, " +
+                                                    "COUNT (CASE WHEN K.STATUS ='PENDING-CLARIFICATION' THEN K.REQUEST_ID ELSE NULL END) AS PENDING_CLARIFICATION " +
+                                                    "FROM(SELECT * FROM WF_IT_REQUEST_REGISTER RR WHERE " + usr_type_for_sqlWhere + " = '" + Active_User + "' AND " + req_date_for_sqlWhere + ")K"; ;
+
+
+            OracleDataReader odr_getSummary = cmd_get_status_summary.ExecuteReader();
+
+            string INTIMATE = "";
+            string APPROVE = "";
+            string PENDING_TAKEN = "";
+            string CLOSE = "";
+            string REOPEN = "";
+            string PENDING_APPROVAL = "";
+            string RETURN = "";
+            string PENDING_CLARIFICATION_COMPLETE = "";
+            string PENDING_CLARIFICATION = "";
+            string ALL_RECS = "";
+
+
+            while (odr_getSummary.Read())
+            {
+                INTIMATE = odr_getSummary["INTIMATE"].ToString();
+                APPROVE = odr_getSummary["APPROVE"].ToString();
+                PENDING_TAKEN = odr_getSummary["TAKEN_AND_ASSIGN"].ToString();
+                CLOSE = odr_getSummary["CLOSE"].ToString();
+                REOPEN = odr_getSummary["REOPEN"].ToString();
+                PENDING_APPROVAL = odr_getSummary["PENDING_APPROVAL"].ToString();
+                RETURN = odr_getSummary["RETURN"].ToString();
+                PENDING_CLARIFICATION_COMPLETE = odr_getSummary["PENDING_CLARIFICATION_COMPLETE"].ToString();
+                PENDING_CLARIFICATION = odr_getSummary["PENDING_CLARIFICATION"].ToString();
+                ALL_RECS = odr_getSummary["ALL_RECS"].ToString();
+            }
+
+            lbl_INTIMATE_SUM.Text = INTIMATE;
+            lbl_APPROVE_SUM.Text = APPROVE;
+            lbl_PENDING_TAKEN_SUM.Text = PENDING_TAKEN;
+            lbl_CLOSE_SUM.Text = CLOSE;
+            lbl_REOPEN_SUM.Text = REOPEN;
+            lbl_PENDING_APPROVAL_SUM.Text = PENDING_APPROVAL;
+            lbl_RETURN_SUM.Text = RETURN;
+            lbl_CLARIFICATION_SUM.Text = PENDING_CLARIFICATION;
+            lbl_CLARIFICATION_COMPLETE_SUM.Text = PENDING_CLARIFICATION_COMPLETE;
+            lbl_All_RECS_SUM.Text = ALL_RECS;
+
+            lbl_FromDate.Text = fromDate;
+            lbl_ToDate.Text = toDate;
+
+            odr_getSummary.Close();
+            conn.Close();
+        }
+
+
+
+
+
+        public void get_summary(string userType, bool isFirstTime, bool status_All, string frm_Date, string t_Date, string first_Date)//Get Summary For Specific User With Date Range
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            string get_summary_where = "";
+
+            if(userType == "SUPER_USER")
+            {
+
+            }
+            else
+            {
+                if((status_All == true)&&(isFirstTime == true))
+                {
+                    get_summary_where = "WHERE RR.request_user = '" + Active_User + "' AND 1=1 AND " +
+                                        "TRUNC(RR.REQUEST_DATE) BETWEEN TO_DATE('" + first_Date + "', 'DD/MM/RRRR') AND TO_DATE(SYSDATE,'DD/MM/RRRR') " +
+                                        "order by RR.REQUEST_DATE DESC)K ";
+
+                    lbl_FromDate.Text = first_Date;
+                    lbl_ToDate.Text = toDate;
+                }
+                else
+                {
+                    get_summary_where = "WHERE RR.request_user = '" + Active_User + "' AND 1=1 AND " +
+                                        "TRUNC(RR.REQUEST_DATE) BETWEEN TO_DATE('" + frm_Date + "', 'DD/MM/RRRR') AND TO_DATE('"+ toDate +"','DD/MM/RRRR') " +
+                                        "order by RR.REQUEST_DATE DESC)K ";
+
+                    lbl_FromDate.Text = fromDate;
+                    lbl_ToDate.Text = toDate;
+                }
+                
+            }
+
+
+            
+            OracleCommand cmd_getSummary = conn.CreateCommand();
+            cmd_getSummary.CommandText = "SELECT " +
+                                            "COUNT (*) ALL_RECS, " +
+                                            "COUNT (CASE WHEN K.STATUS ='INTIMATE' THEN K.REQUEST_ID ELSE NULL END) AS INTIMATE, " +
+                                            "COUNT (CASE WHEN K.STATUS ='APPROVE' THEN K.REQUEST_ID ELSE NULL END) AS APPROVE, " +
+                                            "COUNT (CASE WHEN K.STATUS ='PENDING - TAKEN' THEN K.REQUEST_ID ELSE NULL END) AS PENDING_TAKEN, " +
+                                            "COUNT (CASE WHEN K.STATUS ='CLOSE' THEN K.REQUEST_ID ELSE NULL END) AS CLOSE, " +
+                                            "COUNT (CASE WHEN K.STATUS ='REOPEN' THEN K.REQUEST_ID ELSE NULL END) AS REOPEN, " +
+                                            "COUNT (CASE WHEN K.STATUS ='PENDING-APPROVAL' THEN K.REQUEST_ID ELSE NULL END) AS PENDING_APPROVAL, " +
+                                            "COUNT (CASE WHEN K.STATUS ='RETURN' THEN K.REQUEST_ID ELSE NULL END) AS RETURN, " +
+                                            "COUNT (CASE WHEN K.STATUS ='PENDING-CLARIFICATION-COMPLETE' THEN K.REQUEST_ID ELSE NULL END) AS PENDING_CLARIFICATION_COMPLETE, " +
+                                            "COUNT (CASE WHEN K.STATUS ='PENDING-CLARIFICATION' THEN K.REQUEST_ID ELSE NULL END) AS PENDING_CLARIFICATION " +
+                                            "FROM(SELECT * FROM WF_IT_REQUEST_REGISTER RR " + get_summary_where;
+
+            OracleDataReader odr_getSummary = cmd_getSummary.ExecuteReader();
+
+            string INTIMATE = "";
+            string APPROVE = "";
+            string PENDING_TAKEN = "";
+            string CLOSE = "";
+            string REOPEN = "";
+            string PENDING_APPROVAL = "";
+            string RETURN = "";
+            string PENDING_CLARIFICATION_COMPLETE = "";
+            string PENDING_CLARIFICATION = "";
+            string ALL_RECS = "";
+
+
+            while (odr_getSummary.Read())
+            {
+                INTIMATE = odr_getSummary["INTIMATE"].ToString();
+                APPROVE = odr_getSummary["APPROVE"].ToString();
+                PENDING_TAKEN = odr_getSummary["PENDING_TAKEN"].ToString();
+                CLOSE = odr_getSummary["CLOSE"].ToString();
+                REOPEN = odr_getSummary["REOPEN"].ToString();
+                PENDING_APPROVAL = odr_getSummary["PENDING_APPROVAL"].ToString();
+                RETURN = odr_getSummary["RETURN"].ToString();
+                PENDING_CLARIFICATION_COMPLETE = odr_getSummary["PENDING_CLARIFICATION_COMPLETE"].ToString();
+                PENDING_CLARIFICATION = odr_getSummary["PENDING_CLARIFICATION"].ToString();
+                ALL_RECS = odr_getSummary["ALL_RECS"].ToString();
+            }
+
+            lbl_INTIMATE_SUM.Text = INTIMATE;
+            lbl_APPROVE_SUM.Text = APPROVE;
+            lbl_PENDING_TAKEN_SUM.Text = PENDING_TAKEN;
+            lbl_CLOSE_SUM.Text = CLOSE;
+            lbl_REOPEN_SUM.Text = REOPEN;
+            lbl_PENDING_APPROVAL_SUM.Text = PENDING_APPROVAL;
+            lbl_RETURN_SUM.Text = RETURN;
+            lbl_CLARIFICATION_SUM.Text = PENDING_CLARIFICATION;
+            lbl_CLARIFICATION_COMPLETE_SUM.Text = PENDING_CLARIFICATION_COMPLETE;
+            lbl_All_RECS_SUM.Text = ALL_RECS;
+
+            
+
+            odr_getSummary.Close();
+            conn.Close();
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //--------------------------------------------------------------Grid View Events---------------------------------------------------------//
+
+        public void getAllRequests_By_User()//Get Work Flow Job Requests SQL And Grid Data Binding
+        {
+            Active_User = Session["WF_User"].ToString();
+
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_getAllRequests = conn.CreateCommand();
+            cmd_getAllRequests.CommandText = "SELECT RR.REQUEST_ID, RR.REF_NO,RR.REQUEST_USER,RR.SYSTEM_TYPE,RR.REMARKS_BRANCH " +
+                                                "FROM WF_IT_REQUEST_REGISTER RR WHERE RR.assign_user = '" + Active_User + "'" +
+                                                main_sql_where + " order by RR.REQUEST_DATE DESC";
+
+            OracleDataReader odr_getAllRequests = cmd_getAllRequests.ExecuteReader();
+
+            DataTable dt_getAllRequests = new DataTable();
+            dt_getAllRequests.Load(odr_getAllRequests);
+
+            grd_allRequests.DataSource = dt_getAllRequests;
+            grd_allRequests.DataBind();
+
+            odr_getAllRequests.Close();
+            conn.Close();
+        }
+
+        protected void grd_allRequests_RowDataBound(object sender, GridViewRowEventArgs e)//Work Flow Job Requests Data (Row Data Bound)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[1].Text = "Request ID";
+                e.Row.Cells[2].Text = "Referance No";
+                e.Row.Cells[3].Text = "Request User";
+                e.Row.Cells[4].Text = "System Type";
+                e.Row.Cells[5].Text = "Remarks";
+
+
+                e.Row.Cells[0].Attributes["width"] = "70px";
+            }
+        }
+
+        protected void grd_allRequests_RowCommand(object sender, GridViewCommandEventArgs e)//Work Flow Job Requests Data (Row Command)
+        {
+            if (e.CommandName == "Select")
+            {
+                string selected_req_id = "";
+
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                selected_req_id = grd_allRequests.Rows[rowIndex].Cells[1].Text;
+                lbl_JobID.Text = selected_req_id;
+
+                OracleConnection conn = new OracleConnection(myConn);
+                conn.Open();
+
+                OracleCommand cmd_getJobHistory = conn.CreateCommand();
+                cmd_getJobHistory.CommandText = "SELECT EE.JOB_NO,EE.STATUS,EE.EVENT_DATE,EE.USER_NAME,EE.REMARKS_UNIT,EE.REMARKS_BRANCH " +
+                                                "FROM WF_IT_EVENTS EE WHERE EE.JOB_NO ='" + selected_req_id + "' ORDER BY EE.EVENT_DATE ASC";
+
+                OracleDataReader odr_getJobHistory = cmd_getJobHistory.ExecuteReader();
+                DataTable dt_getJobHistory = new DataTable();
+
+                dt_getJobHistory.Load(odr_getJobHistory);
+
+                grd_wf_history.DataSource = dt_getJobHistory;
+                grd_wf_history.DataBind();
+
+                odr_getJobHistory.Close();
+
+                panels_appearance();
+            }
+        }
+
+        protected void grd_wf_history_RowDataBound(object sender, GridViewRowEventArgs e)//Work Flow Events Data (Row Data Bound)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = "Job Number";
+                e.Row.Cells[1].Text = "Status";
+                e.Row.Cells[2].Text = "Event Date";
+                e.Row.Cells[3].Text = "User Name";
+                e.Row.Cells[4].Text = "Remarks Unit";
+                e.Row.Cells[5].Text = "Remarks Branch";
+            }
+        }
+
+        //---------------------------------------------------------------------------------------------------------------------------------------//
+
+
+        //----------------------------------------------------------------Get Dash Board Data SQL And Data Binding-------------------------------//
+
+        
+
+        //--------------------------------------------------------------------------------------------------------------------------------------//
+
+
+        //----------------------------------------------------------------Dash Board Button Panel-----------------------------------------------//
+
+        protected void lb_intimate_Click(object sender, EventArgs e)//Intimate Click
+        {
+            string status = "INTIMATE";
+
+            main_sql_where = "AND RR.STATUS = '" + status + "' ";
+            getAllRequests_By_User();
+
+        }
+
+        protected void lb_approve_Click(object sender, EventArgs e)//Approve Click
+        {
+            string status = "APPROVE";
+
+            main_sql_where = "AND RR.STATUS = '" + status + "' ";
+            getAllRequests_By_User();
+        }
+
+        protected void lb_pendingTaken_Click(object sender, EventArgs e)//Pending Taken Click
+        {
+            string status = "PENDING - TAKEN";
+
+            main_sql_where = "AND RR.STATUS = '" + status + "' ";
+            getAllRequests_By_User();
+        }
+
+        protected void lb_close_Click(object sender, EventArgs e)//Close Click
+        {
+            string status = "CLOSE";
+
+            main_sql_where = "AND RR.STATUS = '" + status + "' ";
+            getAllRequests_By_User();
+        }
+
+        protected void lb_reopen_Click(object sender, EventArgs e)//Reopen Click
+        {
+            string status = "REOPEN";
+
+            main_sql_where = "AND RR.STATUS = '" + status + "' ";
+            getAllRequests_By_User();
+        }
+
+        protected void lb_pendingApproval_Click(object sender, EventArgs e)//Pending Approval Click
+        {
+            string status = "PENDING-APPROVAL";
+
+            main_sql_where = "AND RR.STATUS = '" + status + "' ";
+            getAllRequests_By_User();
+        }
+
+        protected void lb_return_Click(object sender, EventArgs e)//Return Click
+        {
+            string status = "RETURN";
+
+            main_sql_where = "AND RR.STATUS = '" + status + "' ";
+            getAllRequests_By_User();
+        }
+
+        protected void lb_clarification_Click(object sender, EventArgs e)//Clarification Click
+        {
+            string status = "PENDING-CLARIFICATION";
+
+            main_sql_where = "AND RR.STATUS = '" + status + "' ";
+            getAllRequests_By_User();
+        }
+
+        protected void lb_Cla_Complete_Click(object sender, EventArgs e)//Clarification Complete Click
+        {
+            string status = "PENDING-CLARIFICATION-COMPLETE";
+
+            main_sql_where = "AND RR.STATUS = '" + status + "' ";
+            getAllRequests_By_User();
+        }
+
+        protected void lb_All_Click(object sender, EventArgs e)//All Click
+        {
+            main_sql_where = "AND 1=1";
+            getAllRequests_By_User();
+        }
+
+        //---------------------------------------------------------------------------------------------------------------------------------------//
+
+
+        //------------------------------------------------------------------Other Functions------------------------------------------------------//
+
+        private void panels_appearance()//Panel visible handle
+        {
+            if (alljobs_panel.Visible == true)
+            {
+                alljobs_panel.Visible = false;
+                history_panel.Visible = true;
+                status_div.Visible = false;
+                ibtnBack.Visible = true;
+                back_btn_div.Visible = true;
+            }
+            else
+            {
+                alljobs_panel.Visible = true;
+                history_panel.Visible = false;
+                status_div.Visible = true;
+                ibtnBack.Visible = false;
+                back_btn_div.Visible = false;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------//
+
+        protected void ibtnBack_Click(object sender, ImageClickEventArgs e)//Back Button Click
+        {
+            panels_appearance();
+        }
+
+        protected void ibtnRefresh_Click(object sender, ImageClickEventArgs e)
+        {
+            txtFromDate.Text = fromDate;
+            txtToDate.Text = toDate;
+
+
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------//
+    }
+}

@@ -1,0 +1,912 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="HelpDeskDashboard.aspx.cs" Inherits="quickinfo_v2.Views.ITWorkflow.HelpDeskDashboard" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+
+    <style type="text/css">
+        .RadGrid_Default th.rgHeader {
+            background-image: none !important;
+            background-color: #3C454F !important;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <form role="form" class="form-horizontal form-groups-bordered" runat="server" id="form1">
+        <div style="width: 5%; height: 35px;">
+            <div style="width: 89%; height: 35px; float: left;">
+                <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
+            </div>
+            <div style="width: 9%; height: 35px; float: right;">
+                <a href="HelpDeskView.aspx">
+                    <%--                entypo-check--%>
+
+                    <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-gold btn-icon icon-left btn-sm" OnClick="LnkBtnSelect_Click">
+                       <i class="entypo-cancel"></i>&nbsp;Back to Dashboard                    </asp:LinkButton>
+
+                </a>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+
+
+
+             <%--CR-TAKEN--%>
+            <div class="panel-heading" id="pnl_job_type_wise_cr" runat="server">
+                <div class="panel-title">
+                    Jobs Taken - CR
+                </div>
+            </div>
+            <div class="panel-body" id="pnlBdy_job_type_wise_cr" runat="server">
+                <div style="width: 100%;">
+                    <style type="text/css">
+                        .RadGrid_Default th.rgHeader {
+                            background-image: none;
+                            background-color: #3C454F;
+                        }
+                    </style>
+
+                    <telerik:RadGrid ID="grd_cr_taken" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="grdRequest_NeedDataSource" PageSize="5" Width="99%" OnItemCommand="grdRequest_ItemCommand" CssClass="table table-bordered datatable dataTable" OnItemCreated="grdRequest_ItemCreated">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter REQUEST_USER column" HeaderText="Request User" UniqueName="REQUEST_USER">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Take"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <%--      <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" Font-Underline="True">Take</asp:LinkButton>--%>
+                                        <%--                entypo-check--%>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-info btn-sm btn-icon icon-left"><i class="entypo-check"></i>&nbsp;Take</asp:LinkButton>
+
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="White" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+            <%--SR-TAKEN--%>
+            <div class="panel-heading" id="pnl_job_type_wise_sr" runat="server">
+                <div class="panel-title">
+                    Jobs Taken - SR
+                </div>
+            </div>
+            <div class="panel-body" id="pnlBdy_job_type_wise_sr" runat="server">
+                <div style="width: 100%;">
+                    <style type="text/css">
+                        .RadGrid_Default th.rgHeader {
+                            background-image: none;
+                            background-color: #3C454F;
+                        }
+                    </style>
+
+                    <telerik:RadGrid ID="grd_sr_taken" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="grdRequest_NeedDataSource" PageSize="5" Width="99%" OnItemCommand="grdRequest_ItemCommand" CssClass="table table-bordered datatable dataTable" OnItemCreated="grdRequest_ItemCreated">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter REQUEST_USER column" HeaderText="Request User" UniqueName="REQUEST_USER">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Take"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <%--      <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" Font-Underline="True">Take</asp:LinkButton>--%>
+                                        <%--                entypo-check--%>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-info btn-sm btn-icon icon-left"><i class="entypo-check"></i>&nbsp;Take</asp:LinkButton>
+
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="White" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+
+                </div>
+            </div>
+
+
+
+
+
+
+            <%--ER-Taken--%>
+            <div class="panel-heading" id="pnl_job_type_wise_er" runat="server">
+                <div class="panel-title">
+                    Jobs Taken - ER
+                </div>
+            </div>
+            <div class="panel-body" id="pnlBdy_job_type_wise_er" runat="server">
+
+                <div style="width: 100%;">
+
+                    <style type="text/css">
+                        .RadGrid_Default th.rgHeader {
+                            background-image: none;
+                            background-color: #3C454F;
+                        }
+                    </style>
+
+                    <telerik:RadGrid ID="grd_er_taken" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="grd_er_taken_NeedDataSource" PageSize="5" Width="99%"  CssClass="table table-bordered datatable dataTable" OnItemCreated="grdRequest_ItemCreated">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter REQUEST_USER column" HeaderText="Request User" UniqueName="REQUEST_USER">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Take"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <%--      <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" Font-Underline="True">Take</asp:LinkButton>--%>
+                                        <%--                entypo-check--%>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-info btn-sm btn-icon icon-left"><i class="entypo-check"></i>&nbsp;Take</asp:LinkButton>
+
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="White" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <%--ALL PENDING JOBS--%>
+
+            <div class="panel-heading" id="pnl_all_pendingJobs" runat="server">
+                <div class="panel-title">
+                    All
+                        Pending Jobs
+                </div>
+                <asp:ScriptManager ID="ScriptManager1" runat="server">
+                </asp:ScriptManager>
+            </div>
+            <div class="panel-body" id="pnlBdy_all_pendingJobs" runat="server">
+
+                <div style="width: 100%;">
+
+                    <style type="text/css">
+                        .RadGrid_Default th.rgHeader {
+                            background-image: none;
+                            background-color: #3C454F;
+                        }
+                    </style>
+
+
+
+
+                    <%--ALL-TAKEN JOBS--%>
+                    <telerik:RadGrid ID="grdRequest" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="grdRequest_NeedDataSource" PageSize="5" Width="99%" OnItemCommand="grdRequest_ItemCommand" CssClass="table table-bordered datatable dataTable" OnItemCreated="grdRequest_ItemCreated">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter REQUEST_USER column" HeaderText="Request User" UniqueName="REQUEST_USER">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Take"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <%--      <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" Font-Underline="True">Take</asp:LinkButton>--%>
+                                        <%--                entypo-check--%>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-info btn-sm btn-icon icon-left"><i class="entypo-check"></i>&nbsp;Take</asp:LinkButton>
+
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="White" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+                </div>
+
+
+            </div>
+
+            <%--SYSTEM WISE PENDING JOBS--%>
+
+            <div class="panel-heading" id="pnl_systemWisePendingJobs" runat="server">
+                <div class="panel-title">
+                    System Wise Pending Jobs
+                </div>
+
+            </div>
+            <div class="panel-body" id="pnlBdy_systemWisePendingJobs" runat="server">
+
+                <div style="width: 100%;">
+
+                    <style type="text/css">
+                        .RadGrid_Default th.rgHeader {
+                            background-image: none;
+                            background-color: #3C454F;
+                        }
+                    </style>
+
+
+                    <telerik:RadGrid ID="GrdSysWiseAssigned" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="GrdSysWiseAssigned_NeedDataSource" PageSize="5" Width="99%" OnItemCommand="GrdSysWiseAssigned_ItemCommand" CssClass="table table-bordered datatable dataTable">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter REQUEST_USER column" HeaderText="Request User" UniqueName="REQUEST_USER">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Take"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <%--      <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" Font-Underline="True">Take</asp:LinkButton>--%>
+                                        <%--                entypo-check--%>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-orange btn-sm btn-icon icon-left"><i class="entypo-check"></i>&nbsp;Take</asp:LinkButton>
+
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="White" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+                </div>
+
+
+            </div>
+
+            <%--JOBS TAKEN (TAKEN AND ASSIGN)--%>
+
+            <div class="panel-heading" id="pnl_jobsTaken" runat="server">
+                <div class="panel-title">
+                    &nbsp;Jobs Taken
+                </div>
+
+
+            </div>
+            <div class="panel-body" id="pnlBdy_jobsTaken" runat="server">
+
+                <div style="width: 100%;">
+
+                    <telerik:RadGrid ID="GrdRequestUserWise" runat="server" Width="99%" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="GrdRequestUserWise_NeedDataSource" PageSize="5" OnItemCommand="GrdRequestUserWise_ItemCommand">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter column4 column" HeaderText="Request User" UniqueName="column4">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Complete"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-green btn-icon btn-sm icon-left"><i class="entypo-forward"></i>&nbsp;Update</asp:LinkButton>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="White" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+                </div>
+
+
+            </div>
+
+            <%--PENDING CLARIFICATION COMPLETE JOBS - ER--%>
+
+            <div class="panel-heading" id="pnl_pendingClarificationPendingJobs_ER" runat="server">
+                <div class="panel-title">
+                    &nbsp;Pending Clarification Complete Jobs - ER
+                </div>
+            </div>
+            <div class="panel-body" id="pnlBdy_pendingClarificationPendingJobs_ER" runat="server">
+
+                <div style="width: 100%;">
+
+                    <telerik:RadGrid ID="GrdPenClariCom_ER" runat="server" Width="99%" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="GrdPenClariCom_ER_NeedDataSource" PageSize="5" OnItemCommand="GrdPenClariCom_ER_ItemCommand">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter column4 column" HeaderText="Request User" UniqueName="column4">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Complete"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-gold btn-icon btn-sm icon-left"><i class="entypo-forward"></i>&nbsp;Update</asp:LinkButton>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="Black" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+                </div>
+
+
+            </div>
+
+            <%--PENDING CLARIFICATION COMPLETE JOBS - SR--%>
+
+            <div class="panel-heading" id="pnl_pendingClarificationPendingJobs_SR" runat="server">
+                <div class="panel-title">
+                    &nbsp;Pending Clarification Complete Jobs - SR
+                </div>
+            </div>
+            <div class="panel-body" id="pnlBdy_pendingClarificationPendingJobs_SR" runat="server">
+
+                <div style="width: 100%;">
+
+                    <telerik:RadGrid ID="GrdPenClariCom_SR" runat="server" Width="99%" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="GrdPenClariCom_SR_NeedDataSource" PageSize="5" OnItemCommand="GrdPenClariCom_SR_ItemCommand">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter column4 column" HeaderText="Request User" UniqueName="column4">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Complete"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-gold btn-icon btn-sm icon-left"><i class="entypo-forward"></i>&nbsp;Update</asp:LinkButton>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="Black" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+                </div>
+
+
+            </div>
+
+
+            <%--PENDING CLARIFICATION COMPLETE JOBS - CR--%>
+
+            <div class="panel-heading" id="pnl_pendingClarificationPendingJobs_CR" runat="server">
+                <div class="panel-title">
+                    &nbsp;Pending Clarification Complete Jobs - CR
+                </div>
+            </div>
+            <div class="panel-body" id="pnlBdy_pendingClarificationPendingJobs_CR" runat="server">
+
+                <div style="width: 100%;">
+
+                    <telerik:RadGrid ID="GrdPenClariCom_CR" runat="server" Width="99%" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="GrdPenClariCom_CR_NeedDataSource" PageSize="5" OnItemCommand="GrdPenClariCom_CR_ItemCommand">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter column4 column" HeaderText="Request User" UniqueName="column4">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Complete"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-gold btn-icon btn-sm icon-left"><i class="entypo-forward"></i>&nbsp;Update</asp:LinkButton>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="Black" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+                </div>
+
+
+            </div>
+
+
+            <%--REOPEND JOBS--%>
+
+            <div class="panel-heading" id="pnl_reopendJobs" runat="server">
+                <div class="panel-title">
+                    &nbsp;Reopened Jobs
+                </div>
+
+
+            </div>
+            <div class="panel-body" id="pnlBdy_reopendJobs" runat="server">
+
+                <div style="width: 100%;">
+
+                    <telerik:RadGrid ID="GrdReopend" runat="server" Width="99%" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="GrdReopend_NeedDataSource" PageSize="5" OnItemCommand="GrdReopend_ItemCommand">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter column4 column" HeaderText="Request User" UniqueName="column4">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Complete"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-blue btn-icon btn-sm icon-left"><i class="entypo-forward"></i>&nbsp;Update</asp:LinkButton>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="White" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+                </div>
+            </div>
+
+            <%--APPROVED JOBS CR--%>
+
+            <div class="panel-heading" id="pnl_approvedJobsCR" runat="server">
+                <div class="panel-title">
+                    &nbsp;Approved Jobs-CR
+                </div>
+            </div>
+            <div class="panel-body" id="pnlBdy_approvedJobsCR" runat="server">
+
+                <div style="width: 100%;">
+
+                    <telerik:RadGrid ID="GrdApprovedJobs" runat="server" Width="99%" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="GrdApprovedJobs_NeedDataSource" PageSize="5" OnItemCommand="GrdApprovedJobs_ItemCommand">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter column4 column" HeaderText="Request User" UniqueName="column4">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Send To Change Management"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-info btn-icon btn-sm icon-left"><i class="entypo-forward"></i>&nbsp;Send</asp:LinkButton>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="White" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+                </div>
+            </div>
+
+            <%--APPROVED JOBS SR--%>
+
+            <div class="panel-heading" id="pnl_approvedJobsSR" runat="server">
+                <div class="panel-title">
+                    &nbsp;Approved Jobs-SR
+                </div>
+
+
+            </div>
+            <div class="panel-body" id="pnlBdy_approvedJobsSR" runat="server">
+
+                <div style="width: 100%;">
+
+                    <telerik:RadGrid ID="GrdApprovedSR" runat="server" Width="99%" AllowPaging="True" AutoGenerateColumns="False" CellSpacing="0" GridLines="None" OnNeedDataSource="GrdApprovedSR_NeedDataSource" PageSize="5" OnItemCommand="GrdApprovedSR_ItemCommand">
+                        <MasterTableView>
+                            <CommandItemSettings ExportToPdfText="Export to PDF" />
+                            <RowIndicatorColumn FilterControlAltText="Filter RowIndicator column">
+                                <HeaderStyle Width="20px" />
+                            </RowIndicatorColumn>
+                            <ExpandCollapseColumn FilterControlAltText="Filter ExpandColumn column">
+                                <HeaderStyle Width="20px" />
+                            </ExpandCollapseColumn>
+                            <Columns>
+                                <telerik:GridTemplateColumn DataField="REQUEST_ID" FilterControlAltText="Filter SelectID column" HeaderText="ID" UniqueName="SelectID">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LinkButton1" runat="server" CommandName="SelectID" Text='<%# DataBinder.Eval(Container.DataItem,"REQUEST_ID") %>'></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle Font-Underline="True" />
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_ID" FilterControlAltText="Filter column4 column" HeaderText="ID" UniqueName="REQUEST_ID" Visible="False">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REF_NO" FilterControlAltText="Filter column column" HeaderText="Referance No" UniqueName="column">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_USER" FilterControlAltText="Filter column4 column" HeaderText="Request User" UniqueName="column4">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REQUEST_DATE" FilterControlAltText="Filter column1 column" HeaderText="Requested Date" UniqueName="column1">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="SYSTEM_TYPE" FilterControlAltText="Filter column2 column" HeaderText="System Type" UniqueName="column2">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="REMARKS_BRANCH" FilterControlAltText="Filter column3 column" HeaderText="Remarks" UniqueName="column3">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn FilterControlAltText="Filter Select column" HeaderText="Complete"
+                                    UniqueName="Take">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="LnkBtnSelect" runat="server" CommandName="Select" CssClass="btn btn-green btn-icon btn-sm icon-left"><i class="entypo-forward"></i>&nbsp;Complete</asp:LinkButton>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                            </Columns>
+                            <EditFormSettings>
+                                <EditColumn FilterControlAltText="Filter EditCommandColumn column">
+                                </EditColumn>
+                            </EditFormSettings>
+                        </MasterTableView>
+
+                        <HeaderStyle ForeColor="White" />
+
+                        <FilterItemStyle BackColor="White" />
+                        <PagerStyle BackColor="White" />
+
+                        <FilterMenu EnableImageSprites="False"></FilterMenu>
+
+                        <HeaderContextMenu CssClass="GridContextMenu GridContextMenu_Office2007"></HeaderContextMenu>
+                    </telerik:RadGrid>
+                </div>
+            </div>
+            
+
+
+        </div>
+    </form>
+</asp:Content>

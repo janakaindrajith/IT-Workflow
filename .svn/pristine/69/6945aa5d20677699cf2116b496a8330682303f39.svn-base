@@ -1,0 +1,486 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="IT_WF_Dashboard_New.aspx.cs" Inherits="quickinfo_v2.Views.ITWorkflow.IT_WF_Dashboard_New" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        a.list-group-item.active,
+        a.list-group-item.active:hover,
+        a.list-group-item.active:focus {
+            z-index: 2;
+            color: #ffffff;
+            background-color: #18639b !important;
+            border-color: #18639b !important;
+        }
+
+        .lable_margin {
+            margin-right: 15px;
+            text-align: right;
+            font-weight: bold;
+            color: #ff6a00;
+        }
+
+
+
+        .outer_div {
+            background-color: white;
+            width: 170px;
+            min-width: 165px;
+            height: 100px;
+            float: left;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        .inner_lable {
+            background-color: #18639b;
+            width: 120px;
+            height: 60px;
+            float: left;
+            /*padding: 18px 4px 10px 4px;*/
+            color: white;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .inner_value {
+            background-color: white;
+            width: 45px;
+            height: 60px;
+            float: left;
+            padding: 18px 4px 10px 15px;
+            border-style: solid;
+            border-width: 1px;
+            border-color: #21a9e1;
+            font-size: 16px;
+            font-weight: 400;
+            color: #ff6a00;
+        }
+
+        .lb {
+            background-color: #18639b;
+            color: white;
+            padding: 20px 4px 10px 4px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            width: 120px;
+            height: 60px;
+        }
+
+            /*a:hover, a:active*/
+            .lb:hover {
+                background-color: #21a9e1;
+                color: white;
+            }
+
+
+        /*----------------------------Grid View Style-----------*/
+
+        .HiddenCol {
+            display: none;
+        }
+
+
+         .mGrid {
+            width: 100%;
+            background-color: #fff;
+            margin: 2px 0 7px 0;
+            border: solid 1px #525252;
+            border-collapse: collapse;
+            line-height: 15px;
+        }
+
+            .mGrid td {
+                padding: 2px;
+                border: solid 1px #c1c1c1;
+                color: #717171;
+            }
+
+            .mGrid th {
+                padding: 3px 2px;
+                color: #fff;
+                background: #454a54;
+                border-left: solid 1px #525252;
+                font-size: 0.9em;
+            }
+
+            .mGrid .alt {
+                background: #fcfcfc url(grd_alt.png) repeat-x top;
+            }
+
+            .mGrid .pgr {
+                background: #424242 url(grd_pgr.png) repeat-x top;
+            }
+
+                .mGrid .pgr table {
+                    margin: 3px 0;
+                }
+
+                .mGrid .pgr td {
+                    border-width: 0;
+                    padding: 0 3px;
+                    border-left: solid 1px #666;
+                    font-weight: bold;
+                    color: #fff;
+                    line-height: 12px;
+                }
+
+                .mGrid .pgr a {
+                    color: #666;
+                    text-decoration: none;
+                }
+
+                    .mGrid .pgr a:hover {
+                        color: #000;
+                        text-decoration: none;
+                    }
+
+
+
+        /*-----------------------------------------------------------------------------------------*/
+
+        /*----------------------------------------------------*/
+
+        .modal-backdrop.in {
+            -webkit-opacity: 0.5!important;
+            -moz-opacity: 0.5!important;
+            opacity: 0.5!important;
+            -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50)!important;
+            filter: alpha(opacity=50)!important;
+        }
+
+        /*neon.css:10255 .modal-backdrop.fade {
+            -webkit-opacity: 0!important;
+            -moz-opacity: 0!important;
+            opacity: 0!important;
+            -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0)!important;
+            filter: alpha(opacity=0)!important;
+        }
+
+        neon.css:4512 .fade.in {
+            opacity: 1!important;
+        }
+
+        neon.css:10244 .modal-backdrop {
+            position: fixed!important;
+            top: 0!important;
+            right: 0!important;
+            bottom: 0!important;
+            left: 0!important;
+            z-index: 1030!important;
+            background-color: #000000!important;
+            overflow: hidden!important;
+        }
+
+        neon.css:4504 .fade {
+            opacity: 0!important;
+            -webkit-transition: opacity 0.15s linear!important;
+            -moz-transition: opacity 0.15s linear!important;
+            -o-transition: opacity 0.15s linear!important;
+            transition: opacity 0.15s linear!important;
+        }
+
+        neon.css:320 *, *:before, *:after {
+            -webkit-box-sizing: border-box!important;
+            -moz-box-sizing: border-box!important;
+            box-sizing: border-box!important;
+        }
+
+        user agent stylesheet div {
+            display: block!important;
+        }*/
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div class="row">
+            <asp:UpdatePanel ID="UpdatePanel_IT_usr_hdr" runat="server">
+                <ContentTemplate>
+                    <div class="container">
+                        <h4></h4>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item active">Not Taken Jobs</a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_all_pendingJobs&PnlB_ID=pnlBdy_all_pendingJobs" class="list-group-item">
+                                        <asp:Label ID="lbl_count_notTaken_jobs" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item active">Not Taken Jobs - System Wise</a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_systemWisePendingJobs&PnlB_ID=pnlBdy_systemWisePendingJobs" class="list-group-item">
+                                        <asp:Label ID="lbl_jobs_systemwise_count" CssClass="lable_margin" runat="server" Text="0"></asp:Label></a>
+                                </div>
+                            </div>
+
+                            <%--                <div class="col-md-1">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">Total</a>
+                        <a href="#" class="list-group-item">
+                            <asp:Label ID="lbl_TotalJobs" CssClass="lable_margin" runat="server" Text="0"></asp:Label></a>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">Confirmed</a>
+                        <a href="#" class="list-group-item">
+                            <asp:Label ID="lbl_Total_Closed" CssClass="lable_margin" runat="server" Text="0"></asp:Label></a>
+                    </div>
+                </div>--%>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+        <div class="row">
+            <asp:UpdatePanel ID="UpdatePanel_IT_user" runat="server">
+                <ContentTemplate>
+                    <div class="well well-sm">
+                        <h4>Workflow Summary For IT User</h4>
+                    </div>
+                    <div class="container">
+
+                        <%--<h4>IT Workflow Summary For IT-Users</h4>--%>
+                        <div class="row">
+
+                            <%--ER--%>
+                            <div class="col-md-3">
+                                <%--&PnlH_ID&PnlB_ID--%>
+
+                                <%--data-toggle="modal" data-target="#myModal"--%>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item active">ER</a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_jobsTaken&PnlB_ID=pnlBdy_jobsTaken" class="list-group-item">Taken And Assign :<asp:Label ID="lbl_er_taken_and_assign" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="#" class="list-group-item">Clarification Requested Jobs :<asp:Label ID="lbl_er_pending_clarification" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_pendingClarificationPendingJobs&PnlB_ID=pnlBdy_pendingClarificationPendingJobs" class="list-group-item">Clarification Complete Jobs :<asp:Label ID="lbl_er_clarification_complete" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_reopendJobs&PnlB_ID=pnlBdy_reopendJobs" class="list-group-item">Re Opened Jobs :<asp:Label ID="lbl_er_reopen" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                </div>
+                            </div>
+
+                            <%--SR--%>
+                            <div class="col-md-3">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item active">SR</a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_jobsTaken&PnlB_ID=pnlBdy_jobsTaken" class="list-group-item">Taken And Assign :<asp:Label ID="lbl_sr_taken_and_assign" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="#" class="list-group-item">Clarification Requested Jobs :<asp:Label ID="lbl_sr_pending_clarification" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_pendingClarificationPendingJobs&PnlB_ID=pnlBdy_pendingClarificationPendingJobs" class="list-group-item">Clarification Complete Jobs :<asp:Label ID="lbl_sr_clarification_complete" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="#" class="list-group-item">Approval Requested Jobs :<asp:Label ID="lbl_sr_approval_requested" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_approvedJobsSR&PnlB_ID=pnlBdy_approvedJobsSR" class="list-group-item">Approved Jobs :<asp:Label ID="lbl_sr_approved" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_reopendJobs&PnlB_ID=pnlBdy_reopendJobs" class="list-group-item">Re Opened Jobs :<asp:Label ID="lbl_sr_reopend" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129" class="list-group-item">Complete Jobs :<asp:Label ID="lbl_sr_complete" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                </div>
+                            </div>
+
+                            <%--CR--%>
+                            <div class="col-md-3">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item active">CR</a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_jobsTaken&PnlB_ID=pnlBdy_jobsTaken" class="list-group-item">Taken And Assign :<asp:Label ID="lbl_cr_taken_and_assign" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="#" class="list-group-item">Clarification Requested Jobs :<asp:Label ID="lbl_cr_pending_clarification" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129&PnlH_ID=pnl_pendingClarificationPendingJobs&PnlB_ID=pnlBdy_pendingClarificationPendingJobs" class="list-group-item">Clarification Completed Jobs :<asp:Label ID="lbl_cr_clarification_complete" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="#" class="list-group-item">Approval Requested Jobs :<asp:Label ID="lbl_cr_approval_requested" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="#" class="list-group-item">Approved Jobs :<asp:Label ID="lbl_cr_approved" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129" class="list-group-item">Re Opened Jobs :<asp:Label ID="lbl_cr_reopend" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                    <a href="HelpDeskDashboard.aspx?pagecode=129" class="list-group-item">Complete Jobs :<asp:Label ID="lbl_cr_complete" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+        <hr />
+        <div class="row">
+            <asp:UpdatePanel ID="UpdatePanel_Normal_user" runat="server">
+                <ContentTemplate>
+                    <div class="well well-sm">
+                        <h4>Workflow Summary For Normal User</h4>
+
+                        <%--                    <div>
+                        <asp:LinkButton ID="lb_taken_by_it" runat="server">Jobs Taken By IT</asp:LinkButton>
+                        <asp:LinkButton ID="lb_not_taken_by_it" runat="server">Pending Jobs</asp:LinkButton>
+                        <asp:LinkButton ID="lb_pendingClarification" runat="server">Pending Clarification</asp:LinkButton>
+                        <asp:LinkButton ID="lb_pendingApproval" runat="server">Pending Approval</asp:LinkButton>
+                    </div>--%>
+                    </div>
+
+
+
+                    <%-- <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6">--%>
+                    <%--<a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-signal"></span> <br/>Reports</a>--%>
+                    <%--<a href="#" class="btn btn-primary btn-lg" role="button">Reports</a>
+                            <a href="#" class="btn btn-primary btn-lg" role="button">Comments</a>
+                        </div>
+                    </div>
+                </div>--%>
+
+                    <div class="outer_div">
+                        <div class="inner_lable">
+                            <asp:LinkButton ID="lb_all_jobs" runat="server" CssClass="lb" OnClick="lb_all_jobs_Click">All Job Requests</asp:LinkButton>
+                        </div>
+                        <div class="inner_value">
+                            <asp:Label ID="lbl_all_jobs" runat="server" Text="0"></asp:Label>
+                        </div>
+                    </div>
+
+                    <div class="outer_div">
+                        <div class="inner_lable">
+                            <asp:LinkButton ID="lb_taken_by_it" runat="server" CssClass="lb" OnClick="lb_taken_by_it_Click">Taken Jobs</asp:LinkButton>
+                        </div>
+                        <div class="inner_value">
+                            <asp:Label ID="lbl_taken_by_it" runat="server" Text="0"></asp:Label>
+                        </div>
+                    </div>
+
+                    <div class="outer_div">
+                        <div class="inner_lable">
+                            <asp:LinkButton ID="lb_not_taken_by_it" runat="server" CssClass="lb" OnClick="lb_not_taken_by_it_Click">Not Taken Jobs</asp:LinkButton>
+                        </div>
+                        <div class="inner_value">
+                            <asp:Label ID="lbl_not_taken_by_it" runat="server" Text="0"></asp:Label>
+                        </div>
+                    </div>
+
+                    <div class="outer_div">
+                        <div class="inner_lable">
+                            <asp:LinkButton ID="lb_pending_clarification" runat="server" CssClass="lb" OnClick="lb_pending_clarification_Click">To Clarify</asp:LinkButton>
+                        </div>
+                        <div class="inner_value">
+                            <asp:Label ID="lbl_pending_clarification" runat="server" Text="0"></asp:Label>
+                        </div>
+                    </div>
+
+                    <div class="outer_div">
+                        <div class="inner_lable">
+                            <asp:LinkButton ID="lb_pending_approval" runat="server" CssClass="lb" OnClick="lb_pending_approval_Click">Approval Requested</asp:LinkButton>
+                        </div>
+                        <div class="inner_value">
+                            <asp:Label ID="lbl_pending_approval" runat="server" Text="0"></asp:Label>
+                        </div>
+                    </div>
+
+                    <div class="outer_div">
+                        <div class="inner_lable">
+                            <asp:LinkButton ID="lb_To_Approve" runat="server" CssClass="lb" OnClick="lb_To_Approve_Click">To Approve</asp:LinkButton>
+                        </div>
+                        <div class="inner_value">
+                            <asp:Label ID="lbl_to_approve" runat="server" Text="0"></asp:Label>
+                        </div>
+                    </div>
+
+                    <div class="outer_div">
+                        <div class="inner_lable">
+                            <asp:LinkButton ID="lb_return" runat="server" CssClass="lb" OnClick="lb_return_Click">Return Jobs</asp:LinkButton>
+                        </div>
+                        <div class="inner_value">
+                            <asp:Label ID="lbl_return_by_it" runat="server" Text="0"></asp:Label>
+                        </div>
+                    </div>
+
+                    <div class="outer_div">
+                        <div class="inner_lable">
+                            <asp:LinkButton ID="lb_close_confirmed" runat="server" CssClass="lb" OnClick="lb_close_confirmed_Click">Close Confirmation</asp:LinkButton>
+                        </div>
+                        <div class="inner_value">
+                            <asp:Label ID="lbl_close_confirmed" runat="server" Text="0"></asp:Label>
+                        </div>
+                    </div>
+
+
+                    <%--CssClass="table table-striped table-bordered table-condensed"--%>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+        <div class="row">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+
+                    <div class="well well-sm">
+                        <h4>
+                            <asp:Label ID="lbl_jobsHeader" runat="server" Text=""></asp:Label></h4>
+                    </div>
+                    <div class="col-md-12">
+                        <asp:Panel ID="grd_non_it_user_jobs_Panel" runat="server" Height="300px" ScrollBars="Both">
+                            <asp:GridView ID="grd_non_it_user_jobs" runat="server" OnRowCommand="grd_non_it_user_jobs_RowCommand" OnRowDataBound="grd_non_it_user_jobs_RowDataBound" Width="100%" CssClass="mGrid">
+                                <Columns>
+                                    <asp:ButtonField CommandName="Select" Text="Job History" ButtonType="Link">
+                                        <ControlStyle Height="20px" Width="110px" />
+                                        <ItemStyle Height="20px" Width="20px" />
+                                    </asp:ButtonField>
+                                    <asp:ButtonField CommandName="continue" Text="Continue Process">
+                                    <ControlStyle Height="20px" Width="200px" />
+                                    <ItemStyle Height="20px" Width="110px" />
+                                    </asp:ButtonField>
+                                </Columns>
+
+<%--                                <Columns>
+                                    <asp:ButtonField CommandName="continue" Text="Continue Process" ButtonType="Link">
+                                        <ControlStyle Height="20px" Width="200px" />
+                                        <ItemStyle Height="20px" Width="110px" />
+                                    </asp:ButtonField>
+                                </Columns>--%>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">Open Small Modal</button>
+
+
+
+    </form>
+
+    <!-- Modal modal fade-->
+        <div class="modal fade" id="myModal1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>This is a large modal.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+            <%--<div class="modal invert fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Widget Options - Inverted Skin Modal</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>Now residence dashwoods she excellent you. Shade being under his bed her. Much read on as draw. Blessing for ignorant exercise any yourself unpacked. Pleasant horrible but confined day end marriage. Eagerness furniture set preserved far recommend. Did even but nor are most gave hope. Secure active living depend son repair day ladies now.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>--%>
+</asp:Content>

@@ -1,0 +1,113 @@
+﻿
+//******************************************************
+// Authur            :Shanika Amarasinghe
+// Date              :25/05/2012
+// Reviewed By       :
+// Description       : Store All the Stored Procedures
+//******************************************************
+using System.Collections.Generic;
+using System.Web;
+using System;
+using System.Linq;
+
+
+namespace quickinfo_v2.Connectivity
+{
+    public class GenericStoredProcedure
+    {
+        //IT Work Flow
+        public static string IT_SelectRefData = "WF_IT_SELECT_REFERANCE_DATA";
+        public static string IT_InsertRegisterBranch = "WF_IT_INSERT_REGISTER";
+        public static string IT_InsertDocsToJobNo = "WF_IT_INSERT_DOCS_TOJOB";
+        public static string IT_GetMaxJobNo = "WF_IT_GETJOBNO";
+        public static string IT_SelectJobFromRegister = "WF_IT_SELECTJOB";
+        public static string IT_UpdateAssignUser = "WF_IT_ASSIGNUSER";
+        public static string IT_SelectImages = "WF_IT_SELECT_IMAGES";
+        public static string IT_MaxIDinImages = "WF_IT_SELECT_MAXID";
+        public static string IT_SelectBranchEmail = "WF_GE_SELECT_BRANCH_REF";
+        public static string IT_UpdateRegister = "WF_IT_UPDATE_REGISTER";
+        public static string IT_UpdateHandlerStatus = "WF_IT_UPDATE_STATUS_HANDLER";
+
+        public static string IT_UpdateRegisterByBranch = "WF_IT_UPDATE_REGISTER_BRANCH";
+
+        //Unlock TCS USER
+        public static string IT_SelectLockedUser = "WF_IT_SELECT_LOCKUSERS";
+        public static string IT_UnlockUser = "WF_IT_UNLOCK_TCS_USER";
+
+        //TCS Cancelation/Expire
+        public static string IT_SelectCancelExpirePolicies = "WF_IT_SELECT_CANCEL_EXPIRE";
+        public static string IT_UpdateCancelExpirePolicies = "WF_IT_UPDATE_CANCEL_EXPIRE";
+        public static string GetUsersCancelExpirePolicies = "GET_POLICY_CANCEL_USERS";
+
+
+        //IT Reports
+        public static string IT_SelectTotalRecords = "WF_IT_RPT_TOTAL_RECORDS";
+
+        //AIS
+        public static string SelectDataAIS = "WF_AIS_SELECTJOB";
+        public static string SelectDataCommentAIS = "WF_AIS_SELECTCOMMENTSJOB";
+        public static string InsertAccidentDetails = "WF_AIS_INSERT_ACCIDENT_MAIN";
+        public static string InsertAssesorDetails = "WF_AIS_INSERT_USER";
+        public static string UpdateAssesorDetails = "WF_AIS_UPDATE_USER";
+        public static string SelectDataAssesor = "WF_AIS_SELECTASSESOR";
+        public static string AssesorJobTransfer = "WF_AIS_JOB_TRANSFER_INSERT";
+        public static string InsertImageUploadError = "WF_AIS_IMAGE_ERR";
+
+        //CRC
+        public static string SelectDataCRCMotor = "CRC_SELECT_MOTOR_POLICY";
+        public static string SelectDataCRCMotorBiS = "CRC_SELECT_MOTOR_POLICY_BIS";
+        public static string SelectDataCRCNonMotor = "CRC_SELECT_NON_MOTOR_POLICY";
+        public static string SelectDataCRCLife = "CRC_SELECT_LIFE_POLICY";
+        public static string SelectDataMotorIntimation = "CRC_SELECT_MOTOR_INTIMATION";
+        public static string SelectDataMotorInspection  = "CRC_SELECT_MOTOR_INSPECTION";
+
+        //Commission
+        //Parameter
+        public static string COM_SelectRefData = "WF_COM_SELECTREFDATA";
+        public static string COM_InsertParameters = "WF_COM_INSERT_PARAMETERS";
+        public static string COM_GetParamMaxNo = "WF_COM_PARAM_GETJOBNO";
+        public static string COM_UpdateParameters = "WF_COM_UPDATE_PARAMETERS";
+        public static string COM_SelectParamData = "WF_COM_SELECT_PARAM_DATA";
+
+        //RefData
+        public static string COM_InsertReferance = "WF_COM_INSERT_REFERANCE";
+        public static string COM_UpdateReferance = "WF_COM_UPDATE_REFERANCE";
+
+        //Rules
+        public static string COM_InsertRules = "WF_COM_INSERT_RULES";
+        public static string COM_InsertRules_rowByrow = "WF_COM_INSERT_RULES_ROWBYROW";
+        public static string COM_GetMaxRuleID = "WF_COM_GETRULEID";
+        public static string COM_UpdateRules = "WF_COM_UPDATE_RULES";
+        public static string COM_UpdateRules_rowByrow = "WF_COM_UPDATE_RULES_ROWBYROW";
+
+        //Agents
+        public static string COM_InsertAgentRef = "WF_COM_INSERT_AGENTSREF";
+        public static string COM_UpdateAgentRef = "WF_COM_UPDATE_AGENTSREF";
+        public static string COM_SelectAgentData = "WF_COM_SELECTAGENTDATA";
+        public static string COM_SelectAgentHierarchy = "WF_COM_SELECTAGENTHIERARCHY";
+        public static string COM_InsertAgentHierarchy = "WF_COM_INSERT_AGENT_HIERARCHY";
+
+        //Change Management
+        public static string CM_InsertRegister = "WF_CM_INSERT_REGISTER";
+        public static string CM_GetMaxJobNo = "WF_CM_GETJOBNO";
+        public static string CM_SelectJob = "WF_CM_SELECTJOB";
+        public static string CM_InsertContactsToJobNo= "WF_CM_INSERT_CONTACTS";
+        public static string CM_MaxIDinImages = "WF_CM_SELECT_MAXID";
+        public static string CM_SelectRefData = "WF_CM_SELECT_REFERANCE_DATA";
+        public static string CM_InsertCIPath = "WF_CM_INSERT_CIPATH";
+        public static string CM_UpdateRegister = "WF_CM_UPDATE_REGISTER";
+        public static string CM_UpdateRegister_PlanandAssign = "WF_CM_UPDATE_REGISTER_PLAN";
+        public static string CM_UpdateRegister_Reject = "WF_CM_UPDATE_REGISTER_REJECT";
+        public static string CM_UpdateRegister_Approve = "WF_CM_UPDATE_REGISTER_APPROVE";
+        public static string CM_UpdateRegister_Implement = "WF_CM_UPDATE_REGISTER_IMPLE";
+        public static string CM_UpdateRegister_Release = "WF_CM_UPDATE_REGISTER_RELEASE";
+        public static string CM_UpdateRegister_Release_UAT = "WF_CM_UPDATE_REG_RELEASEUAT";
+        public static string CM_InsertDocumentsToJobNo = "WF_CM_INSERT_DOCUMENTS_TOJOB";
+        public static string CM_MaxIDinDocuments = "WF_CM_SELECT_MAXID_OF_DOCS";
+        public static string IT_UpdateRegister_ByChangeManagement = "WF_IT_UPDATE_REGISTER_BYCM";
+
+        //CM Reports
+        public static string CM_SelectTotalRecords = "WF_CM_RPT_TOTAL_RECORDS";
+        public static string CM_SelectTotalRecords_ForChart = "WF_CM_SELECT_DATA_FORCHART";
+    }
+}

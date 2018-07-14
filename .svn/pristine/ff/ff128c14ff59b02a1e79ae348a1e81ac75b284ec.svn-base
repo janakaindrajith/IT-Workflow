@@ -1,0 +1,609 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.OracleClient;
+using System.Configuration;
+using quickinfo_v2.CommonCLS;
+using System.Web.Configuration;
+
+namespace quickinfo_v2.Views.ITWorkflow
+{
+    public partial class IT_WF_Dashboard_New : System.Web.UI.Page
+    {
+        string myConn = ConfigurationManager.ConnectionStrings["ORAWF"].ToString();
+        string not_taken_jobs, er_pending_clarification, er_taken_and_assign, er_reopen, er_clarification_complete,
+            sr_pending_clarification, sr_clarification_complete, sr_taken_and_assign, sr_approved, sr_reopend, sr_complete,
+            cr_pending_clarification, cr_clarification_complete, cr_taken_and_assign, cr_approved, cr_reopend, cr_complete,
+            all_jobs, taken_by_it, not_taken_by_it, non_it_pending_clarification, non_it_pending_approval, return_by_it, non_it_close_confirm;
+
+        string ActiveUser = "";
+        string UserRoleCode = "";
+        string userType = "";
+        bool gridView_select_command = false;
+
+
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            getADUser();
+            setActiveUserType();
+            function_execute_user_type_wise();
+        }
+
+        public void getADUser()//Get AD Loging Details
+        {
+            CommonFunctions cmnFunctions = new CommonFunctions();
+
+            ActiveUser = Context.User.Identity.Name;//Get AD Name
+
+            if (ActiveUser.Contains("HNBGI"))
+            {
+                ActiveUser = cmnFunctions.Right(ActiveUser, (ActiveUser.Length) - 6);
+            }
+            else
+            {
+                ActiveUser = cmnFunctions.Right(ActiveUser, (ActiveUser.Length) - 5);
+            }
+
+            Session["WF_User"] = ActiveUser;
+        }
+
+        public void setActiveUserType()//SET Active User Type
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_roleID = conn.CreateCommand();
+            cmd_get_roleID.CommandText = "SELECT DISTINCT(R.USER_ROLE_NAME) FROM WF_ADMIN_USER_ROLES R INNER JOIN WF_ADMIN_USERS U ON U.USER_ROLE_CODE = R.USER_ROLE_CODE " +
+                                            "WHERE U.USER_CODE = '" + ActiveUser + "'";
+
+            OracleDataReader odr_get_role_id = cmd_get_roleID.ExecuteReader();
+            while (odr_get_role_id.Read())
+            {
+                UserRoleCode = odr_get_role_id[0].ToString();
+            }
+
+
+            if (UserRoleCode == "APP_SUPPORT")
+            {
+                userType = "IT_User";
+            }
+            else if (UserRoleCode == "SUPER_USER")
+            {
+                userType = "IT_Admin";
+            }
+            else
+            {
+                userType = "NON_IT_User";
+            }
+
+
+
+            //16-SUPER USER 24-APP SUPPORT
+
+            //string active_user_roles = WebConfigurationManager.AppSettings["IT_UserRoleCode"].ToString();
+            //string[] tokens = active_user_roles.Split(',');
+
+            //foreach (string s in tokens)
+            //{
+            //    if(s == UserRoleCode)
+            //    {
+
+            //    }
+            //}
+
+        }
+
+        public void function_execute_user_type_wise()//Main Function Exection Method
+        {
+            if (userType == "")
+            {
+                return;
+            }
+            else if (userType == "IT_User")
+            {
+                UpdatePanel_Normal_user.Visible = false;
+                UpdatePanel_IT_user.Visible = true;
+                get_not_takenJobs_count();
+                get_not_takenJobs_systemwise_count();
+                get_er_summary(userType);
+                get_sr_summary(userType);
+                get_cr_summary(userType);
+            }
+            else if (userType == "IT_Admin")
+            {
+
+            }
+            else
+            {
+                UpdatePanel_Normal_user.Visible = true;
+                UpdatePanel_IT_user.Visible = false;
+                UpdatePanel_IT_usr_hdr.Visible = false;
+                get_normal_user_summary();
+            }
+        }
+
+        public void get_not_takenJobs_count()//Not Taken Jobs
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_notTakenJobs = conn.CreateCommand();
+            cmd_notTakenJobs.CommandText = "SELECT COUNT(*) AS TOTAL_NOT_TAKEN_JOBS FROM (SELECT RR.* FROM WF_IT_REQUEST_REGISTER RR WHERE RR.STATUS = 'INTIMATE')";
+
+            OracleDataReader odr_notTakenJobs = cmd_notTakenJobs.ExecuteReader();
+            while (odr_notTakenJobs.Read())
+            {
+                not_taken_jobs = odr_notTakenJobs["TOTAL_NOT_TAKEN_JOBS"].ToString();
+            }
+            lbl_count_notTaken_jobs.Text = not_taken_jobs;
+            odr_notTakenJobs.Close();
+            conn.Close();
+        }
+
+        public void get_not_takenJobs_systemwise_count()//Not Taken Jobs (System Wise)
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_usr_systems = conn.CreateCommand();
+            cmd_usr_systems.CommandText = "SELECT TT.USER_NAME, TT.SYSTEM FROM WF_IT_REF_USERS_SYSTEMWISE TT WHERE TT.USER_NAME = '" + ActiveUser + "'";
+
+            DataTable dt_systems = new DataTable();//Assigned systems for active user 
+
+            OracleDataReader odr_usr_systems = cmd_usr_systems.ExecuteReader();
+            dt_systems.Load(odr_usr_systems);
+
+            int req_count_temp = 0;
+            int final_req_count = 0;
+
+            if (dt_systems.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt_systems.Rows)
+                {
+                    string sys_name = dr["SYSTEM"].ToString();
+
+                    OracleCommand cmd_jobs_sys_wise = conn.CreateCommand();
+                    cmd_jobs_sys_wise.CommandText = "SELECT COUNT(*) AS REQ_COUNT FROM WF_IT_REQUEST_REGISTER RR WHERE RR.STATUS = 'INTIMATE' AND RR.SYSTEM_TYPE = '" + sys_name + "'";
+
+                    OracleDataReader odr_jobs_sys_wise = cmd_jobs_sys_wise.ExecuteReader();
+
+                    while (odr_jobs_sys_wise.Read())
+                    {
+                        req_count_temp = int.Parse(odr_jobs_sys_wise["REQ_COUNT"].ToString());
+                    }
+
+                    final_req_count = final_req_count + req_count_temp;
+                    req_count_temp = 0;
+                }
+
+                lbl_jobs_systemwise_count.Text = final_req_count.ToString();
+            }
+
+        }
+
+        public void get_er_summary(string userType)//er summary
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_er_summary = conn.CreateCommand();
+            cmd_get_er_summary.CommandText = "SELECT " +
+                                                "COUNT (*)AS TOTAL_COUNT, " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION' then K.REQUEST_ID ELSE null END)AS PENDING_CLARIFICATION, " +
+                                                "COUNT (CASE when K.STATUS ='REOPEN' then K.REQUEST_ID ELSE null END)AS REOPEN, " +
+                                                "COUNT (CASE when K.STATUS ='TAKEN & ASSIGN' then K.REQUEST_ID ELSE null END)AS TAKEN_AND_ASSIGN, " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION-COMPLETE' then K.REQUEST_ID ELSE null END)AS CLARIFICATION_COMPLETE " +
+                                                "FROM( " +
+                                                "SELECT * FROM WF_IT_REQUEST_REGISTER TT " +
+                                                "WHERE TT.STATUS <> 'INTIMATE' AND TT.STATUS <> 'CLOSE-CONFIRM' " +
+                                                "AND TT.JOB_TYPE = 'ER' AND TT.ASSIGN_USER = '" + ActiveUser + "')K ";
+
+            OracleDataReader odr_get_er_summary = cmd_get_er_summary.ExecuteReader();
+
+            while (odr_get_er_summary.Read())
+            {
+                er_pending_clarification = odr_get_er_summary["PENDING_CLARIFICATION"].ToString();
+                er_reopen = odr_get_er_summary["REOPEN"].ToString();
+                er_taken_and_assign = odr_get_er_summary["TAKEN_AND_ASSIGN"].ToString();
+                er_clarification_complete = odr_get_er_summary["CLARIFICATION_COMPLETE"].ToString();
+            }
+
+            lbl_er_pending_clarification.Text = er_pending_clarification;
+            lbl_er_reopen.Text = er_reopen;
+            lbl_er_taken_and_assign.Text = er_taken_and_assign;
+            lbl_er_clarification_complete.Text = er_clarification_complete;
+        }
+
+        public void get_sr_summary(string userType)//sr summary
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_sr_summary = conn.CreateCommand();
+            cmd_get_sr_summary.CommandText = "SELECT " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION' then K.REQUEST_ID ELSE null END)AS PENDING_CLARIFICATION, " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION-COMPLETE' then K.REQUEST_ID ELSE null END)AS CLARIFICATION_COMPLETE, " +
+                                                "COUNT (CASE when K.STATUS ='APPROVE' then K.REQUEST_ID ELSE null END)AS APPROVED, " +
+                                                "COUNT (CASE when K.STATUS ='REOPEN' then K.REQUEST_ID ELSE null END)AS REOPEN, " +
+                                                "COUNT (CASE when K.STATUS ='COMPLETE' then K.REQUEST_ID ELSE null END)AS COMPLETE, " +
+                                                "COUNT (CASE when K.STATUS ='TAKEN & ASSIGN' then K.REQUEST_ID ELSE null END)AS TAKEN_AND_ASSIGN " +
+                                                "FROM( " +
+                                                "SELECT * FROM WF_IT_REQUEST_REGISTER TT  " +
+                                                "WHERE TT.STATUS <> 'INTIMATE' AND TT.STATUS <> 'CLOSE-CONFIRM'  " +
+                                                "AND TT.JOB_TYPE = 'SR' AND TT.ASSIGN_USER = '" + ActiveUser + "')K ";
+
+            OracleDataReader odr_get_sr_summary = cmd_get_sr_summary.ExecuteReader();
+
+            while (odr_get_sr_summary.Read())
+            {
+                sr_pending_clarification = odr_get_sr_summary["PENDING_CLARIFICATION"].ToString();
+                sr_approved = odr_get_sr_summary["APPROVED"].ToString();
+                sr_reopend = odr_get_sr_summary["REOPEN"].ToString();
+                sr_complete = odr_get_sr_summary["COMPLETE"].ToString();
+                sr_taken_and_assign = odr_get_sr_summary["TAKEN_AND_ASSIGN"].ToString();
+                sr_clarification_complete = odr_get_sr_summary["CLARIFICATION_COMPLETE"].ToString();
+            }
+
+            lbl_sr_pending_clarification.Text = sr_pending_clarification;
+            lbl_sr_clarification_complete.Text = sr_clarification_complete;
+            lbl_sr_taken_and_assign.Text = sr_taken_and_assign;
+            lbl_sr_approved.Text = sr_approved;
+            lbl_sr_reopend.Text = sr_reopend;
+            lbl_sr_complete.Text = sr_complete;
+
+        }
+
+        public void get_cr_summary(string userType)//cr summary
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_cr_summary = conn.CreateCommand();
+            cmd_get_cr_summary.CommandText = "SELECT " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION' then K.REQUEST_ID ELSE null END)AS PENDING_CLARIFICATION, " +
+                                                "COUNT (CASE when K.STATUS ='PENDING-CLARIFICATION-COMPLETE' then K.REQUEST_ID ELSE null END)AS CLARIFICATION_COMPLETE, " +
+                                                "COUNT (CASE when K.STATUS ='TAKEN & ASSIGN' then K.REQUEST_ID ELSE null END)AS TAKEN_AND_ASSIGN, " +
+                                                "COUNT (CASE when K.STATUS ='APPROVE' then K.REQUEST_ID ELSE null END)AS APPROVED, " +
+                                                "COUNT (CASE when K.STATUS ='REOPEN' then K.REQUEST_ID ELSE null END)AS REOPEN, " +
+                                                "COUNT (CASE when K.STATUS ='COMPLETE' then K.REQUEST_ID ELSE null END)AS COMPLETE " +
+                                                "FROM( " +
+                                                "SELECT * FROM WF_IT_REQUEST_REGISTER TT  " +
+                                                "WHERE TT.STATUS <> 'INTIMATE' AND TT.STATUS <> 'CLOSE-CONFIRM'  " +
+                                                "AND TT.JOB_TYPE = 'CR' AND TT.ASSIGN_USER = '" + ActiveUser + "')K ";
+
+            OracleDataReader odr_get_cr_summary = cmd_get_cr_summary.ExecuteReader();
+
+            while (odr_get_cr_summary.Read())
+            {
+                cr_pending_clarification = odr_get_cr_summary["PENDING_CLARIFICATION"].ToString();
+                cr_approved = odr_get_cr_summary["APPROVED"].ToString();
+                cr_reopend = odr_get_cr_summary["REOPEN"].ToString();
+                cr_complete = odr_get_cr_summary["COMPLETE"].ToString();
+                cr_taken_and_assign = odr_get_cr_summary["TAKEN_AND_ASSIGN"].ToString();
+                cr_clarification_complete = odr_get_cr_summary["CLARIFICATION_COMPLETE"].ToString();
+            }
+
+            lbl_cr_pending_clarification.Text = cr_pending_clarification;
+            lbl_cr_taken_and_assign.Text = cr_taken_and_assign;
+            lbl_cr_approved.Text = cr_approved;
+            lbl_cr_reopend.Text = cr_reopend;
+            lbl_cr_complete.Text = cr_complete;
+            lbl_cr_clarification_complete.Text = cr_clarification_complete;
+
+        }
+
+        public void get_normal_user_summary()//Normal User Summary
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_normal_user_summary = conn.CreateCommand();
+            cmd_get_normal_user_summary.CommandText = "SELECT " +
+                                                        "COUNT (CASE WHEN K.STATUS <> 'CLOSE-CONFIRM' THEN K.REQUEST_ID ELSE NULL END) AS ALL_JOBS, " +
+                                                        "COUNT (CASE WHEN K.STATUS <> 'INTIMATE' AND K.STATUS <> 'CLOSE-CONFIRM' THEN K.REQUEST_ID ELSE NULL END) AS TAKEN_BY_IT, " +
+                                                        "COUNT (CASE WHEN K.STATUS = 'INTIMATE' THEN K.REQUEST_ID ELSE NULL END) AS NOT_TAKEN_BY_IT, " +
+                                                        "COUNT (CASE WHEN K.STATUS = 'PENDING-CLARIFICATION' THEN K.REQUEST_ID ELSE NULL END) AS PENDING_CLARIFICATION, " +
+                                                        "COUNT (CASE WHEN K.STATUS = 'PENDING-APPROVAL' THEN K.REQUEST_ID ELSE NULL END) AS PENDING_APPROVAL, " +
+                                                        "COUNT (CASE WHEN K.STATUS = 'RETURN' THEN K.REQUEST_ID ELSE NULL END) AS RETURN, " +
+                                                        "COUNT (CASE WHEN K.STATUS = 'CLOSE' THEN K.REQUEST_ID ELSE NULL END) AS CLOSE_BY_IT " +
+                                                        "FROM " +
+                                                        "(SELECT * FROM WF_IT_REQUEST_REGISTER TT WHERE TT.REQUEST_USER = '" + ActiveUser + "')K";
+            OracleDataReader odr_get_normal_user_summary = cmd_get_normal_user_summary.ExecuteReader();
+
+            while (odr_get_normal_user_summary.Read())
+            {
+                all_jobs = odr_get_normal_user_summary["ALL_JOBS"].ToString();
+                taken_by_it = odr_get_normal_user_summary["TAKEN_BY_IT"].ToString();
+                not_taken_by_it = odr_get_normal_user_summary["NOT_TAKEN_BY_IT"].ToString();
+                non_it_pending_clarification = odr_get_normal_user_summary["PENDING_CLARIFICATION"].ToString();
+                non_it_pending_approval = odr_get_normal_user_summary["PENDING_APPROVAL"].ToString();
+                non_it_close_confirm = odr_get_normal_user_summary["CLOSE_BY_IT"].ToString();
+                return_by_it = odr_get_normal_user_summary["RETURN"].ToString();
+            }
+
+
+            lbl_all_jobs.Text = all_jobs;
+            lbl_taken_by_it.Text = taken_by_it;
+            lbl_not_taken_by_it.Text = not_taken_by_it;
+            lbl_pending_clarification.Text = non_it_pending_clarification;
+            lbl_pending_approval.Text = non_it_pending_approval;
+            lbl_close_confirmed.Text = non_it_close_confirm;
+            lbl_return_by_it.Text = return_by_it;
+
+        }
+
+
+        //-----------------------------------------------------------Non IT User Button Click Events---------------------------------------------//
+
+        protected void lb_all_jobs_Click(object sender, EventArgs e)//All Jobs
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_all_jobs = conn.CreateCommand();
+            cmd_get_all_jobs.CommandText = "SELECT TT.REQUEST_ID,TT.REF_NO, TT.REQUEST_DATE, TT.ASSIGN_USER, TT.JOB_TYPE, TT.PRIORITY " +
+                                                        "FROM WF_IT_REQUEST_REGISTER TT WHERE TT.REQUEST_USER = '" + ActiveUser + "' " +
+                                                        "AND TT.STATUS <> 'CLOSE-CONFIRM'";
+
+            OracleDataReader odr_get_get_all_jobs = cmd_get_all_jobs.ExecuteReader();
+            DataTable dt_get_all_jobs = new DataTable();
+
+            dt_get_all_jobs.Load(odr_get_get_all_jobs);
+            grd_non_it_user_jobs.DataSource = dt_get_all_jobs;
+            grd_non_it_user_jobs.DataBind();
+
+            odr_get_get_all_jobs.Close();
+            conn.Close();
+
+            lbl_jobsHeader.Text = "Available Jobs";
+        }
+
+        protected void lb_taken_by_it_Click(object sender, EventArgs e)//Jobs Taken By IT
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_jobsTaken_By_IT = conn.CreateCommand();
+            cmd_get_jobsTaken_By_IT.CommandText = "SELECT TT.REQUEST_ID,TT.REF_NO, TT.REQUEST_DATE, TT.ASSIGN_USER, TT.JOB_TYPE, TT.PRIORITY " +
+                                                        "FROM WF_IT_REQUEST_REGISTER TT WHERE TT.REQUEST_USER = '" + ActiveUser + "' " +
+                                                        "AND TT.STATUS <> 'INTIMATE' AND TT.STATUS <> 'CLOSE-CONFIRM'";
+
+            OracleDataReader odr_get_jobsTaken_By_IT = cmd_get_jobsTaken_By_IT.ExecuteReader();
+            DataTable dt_get_jobsTaken_By_IT = new DataTable();
+
+            dt_get_jobsTaken_By_IT.Load(odr_get_jobsTaken_By_IT);
+            grd_non_it_user_jobs.DataSource = dt_get_jobsTaken_By_IT;
+            grd_non_it_user_jobs.DataBind();
+
+            odr_get_jobsTaken_By_IT.Close();
+            conn.Close();
+
+            lbl_jobsHeader.Text = "Available Jobs";
+        }
+
+        protected void lb_not_taken_by_it_Click(object sender, EventArgs e)//Jobs Not Taken By IT
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_jobs_Not_Taken_By_IT = conn.CreateCommand();
+            cmd_get_jobs_Not_Taken_By_IT.CommandText = "SELECT TT.REQUEST_ID,TT.REF_NO, TT.REQUEST_DATE, TT.ASSIGN_USER, TT.JOB_TYPE, TT.PRIORITY " +
+                                                        "FROM WF_IT_REQUEST_REGISTER TT WHERE TT.REQUEST_USER = '" + ActiveUser + "' " +
+                                                        "AND TT.STATUS = 'INTIMATE'";
+
+            OracleDataReader odr_get_jobs_Not_Taken_By_IT = cmd_get_jobs_Not_Taken_By_IT.ExecuteReader();
+            DataTable dt_get_jobs_Not_Taken_By_IT = new DataTable();
+
+            dt_get_jobs_Not_Taken_By_IT.Load(odr_get_jobs_Not_Taken_By_IT);
+            grd_non_it_user_jobs.DataSource = dt_get_jobs_Not_Taken_By_IT;
+            grd_non_it_user_jobs.DataBind();
+
+            odr_get_jobs_Not_Taken_By_IT.Close();
+            conn.Close();
+
+            lbl_jobsHeader.Text = "Available Jobs";
+        }
+
+        protected void lb_pending_clarification_Click(object sender, EventArgs e)//Pending Clarification Jobs
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_pending_clarification_jobs = conn.CreateCommand();
+            cmd_get_pending_clarification_jobs.CommandText = "SELECT TT.REQUEST_ID,TT.REF_NO, TT.REQUEST_DATE, TT.ASSIGN_USER, TT.JOB_TYPE, TT.PRIORITY " +
+                                                        "FROM WF_IT_REQUEST_REGISTER TT WHERE TT.REQUEST_USER = '" + ActiveUser + "' " +
+                                                        "AND TT.STATUS = 'PENDING-CLARIFICATION'";
+
+            OracleDataReader odr_get_pending_clarification_jobs = cmd_get_pending_clarification_jobs.ExecuteReader();
+            DataTable dt_get_pending_clarification_jobs = new DataTable();
+
+            dt_get_pending_clarification_jobs.Load(odr_get_pending_clarification_jobs);
+            grd_non_it_user_jobs.DataSource = dt_get_pending_clarification_jobs;
+            grd_non_it_user_jobs.DataBind();
+
+            odr_get_pending_clarification_jobs.Close();
+            conn.Close();
+
+            lbl_jobsHeader.Text = "Available Jobs";
+        }
+
+        protected void lb_pending_approval_Click(object sender, EventArgs e)//Pending Approval Jobs
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_pending_approval_jobs = conn.CreateCommand();
+            cmd_get_pending_approval_jobs.CommandText = "SELECT TT.REQUEST_ID,TT.REF_NO, TT.REQUEST_DATE, TT.ASSIGN_USER, TT.JOB_TYPE, TT.PRIORITY " +
+                                                        "FROM WF_IT_REQUEST_REGISTER TT WHERE TT.REQUEST_USER = '" + ActiveUser + "' " +
+                                                        "AND TT.STATUS = 'PENDING-APPROVAL'";
+
+            OracleDataReader odr_get_pending_approval_jobs = cmd_get_pending_approval_jobs.ExecuteReader();
+            DataTable dt_get_pending_approval_jobs = new DataTable();
+
+            dt_get_pending_approval_jobs.Load(odr_get_pending_approval_jobs);
+            grd_non_it_user_jobs.DataSource = dt_get_pending_approval_jobs;
+            grd_non_it_user_jobs.DataBind();
+
+            odr_get_pending_approval_jobs.Close();
+            conn.Close();
+
+            lbl_jobsHeader.Text = "Available Jobs";
+        }
+
+        protected void lb_return_Click(object sender, EventArgs e)//Jobs Return By IT
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_return_jobs = conn.CreateCommand();
+            cmd_get_return_jobs.CommandText = "SELECT TT.REQUEST_ID,TT.REF_NO, TT.REQUEST_DATE, TT.ASSIGN_USER, TT.JOB_TYPE, TT.PRIORITY " +
+                                                        "FROM WF_IT_REQUEST_REGISTER TT WHERE TT.REQUEST_USER = '" + ActiveUser + "' " +
+                                                        "AND TT.STATUS = 'RETURN'";
+
+            OracleDataReader odr_get_return_jobs = cmd_get_return_jobs.ExecuteReader();
+            DataTable dt_get_return_jobs = new DataTable();
+
+            dt_get_return_jobs.Load(odr_get_return_jobs);
+            grd_non_it_user_jobs.DataSource = dt_get_return_jobs;
+            grd_non_it_user_jobs.DataBind();
+
+            odr_get_return_jobs.Close();
+            conn.Close();
+
+            lbl_jobsHeader.Text = "Available Jobs";
+        }
+
+        protected void lb_close_confirmed_Click(object sender, EventArgs e)//Close Confirm Jobs
+        {
+            OracleConnection conn = new OracleConnection(myConn);
+            conn.Open();
+
+            OracleCommand cmd_get_close_confirm_jobs = conn.CreateCommand();
+            cmd_get_close_confirm_jobs.CommandText = "SELECT TT.REQUEST_ID,TT.REF_NO, TT.REQUEST_DATE, TT.ASSIGN_USER, TT.JOB_TYPE, TT.PRIORITY " +
+                                                        "FROM WF_IT_REQUEST_REGISTER TT WHERE TT.REQUEST_USER = '" + ActiveUser + "' " +
+                                                        "AND TT.STATUS = 'RETURN'";
+
+            OracleDataReader odr_get_close_confirm_jobs = cmd_get_close_confirm_jobs.ExecuteReader();
+            DataTable dt_get_close_confirm_jobs = new DataTable();
+
+            dt_get_close_confirm_jobs.Load(odr_get_close_confirm_jobs);
+            grd_non_it_user_jobs.DataSource = dt_get_close_confirm_jobs;
+            grd_non_it_user_jobs.DataBind();
+
+            odr_get_close_confirm_jobs.Close();
+            conn.Close();
+
+            lbl_jobsHeader.Text = "Available Jobs";
+        }
+
+        protected void grd_non_it_user_jobs_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Select")
+            {
+                gridView_select_command = true;
+
+                string selected_req_id = "";
+
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                selected_req_id = grd_non_it_user_jobs.Rows[rowIndex].Cells[2].Text;
+
+                OracleConnection conn = new OracleConnection(myConn);
+                conn.Open();
+
+                OracleCommand cmd_getJobHistory = conn.CreateCommand();
+                cmd_getJobHistory.CommandText = "SELECT EE.JOB_NO,EE.STATUS,EE.EVENT_DATE,EE.USER_NAME,EE.REMARKS_UNIT,EE.REMARKS_BRANCH " +
+                                                "FROM WF_IT_EVENTS EE WHERE EE.JOB_NO ='" + selected_req_id + "' ORDER BY EE.EVENT_DATE ASC";
+
+                OracleDataReader odr_getJobHistory = cmd_getJobHistory.ExecuteReader();
+                DataTable dt_getJobHistory = new DataTable();
+
+                dt_getJobHistory.Load(odr_getJobHistory);
+
+                grd_non_it_user_jobs.DataSource = dt_getJobHistory;
+                grd_non_it_user_jobs.DataBind();
+
+                odr_getJobHistory.Close();
+
+                lbl_jobsHeader.Text = "Job History";
+            }
+            else
+            {
+                gridView_select_command = false;
+                return;
+            }
+
+        }
+
+        protected void grd_non_it_user_jobs_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+
+                
+
+                //Set Headers
+
+                //e.Row.Cells[3].Text = "Account No";
+
+
+                //Set Width Of Each Column
+                if(gridView_select_command == true)
+                {
+                    //Hidden Columns
+
+                    e.Row.Cells[0].CssClass = "HiddenCol";
+                    e.Row.Cells[1].CssClass = "HiddenCol";
+
+
+                    //e.Row.Cells[0].Attributes["width"] = "200px";//Select Button
+                    //e.Row.Cells[1].Attributes["width"] = "200px";//Continue Process Button
+                    e.Row.Cells[2].Attributes["width"] = "170px";//Request ID
+                    e.Row.Cells[3].Attributes["width"] = "600px";//Status
+                    e.Row.Cells[4].Attributes["width"] = "550px";//Event Date
+                    e.Row.Cells[5].Attributes["width"] = "170px";//User Name
+                    e.Row.Cells[6].Attributes["width"] = "380px";//Remarks Unit
+                    e.Row.Cells[7].Attributes["width"] = "380px";//Remaks Branch
+                }
+                else
+                {
+
+                }
+
+                
+
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //--------------Items Align---------------//
+
+                //e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Left;
+                if (gridView_select_command == true)
+                {
+                    e.Row.Cells[0].CssClass = "HiddenCol";
+                    e.Row.Cells[1].CssClass = "HiddenCol";
+
+                    //e.Row.Cells[0].Attributes["width"] = "200px";//Select Button
+                    //e.Row.Cells[1].Attributes["width"] = "200px";//Continue Process Button
+                    e.Row.Cells[2].Attributes["width"] = "170px";//Request ID
+                    e.Row.Cells[3].Attributes["width"] = "600px";//Status
+                    e.Row.Cells[4].Attributes["width"] = "550px";//Event Date
+                    e.Row.Cells[5].Attributes["width"] = "170px";//User Name
+                    e.Row.Cells[6].Attributes["width"] = "380px";//Remarks Unit
+                    e.Row.Cells[7].Attributes["width"] = "380px";//Remaks Branch
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+
+    }
+}

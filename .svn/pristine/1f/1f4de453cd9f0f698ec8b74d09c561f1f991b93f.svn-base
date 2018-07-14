@@ -1,0 +1,77 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="IT_WF_Dashboard_New.aspx.cs" Inherits="quickinfo_v2.Views.ITWorkflow.IT_WF_Dashboard_New" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        a.list-group-item.active,
+        a.list-group-item.active:hover,
+        a.list-group-item.active:focus {
+            z-index: 2;
+            color: #ffffff;
+            background-color: #18639b !important;
+            border-color: #18639b !important;
+        }
+
+        .lable_margin {
+            margin-right: 15px;
+            text-align: right;
+            font-weight: bold;
+            color: #ff6a00;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <form id="form1" runat="server">
+
+        <div class="container">
+            <h4></h4>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">Not Taken Jobs</a>
+                        <a href="HelpDeskDashboard.aspx?pagecode=129" class="list-group-item">
+                            <asp:Label ID="lbl_count_notTaken_jobs" runat="server" Text="0"></asp:Label></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:UpdatePanel ID="UpdatePanel_IT_user" runat="server">
+            <ContentTemplate>
+                <div class="container">
+
+                    <h4>IT Workflow Summary For IT-Users</h4>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item active">ER</a>
+                                <a href="#" class="list-group-item">Pending Clarification :<asp:Label ID="lbl_er_pending_clarification" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                <a href="#" class="list-group-item">Re Opened :<asp:Label ID="lbl_er_reopen" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item active">SR</a>
+                                <a href="#" class="list-group-item">Pending Clarification :<asp:Label ID="lbl_sr_pending_clarification" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                <a href="#" class="list-group-item">Approved :<asp:Label ID="lbl_sr_approved" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                <a href="#" class="list-group-item">Re Opened :<asp:Label ID="lbl_sr_reopend" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                <a href="#" class="list-group-item">Complete :<asp:Label ID="lbl_sr_complete" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item active">CR</a>
+                                <a href="#" class="list-group-item">Pending Clarification :<asp:Label ID="lbl_cr_pending_clarification" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                <a href="#" class="list-group-item">Approved :<asp:Label ID="lbl_cr_approved" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                <a href="#" class="list-group-item">Re Opened :<asp:Label ID="lbl_cr_reopend" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                                <a href="#" class="list-group-item">Complete :<asp:Label ID="lbl_cr_complete" runat="server" Text="0" CssClass="lable_margin"></asp:Label></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </form>
+</asp:Content>

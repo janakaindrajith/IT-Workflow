@@ -1,0 +1,174 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="IT_Workflow_Dashboard.aspx.cs" Inherits="quickinfo_v2.Views.ITWorkflow.IT_Workflow_Dashboard" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .TestStyle {
+            height: 300px;
+            color: black;
+            background-color: green;
+        }
+
+
+        /*----------------data Table GridView Css----------------------*/
+
+        .SearchGridView_T {
+            max-height: 275px;
+            overflow: auto;
+            border: 1px solid #ccc;
+            table-layout: fixed;
+            Width: 2000px;
+        }
+
+        .SearchGridView_T {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            .SearchGridView_T tr th {
+                /*background-color: #428BCA;*/
+                background-color: rgba(91, 47, 109, 0.75);
+                color: #ffffff;
+                padding: 10px 5px 10px 5px;
+                border: 1px solid #cccccc;
+                font-family: Cambria;
+                font-size: 11px;
+                font-weight: normal;
+                text-transform: capitalize;
+                /*min-width:150px;*/
+            }
+
+            .SearchGridView_T tr:nth-child(2n+2) {
+                background-color: #f3f4f5;
+            }
+            /*--------------Alternating--------------------*/
+            .SearchGridView_T tr:nth-child(2n+1) td {
+                background-color: none;
+                color: #454545;
+            }
+
+            .SearchGridView_T tr td {
+                padding: 5px 10px 5px 10px;
+                color: #454545;
+                font-family: Cambria;
+                font-size: 11px;
+                border: 1px solid #cccccc;
+                vertical-align: middle;
+            }
+
+                .SearchGridView_T tr td:first-child {
+                    text-align: center;
+                }
+        /*search result grid selected row*/
+        .selectedRowStyle td {
+            background-color: #ffd800;
+        }
+
+        /*-----------------------------------------------------------------*/
+
+
+        .dropdown_custom {
+            width: 300px;
+            border: 1px solid #454545;
+            overflow: hidden;
+            height: 30px;
+            font-family: Cambria;
+            color: #454545;
+        }
+
+        .dropdown1 select {
+            border: 0px;
+            background-color: #454545;
+            width: 300px;
+            background: none;
+        }
+
+        /*--------------------------------------------------------------------*/
+
+       .h4Custom{
+           color:#00d37f;
+           font-size:medium;
+       }
+
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <form id="form1" runat="server">
+                            <%--<div class="row" runat="server">
+                        <div class="col-md-12">
+                            <div runat="server" role="alert" visible="true" id="page_result">
+                                <asp:Label ID="lblResult" runat="server" Text="" Visible="false"></asp:Label>
+                            </div>
+                        </div>
+                    </div>--%>
+        <div>
+            <asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
+        </div>
+        <div>
+            <div class="well well-sm">
+                <h3>IT Work flow - User Dashboard</h3>
+            </div>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+
+
+                    <div class="row" id="status_div" runat="server">
+                        <div class="col-md-1">
+                            <h5>Status:</h5>
+                        </div>
+                        <div class="col-md-10">
+                            <asp:DropDownList ID="ddl_status" runat="server" CssClass="dropdown_custom" AutoPostBack="True" OnSelectedIndexChanged="ddl_status_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row" id="back_btn_div" runat="server">
+                        <div class="col-md-11">&nbsp;</div>
+                       <div class="col-md-1">
+                            <asp:ImageButton ID="ibtnBack" runat="server" Visible="false" ImageUrl="~/Images/green-back.png" Height="30px" Width="30px" OnClick="ibtnBack_Click" ToolTip="Back" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                    <%--<div class="row">--%>
+                    <div id="alljobs_panel" runat="server" visible="true">
+                        <asp:Panel ID="Panel1" runat="server" Height="300px" ScrollBars="Vertical" Style="z-index: 102;" Width="100%" BorderColor="#FFFFFF" BorderWidth="1px">
+                            <asp:GridView ID="grd_allRequests" runat="server" CssClass="SearchGridView_T" OnRowDataBound="grd_allRequests_RowDataBound" OnRowCommand="grd_allRequests_RowCommand">
+                                <Columns>
+                                    <asp:ButtonField CommandName="Select" Text="Select" ButtonType="Image" ImageUrl="~/Images/check-mark-button-md.jpg">
+                                        <ControlStyle Height="20px" Width="20px" />
+                                        <ItemStyle Height="20px" Width="20px" />
+                                    </asp:ButtonField>
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </div>
+                    <%--</div>--%>
+                    <div class="row">
+                        &nbsp;
+                    </div>
+
+                    <%--<div class="row">--%>
+                    <div id="history_panel" runat="server" visible="false">
+                        <div class="row">
+                             <div class="col-sm-8">&nbsp;</div>
+                            <div class="col-sm-4">
+                                <h4 class="h4Custom">Job History For ID: 
+                            <asp:Label ID="lbl_JobID" runat="server" Text=""></asp:Label></h4>
+                            </div>
+
+                        </div>
+                        <asp:Panel ID="Panel2" runat="server" Height="300px" ScrollBars="Vertical" Style="z-index: 102;" Width="100%" BorderColor="#FFFFFF" BorderWidth="1px">
+                            <asp:GridView ID="grd_wf_history" runat="server" CssClass="SearchGridView_T" OnRowDataBound="grd_wf_history_RowDataBound">
+                            </asp:GridView>
+                        </asp:Panel>
+                    </div>
+                    <%--</div>--%>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </form>
+</asp:Content>
